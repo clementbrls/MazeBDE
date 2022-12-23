@@ -1,14 +1,19 @@
 package Maze;
 
 public abstract class MazeBox {
-    private int x;
-    private int y;
+    private int line;
+    private int column;
 
-    public int getX() {
-        return x;
+    public MazeBox(int x, int y) {
+        line = x;
+        column = y;
     }
 
-    public int getY() {
-        return y;
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
     }
 }
