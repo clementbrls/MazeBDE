@@ -1,56 +1,80 @@
 package Maze;
-import Graph.Graph;
-import Graph.Vertex;
+
+import Graph.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maze implements Graph{
+public class Maze implements Graph {
     private MazeBox[][] maze;
 
-    public Maze(){
+    public Maze() {
         maze = new MazeBox[10][10];
     }
 
 
-    public final void initFromTextFile(String fileName){
+    public final void initFromTextFile(String fileName) {
         try {
-            FileReader fr=new FileReader(fileName);
+            FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
-            for (int i=0; i<10;i++){
-                String line=br.readLine();
-                for(int u=0; u<10;u++){
+            for (int i = 0; i < 10; i++) {
+                String line = br.readLine();
+                for (int u = 0; u < 10; u++) {
 
-                    switch(line.charAt(u)){//Création de chaque cellule du labyrinthe en fonction du fichier.
+                    switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
                         case 'E':
-                            maze[i][u]= new EmptyBox(i,u);
+                            maze[i][u] = new EmptyBox(i, u);
                             break;
                         case 'W':
-                            maze[i][u]= new WallBox(i,u);
+                            maze[i][u] = new WallBox(i, u);
                             break;
                         case 'A':
-                            maze[i][u] = new ArrivalBox(i,u);
+                            maze[i][u] = new ArrivalBox(i, u);
                             break;
                         case 'D':
-                            maze[i][u] = new DepartureBox(i,u);
+                            maze[i][u] = new DepartureBox(i, u);
                             break;
                     }
                 }
             }
 
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
 
     }
 
-    public ArrayList<Vertex> getAllVertexes(){
-        allVertex = new ArrayList<Vertex>();
-        for(int i=0;i<10;i++){
-            for(int u=0;u<10;u++){
-                if( !(maze[i][u] instanceof WallBox)) {
+    public final void saveToTextFile(String fileName) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            PrintWriter pw = new PrintWriter(fos);
+
+            for (int i = 0; i < 10; i++) {
+                for (int u = 0; u < 10; u++) {
+                    if (maze[i][u] instanceof EmptyBox)
+                        pw.print("E");
+                    if (maze[i][u] instanceof WallBox)
+                        pw.print('W');
+                    if (maze[i][u] instanceof ArrivalBox)
+                        pw.print('A');
+                    if (maze[i][u] instanceof DepartureBox)
+                        pw.print('D');
+                }
+                pw.println();
+            }
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Vertex> getAllVertexes() {
+        ArrayList<Vertex> allVertex = new ArrayList<Vertex>();
+        for (int i = 0; i < 10; i++) {
+            for (int u = 0; u < 10; u++) {
+                if (!(maze[i][u] instanceof WallBox)) {
                     allVertex.add(maze[i][u]);
                 }
             }
@@ -58,39 +82,74 @@ public class Maze implements Graph{
         return allVertex;
     }
 
-    public ArrayList<Vertex> getSuccessors(Vertex vertex){
-        MazeBox box = (MazeBox) vertex ;
+    public ArrayList<Vertex> getSuccessors(Vertex vertex) {
+        MazeBox box = (MazeBox) vertex;
         int line = box.getLine();
         int column = box.getColumn();
-        successors = new ArrayList<Vertex>();
+        ArrayList<Vertex> successors = new ArrayList<Vertex>();
 
 
-        if(line != 0) {
-            successors.add(maze[line-1][column]);}
-        if(line != 9){
-            successors.add(maze[line+1][column]);}
-        if(column != 0){
-            successors.add(maze[line][column-1]);}
-        if(column != 9){
-            successors.add(maze[line][column+1]);}
-
-        if(line%2==0) {
-            if(line != 0 && column !=0){
-                successors.add(maze[line-1][column-1]);}
-            if(line !=9 && column !=0){
-                successors.add(maze[line+1][column-1]);}
-        } else {
-            if(line !=0 && column !=9){
-                successors.add(maze[line-1][column+1]);}
-            if(line !=9 && column !=9){
-                successors.add(maze[line+1][column+1]);}
+        if (line != 0) {
+            successors.add(maze[line - 1][column]);
+        }
+        if (line != 9) {
+            successors.add(maze[line + 1][column]);
+        }
+        if (column != 0) {
+            successors.add(maze[line][column - 1]);
+        }
+        if (column != 9) {
+            successors.add(maze[line][column + 1]);
         }
 
-        return succcessors;
+        if (line % 2 == 0) {
+            if (line != 0 && column != 0) {
+                successors.add(maze[line - 1][column - 1]);
+            }
+            if (line != 9 && column != 0) {
+                successors.add(maze[line + 1][column - 1]);
+            }
+        } else {
+            if (line != 0 && column != 9) {
+                successors.add(maze[line - 1][column + 1]);
+            }
+            if (line != 9 && column != 9) {
+                successors.add(maze[line + 1][column + 1]);
+            }
+        }
+
+        //Suppression des murs en tant que successeurs
+        int i = 0;
+        while (i < successors.size()) {
+            if (successors.get(i) instanceof WallBox) {
+                successors.remove(i);
+            } else {
+                i++;
+            }
+        }
+
+        return successors;
     }
 
-    public int getDistance(Vertex src,Vertex dst){
+    public int getDistance(Vertex src, Vertex dst) {
         return 1;
+    }
+
+    public ShortestPaths dijkstra(){
+        Vertex arrival=null;
+        Vertex departure = null;
+        for(int i=0;i<getAllVertexes().size();i++){
+            if(getAllVertexes().get(i) instanceof DepartureBox){
+                departure=getAllVertexes().get(i);
+              System.out.println("departure");
+            }
+            if(getAllVertexes().get(i) instanceof ArrivalBox) {
+                departure = getAllVertexes().get(i);
+                System.out.println("arrival");
+            }
+        }
+        Graph graph = (Graph) maze;
+        return Dijkstra.dijkstra(graph,departure,arrival);
     }
 
 }
