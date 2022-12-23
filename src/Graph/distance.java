@@ -1,5 +1,5 @@
 package Graph;
 
 public interface distance {
-    public int getDist(Vertex vert1, Vertex vert2);
+    public int distance(Vertex vert1, Vertex vert2);
 }
