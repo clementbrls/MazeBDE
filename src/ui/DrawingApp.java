@@ -1,10 +1,11 @@
-package Interface;
+package ui;
 
 import javax.swing.* ;
+import java.awt.*;
 
-public class Interface extends JFrame {
+public class DrawingApp extends JFrame {
 
-    public Interface() {
+    public DrawingApp() {
         super("Labyrinthe") ; // Window title
 
 

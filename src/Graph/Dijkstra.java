@@ -54,7 +54,7 @@ public class Dijkstra {
         }
 
 
-
+        System.out.println("Distance : "+minDistance.minDistance(endVertex));
         return shortestPaths;
     }
 
