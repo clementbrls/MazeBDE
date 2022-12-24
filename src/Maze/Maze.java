@@ -144,11 +144,11 @@ public class Maze implements Graph {
               System.out.println("departure");
             }
             if(getAllVertexes().get(i) instanceof ArrivalBox) {
-                departure = getAllVertexes().get(i);
+                arrival = getAllVertexes().get(i);
                 System.out.println("arrival");
             }
         }
-        Graph graph = (Graph) maze;
+        Graph graph = (Graph) this;
         return Dijkstra.dijkstra(graph,departure,arrival);
     }
 
