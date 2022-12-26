@@ -1,11 +1,12 @@
 package ui;
 
-import javax.swing.* ;
-import java.awt.*;
+import ui.menu.DrawingMenuBar;
 
-public class DrawingApp extends JFrame {
+import javax.swing.* ;
+
+public class MazeUI extends JFrame {
     private final DrawingMenuBar menuBar;
-    public DrawingApp() {
+    public MazeUI() {
         super("Labyrinthe") ; // Window title
 
         menuBar = new DrawingMenuBar(this);

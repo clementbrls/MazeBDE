@@ -1,4 +1,3 @@
-import java.io.*;
 import Graph.*;
 import Maze.*;
 import ui.*;
@@ -6,7 +5,7 @@ import ui.*;
 public class Main {
     public static void main(String[] args) {
 
-        new DrawingApp();
+        new MazeUI();
         Maze laby1 = new Maze();
         laby1.initFromTextFile("data/laby.maze");
         System.out.println("test");
