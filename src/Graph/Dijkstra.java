@@ -8,10 +8,10 @@ public class Dijkstra {
     }
 
     public static ShortestPaths dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
-        ProcessedVertexesImpl processVertex = new ProcessedVertexesImpl();
+        ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
-        MinDistanceImpl minDistance = new MinDistanceImpl();
-        ShortestPathsImpl shortestPaths = new ShortestPathsImpl();
+        MinDistance minDistance = new MinDistanceImpl();
+        ShortestPaths shortestPaths = new ShortestPathsImpl();
 
         processVertex.add(startVertex);
         pivot = startVertex;
