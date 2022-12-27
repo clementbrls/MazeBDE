@@ -1,5 +1,5 @@
 package Graph;
 
 public interface Vertex {
-	public int getLabel();
+	public String getLabel();
 }

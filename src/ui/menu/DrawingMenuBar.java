@@ -1,14 +1,14 @@
 package ui.menu;
 
-import ui.MazeUI;
+import ui.FrameUI;
 
 import javax.swing.*;
 
 public class DrawingMenuBar extends JMenuBar {
     private FileMenu fileMenu;
-    public DrawingMenuBar(MazeUI drawingApp) {
+    public DrawingMenuBar(FrameUI frame) {
         super();
-        add(fileMenu = new FileMenu(drawingApp));
+        add(fileMenu = new FileMenu(frame));
 
     }
 

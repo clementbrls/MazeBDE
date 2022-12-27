@@ -1,6 +1,6 @@
 package ui.menu;
 
-import ui.MazeUI;
+import ui.FrameUI;
 
 import javax.swing.*;
 
@@ -9,13 +9,15 @@ public final class FileMenu extends JMenu {
     private final SaveMenuItem saveMenuItem;
     private final OpenMenuItem openMenuItem;
 
-    public FileMenu(MazeUI DApp){
-        quitMenuItem = new QuitMenuItem(DApp);
-        saveMenuItem = new SaveMenuItem(DApp);
-        openMenuItem = new OpenMenuItem(DApp);
+    public FileMenu(FrameUI frame){
+        super("File");
+        quitMenuItem = new QuitMenuItem(frame);
+        saveMenuItem = new SaveMenuItem(frame);
+        openMenuItem = new OpenMenuItem(frame);
 
-        add(quitMenuItem);
+
         add(saveMenuItem);
         add(openMenuItem);
+        add(quitMenuItem);
     }
 }

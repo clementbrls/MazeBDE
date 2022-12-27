@@ -11,7 +11,7 @@ public class Dijkstra {
         ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
-        ShortestPaths shortestPaths = new ShortestPathsImpl();
+        ShortestPaths shortestPaths = new ShortestPathsImpl(startVertex,endVertex);
 
         processVertex.add(startVertex);
         pivot = startVertex;
@@ -27,7 +27,6 @@ public class Dijkstra {
         }
 
         while (!(processVertex.isIncluded(endVertex))) {
-            System.out.println("Pivot :"+pivot.getLabel());
             for (int i = 0; i < graph.getSuccessors(pivot).size(); i++) {
                 succVertex = graph.getSuccessors(pivot).get(i);
                 if (!(processVertex.isIncluded(succVertex))) {
@@ -38,16 +37,12 @@ public class Dijkstra {
                     }
                 }
             }
-            System.out.println("Distance pivot : "+minDistance.minDistance(pivot));
-            System.out.println("Distance SuccVertex : "+minDistance.minDistance(succVertex));
-
             int distMin = 999;
             for (int i = 0; i < graph.getAllVertexes().size(); i++) {
                 //System.out.println(minDistance.minDistance(graph.getAllVertexes().get(i)));
                 if(minDistance.minDistance(graph.getAllVertexes().get(i))<= distMin && !processVertex.isIncluded(graph.getAllVertexes().get(i))){
                     pivot=graph.getAllVertexes().get(i);
                     distMin=minDistance.minDistance(graph.getAllVertexes().get(i));
-                    System.out.println("Pivot tset : "+pivot.getLabel());
                 }
             }
             processVertex.add(pivot);

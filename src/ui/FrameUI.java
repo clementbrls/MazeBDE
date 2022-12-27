@@ -4,13 +4,17 @@ import ui.menu.DrawingMenuBar;
 
 import javax.swing.* ;
 
-public class MazeUI extends JFrame {
+public class FrameUI extends JFrame {
     private final DrawingMenuBar menuBar;
-    public MazeUI() {
+    private final WindowPanel windowPanel;
+    public FrameUI() {
         super("Labyrinthe") ; // Window title
 
+        //Affichage de la barre de menu
         menuBar = new DrawingMenuBar(this);
         setJMenuBar(menuBar);
+        //Affichage du paneau principal (qui contient les autres panneaux)
+        setContentPane(windowPanel = new WindowPanel(this));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; // Explicit !
 

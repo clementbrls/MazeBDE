@@ -1,16 +1,16 @@
 package ui.menu;
 
-import ui.MazeUI;
+import ui.FrameUI;
 
 import javax.swing.* ;
 
 public class QuitMenuItem extends JMenuItem {
 
-    private final MazeUI drawingApp ;
+    private final FrameUI frame;
 
-    public QuitMenuItem(MazeUI drawingApp) {
+    public QuitMenuItem(FrameUI frame) {
         super("Quit") ; // Text of menu item
 
-        this.drawingApp = drawingApp ;
+        this.frame = frame;
     }
 }

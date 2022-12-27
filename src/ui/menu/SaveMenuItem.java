@@ -1,14 +1,14 @@
 package ui.menu;
 
-import ui.MazeUI;
+import ui.FrameUI;
 
 import javax.swing.*;
 
 public class SaveMenuItem extends JMenuItem {
-    private final MazeUI drawingApp ;
-    public SaveMenuItem(MazeUI drawingApp) {
+    private final FrameUI frame;
+    public SaveMenuItem(FrameUI frame) {
         super("Sauvegarder"); // Text of menu item
 
-        this.drawingApp = drawingApp ;
+        this.frame = frame;
     }
 }

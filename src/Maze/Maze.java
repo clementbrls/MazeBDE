@@ -4,7 +4,6 @@ import Graph.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Maze implements Graph {
     private MazeBox[][] maze;
@@ -141,15 +140,29 @@ public class Maze implements Graph {
         for(int i=0;i<getAllVertexes().size();i++){
             if(getAllVertexes().get(i) instanceof DepartureBox){
                 departure=getAllVertexes().get(i);
-              System.out.println("departure");
             }
             if(getAllVertexes().get(i) instanceof ArrivalBox) {
                 arrival = getAllVertexes().get(i);
-                System.out.println("arrival");
             }
         }
         Graph graph = (Graph) this;
         return Dijkstra.dijkstra(graph,departure,arrival);
+    }
+
+    public void showToConsole(){
+        for(int i=0;i<10;i++){
+            if(i%2 != 0)System.out.print(" ");
+            for(int u=0;u<10;u++){
+                String color;
+                if(maze[i][u] instanceof DepartureBox) color = "\u001B[34m";
+                else if(maze[i][u] instanceof ArrivalBox) color = "\u001B[36m";
+                else if(maze[i][u] instanceof WallBox) color = "\u001B[30m";
+                else color = "\u001B[0m";
+                System.out.print(color+""+maze[i][u].getLabel()+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }

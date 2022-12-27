@@ -1,16 +1,16 @@
 package ui.menu;
 
-import ui.MazeUI;
+import ui.FrameUI;
 
 import javax.swing.*;
 
 public class OpenMenuItem extends JMenuItem {
 
-    private final MazeUI drawingApp ;
+    private final FrameUI frame;
 
-    public OpenMenuItem(MazeUI drawingApp) {
+    public OpenMenuItem(FrameUI frame) {
         super("Ouvrir") ; // Text of menu item
 
-        this.drawingApp = drawingApp ;
+        this.frame = frame;
     }
 }
