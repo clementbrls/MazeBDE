@@ -16,17 +16,30 @@ public class Maze implements Graph {
         maze = new MazeBox[10][10];
     }
 
+    public int getWidth(){
+        return maze[0].length;
+    }
 
+    public int getHeight(){
+        return maze.length;
+    }
     public MazeBox getMazeBox(int line, int column){
         return maze[line][column];
     }
+
+    public void setBox(MazeBox box){
+        int line=box.getLine();
+        int column=box.getColumn();
+        maze[line][column]=box;
+    }
+
     public final void initFromTextFile(String fileName) {
         try {
             FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < maze.length; i++) {
                 String line = br.readLine();
-                for (int u = 0; u < 10; u++) {
+                for (int u = 0; u < maze[0].length; u++) {
 
                     maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
                         case 'E':
@@ -76,8 +89,8 @@ public class Maze implements Graph {
 
     public ArrayList<Vertex> getAllVertexes() {
         ArrayList<Vertex> allVertex = new ArrayList<Vertex>();
-        for (int i = 0; i < 10; i++) {
-            for (int u = 0; u < 10; u++) {
+        for (int i = 0; i < maze.length; i++) {
+            for (int u = 0; u < maze[0].length; u++) {
                 if (maze[i][u].isEmpty()) {
                     allVertex.add(maze[i][u]);
                 }

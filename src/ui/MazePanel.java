@@ -3,20 +3,28 @@ import Graph.*;
 import Maze.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MazePanel extends JPanel {
+public class MazePanel extends JPanel implements MouseListener {
     private final FrameUI frame;
     private final Maze maze;
+    private final int width;
+    private final int height;
     public MazePanel(FrameUI frame,Maze maze) {
         this.frame = frame;
         this.maze=maze;
         setBackground(Color.white);
-        setPreferredSize(new Dimension(600, 500));
+        width = (2*Hexagon.size+Hexagon.border)*maze.getWidth()+Hexagon.x_start+Hexagon.offsetOdd;
+        height = (int) Math.round((Hexagon.size/(Math.cos(Math.PI/6)) + Hexagon.border + Math.tan(Math.PI/6)*Hexagon.size)*maze.getHeight()+Hexagon.y_start);
+        setPreferredSize(new Dimension(width, height));
+        System.out.println("width : "+width+" Height : "+height);
+        addMouseListener(this);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.clearRect(0, 0, 600, 500);
+        g.clearRect(0, 0, width, height);
         Color color=Color.lightGray;
 
         for(int i=0;i<10;i++){
@@ -45,4 +53,40 @@ public class MazePanel extends JPanel {
 
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e){
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int x=e.getX();
+        int y=e.getY();
+        System.out.println("Box click : "+Hexagon.coordToMazeBox(maze,x,y).getLabel());
+        MazeBox box = Hexagon.coordToMazeBox(maze,x,y);
+
+        if(box!=null){
+
+            maze.setBox(new WallBox(box.getLine(),box.getColumn()));
+            repaint();
+        }
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+
+
 }

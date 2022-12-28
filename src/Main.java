@@ -9,7 +9,7 @@ public class Main {
         Maze laby1 = new Maze();
         new FrameUI(laby1);
 
-        laby1.initFromTextFile("data/laby2.maze");
+        laby1.initFromTextFile("data/laby.maze");
 
         laby1.showToConsole();
 
