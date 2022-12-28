@@ -36,13 +36,14 @@ public class ShortestPathsImpl implements ShortestPaths{
         return hashMap.get(vert);
     }
 
-    public ArrayList<Vertex> getPath(){
-        path= new ArrayList<>();
+    public Path getPath(){
+        Path path = new Path();
         Vertex oldV = endVertex;
         while(oldV != startVertex) {
             path.add(oldV);
             oldV=previous(oldV);
         }
+        path.add(oldV);
         return path;
     }
 }

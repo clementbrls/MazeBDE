@@ -26,4 +26,19 @@ public abstract class MazeBox implements Vertex {
         return label;
     }
 
+    public boolean isWall(){
+        return false;
+    }
+
+    public boolean isEmpty(){
+        return false;
+    }
+
+    public boolean isDeparture(){
+        return false;
+    }
+    public boolean isArrival(){
+        return false;
+    }
+
 }

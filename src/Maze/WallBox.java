@@ -5,4 +5,9 @@ public class WallBox extends MazeBox {
     public WallBox(int x, int y) {
         super(x, y);
     }
+
+    @Override
+    public boolean isWall() {
+        return true;
+    }
 }

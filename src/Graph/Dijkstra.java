@@ -2,12 +2,14 @@ package Graph;
 
 import Maze.Maze;
 
+import java.util.ArrayList;
+
 public class Dijkstra {
 
     public Dijkstra() {
     }
 
-    public static ShortestPaths dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
+    public static Path dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
         ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
@@ -17,9 +19,6 @@ public class Dijkstra {
         pivot = startVertex;
         minDistance.set(startVertex, 0);
         Vertex succVertex=pivot;
-
-        System.out.println("Start : "+startVertex.getLabel());
-        System.out.println("End : "+endVertex.getLabel());
 
         for (int i = 0; i < graph.getAllVertexes().size(); i++) {
             if(graph.getAllVertexes().get(i) != pivot)
@@ -48,9 +47,9 @@ public class Dijkstra {
             processVertex.add(pivot);
         }
 
-
+        Path path = shortestPaths.getPath();
         System.out.println("Distance : "+minDistance.minDistance(endVertex));
-        return shortestPaths;
+        return path;
     }
 
 

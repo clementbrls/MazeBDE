@@ -7,13 +7,17 @@ import java.util.ArrayList;
 
 public class Maze implements Graph {
     private MazeBox[][] maze;
+    private MazeBox arrival;
+    private MazeBox departure;
+    private Path solveMaze;
+
 
     public Maze() {
         maze = new MazeBox[10][10];
     }
 
 
-    public MazeBox getMaze(int line,int column){
+    public MazeBox getMazeBox(int line, int column){
         return maze[line][column];
     }
     public final void initFromTextFile(String fileName) {
@@ -74,7 +78,7 @@ public class Maze implements Graph {
         ArrayList<Vertex> allVertex = new ArrayList<Vertex>();
         for (int i = 0; i < 10; i++) {
             for (int u = 0; u < 10; u++) {
-                if (!(maze[i][u] instanceof WallBox)) {
+                if (maze[i][u].isEmpty()) {
                     allVertex.add(maze[i][u]);
                 }
             }
@@ -121,7 +125,8 @@ public class Maze implements Graph {
         //Suppression des murs en tant que successeurs
         int i = 0;
         while (i < successors.size()) {
-            if (successors.get(i) instanceof WallBox) {
+            MazeBox succ = (MazeBox) successors.get(i);
+            if (succ.isWall()) {
                 successors.remove(i);
             } else {
                 i++;
@@ -135,19 +140,33 @@ public class Maze implements Graph {
         return 1;
     }
 
-    public ShortestPaths dijkstra(){
-        Vertex arrival=null;
-        Vertex departure = null;
-        for(int i=0;i<getAllVertexes().size();i++){
-            if(getAllVertexes().get(i) instanceof DepartureBox){
-                departure=getAllVertexes().get(i);
-            }
-            if(getAllVertexes().get(i) instanceof ArrivalBox) {
-                arrival = getAllVertexes().get(i);
+    public MazeBox getArrival(){
+        arrival=null;
+        for(int i=0;i<maze.length;i++){
+            for(int u=0;u<maze[0].length;u++){
+                if(maze[i][u].isArrival()) arrival=maze[i][u];
             }
         }
+        return arrival;
+    }
+
+    public MazeBox getDeparture(){
+        departure=null;
+        for(int i=0;i<maze.length;i++){
+            for(int u=0;u<maze[0].length;u++){
+                if(maze[i][u].isDeparture()) departure=maze[i][u];
+            }
+        }
+        return departure;
+    }
+
+    public Path dijkstra(){
+        getDeparture();
+        getArrival();
+
         Graph graph = this;
-        return Dijkstra.dijkstra(graph,departure,arrival);
+        this.solveMaze = Dijkstra.dijkstra(graph,departure,arrival);
+        return solveMaze;
     }
 
     public void showToConsole(){
@@ -155,9 +174,9 @@ public class Maze implements Graph {
             if(i%2 != 0)System.out.print(" ");
             for(int u=0;u<10;u++){
                 String color;
-                if(maze[i][u] instanceof DepartureBox) color = "\u001B[34m";
-                else if(maze[i][u] instanceof ArrivalBox) color = "\u001B[36m";
-                else if(maze[i][u] instanceof WallBox) color = "\u001B[30m";
+                if(maze[i][u].isDeparture()) color = "\u001B[34m";
+                else if(maze[i][u].isArrival()) color = "\u001B[36m";
+                else if(maze[i][u].isWall()) color = "\u001B[30m";
                 else color = "\u001B[0m";
                 System.out.print(color+""+maze[i][u].getLabel()+" ");
             }
