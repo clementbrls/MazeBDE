@@ -13,6 +13,9 @@ public class Maze implements Graph {
     }
 
 
+    public MazeBox getMaze(int line,int column){
+        return maze[line][column];
+    }
     public final void initFromTextFile(String fileName) {
         try {
             FileReader fr = new FileReader(fileName);
@@ -21,20 +24,18 @@ public class Maze implements Graph {
                 String line = br.readLine();
                 for (int u = 0; u < 10; u++) {
 
-                    switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
+                    maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
                         case 'E':
-                            maze[i][u] = new EmptyBox(i, u);
-                            break;
+                             yield new EmptyBox(i, u);
                         case 'W':
-                            maze[i][u] = new WallBox(i, u);
-                            break;
+                            yield new WallBox(i, u);
                         case 'A':
-                            maze[i][u] = new ArrivalBox(i, u);
-                            break;
+                            yield new ArrivalBox(i, u);
                         case 'D':
-                            maze[i][u] = new DepartureBox(i, u);
-                            break;
-                    }
+                            yield new DepartureBox(i, u);
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + line.charAt(u));
+                    };
                 }
             }
 
@@ -145,7 +146,7 @@ public class Maze implements Graph {
                 arrival = getAllVertexes().get(i);
             }
         }
-        Graph graph = (Graph) this;
+        Graph graph = this;
         return Dijkstra.dijkstra(graph,departure,arrival);
     }
 
