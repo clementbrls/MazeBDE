@@ -21,7 +21,8 @@ public class FrameUI extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ; // Explicit !
 
-        pack() ;            // Components sizes and positions
+        pack() ;// Components sizes and positions
+        setLocationRelativeTo(null);//Center frame on the screen
         setVisible(true) ;  // The great show
     }
 

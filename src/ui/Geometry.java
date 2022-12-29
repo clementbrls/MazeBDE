@@ -4,15 +4,15 @@ import Maze.*;
 
 import java.awt.*;
 
-public class Hexagon {
-    public static final int size = 35;
+public class Geometry {
+    public static final int size = 25;
     public static final int border = 3;
     public static final int offsetOdd = size + border / 2;
     public static final int x_start = offsetOdd * 2;
     public static final int y_start = (int) Math.round(size / (Math.cos(Math.PI / 6)) + offsetOdd);
 
 
-    public Hexagon() {
+    public Geometry() {
 
     }
 

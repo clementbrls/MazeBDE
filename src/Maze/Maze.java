@@ -12,49 +12,51 @@ public class Maze implements Graph {
     private VertexPath solveMaze;
 
 
-    public Maze(int height,int width) {
+    public Maze(int height, int width) {
         maze = new MazeBox[height][width];
         this.initBlank();
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return maze[0].length;
 
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return maze.length;
     }
-    public MazeBox getMazeBox(int line, int column){
+
+    public MazeBox getMazeBox(int line, int column) {
         return maze[line][column];
     }
 
-    public void setBox(MazeBox box){
-        if(box.isArrival()){
+    private void setBox(MazeBox box) {
+        int line = box.getLine();
+        int column = box.getColumn();
+        if (box.isArrival()) {
             int aLine = getArrival().getLine();
             int aColumn = getArrival().getColumn();
-            maze[aLine][aColumn]=new EmptyBox(aLine,aColumn);
+            maze[aLine][aColumn] = new EmptyBox(aLine, aColumn);
         }
 
-        if(box.isDeparture()){
+        if (box.isDeparture()) {
             int dLine = getDeparture().getLine();
             int dColumn = getDeparture().getColumn();
-            maze[dLine][dColumn]=new EmptyBox(dLine,dColumn);
+            maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
         }
 
-        int line=box.getLine();
-        int column=box.getColumn();
-        maze[line][column]=box;
+        maze[line][column] = box;
+
     }
 
-    public void initBlank(){
-        for(int i=0;i< getHeight();i++){
-            for(int u=0;u<getWidth();u++){
-                setBox(new EmptyBox(i,u));
+    public void initBlank() {
+        for (int i = 0; i < getHeight(); i++) {
+            for (int u = 0; u < getWidth(); u++) {
+                setBox(new EmptyBox(i, u));
             }
         }
-        maze[0][0]=new DepartureBox(0,0);
-        maze[getHeight()-1][getWidth()-1]=new ArrivalBox(getHeight()-1,getWidth()-1);
+        maze[0][0] = new DepartureBox(0, 0);
+        maze[getHeight() - 1][getWidth() - 1] = new ArrivalBox(getHeight() - 1, getWidth() - 1);
 
 
     }
@@ -66,9 +68,9 @@ public class Maze implements Graph {
             FileReader fr = new FileReader(fileName);
             BufferedReader br_test = new BufferedReader(fr);
             String line_test = br_test.readLine();
-            fileWidth= line_test.length();
-            fileHeight=0;
-            while(line_test!=null){
+            fileWidth = line_test.length();
+            fileHeight = 0;
+            while (line_test != null) {
                 fileHeight++;
                 line_test = br_test.readLine();
             }
@@ -80,22 +82,22 @@ public class Maze implements Graph {
 
             for (int i = 0; i < getHeight(); i++) {
                 String line = br.readLine();
-                    for (int u = 0; u < line.length(); u++) {
+                for (int u = 0; u < line.length(); u++) {
 
-                        maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
-                            case 'E':
-                                yield new EmptyBox(i, u);
-                            case 'W':
-                                yield new WallBox(i, u);
-                            case 'A':
-                                yield new ArrivalBox(i, u);
-                            case 'D':
-                                yield new DepartureBox(i, u);
-                            default:
-                                throw new IllegalStateException("Unexpected value: " + line.charAt(u));
-                        };
-                    }
+                    maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
+                        case 'E':
+                            yield new EmptyBox(i, u);
+                        case 'W':
+                            yield new WallBox(i, u);
+                        case 'A':
+                            yield new ArrivalBox(i, u);
+                        case 'D':
+                            yield new DepartureBox(i, u);
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + line.charAt(u));
+                    };
                 }
+            }
 
 
         } catch (IOException e) {
@@ -113,7 +115,7 @@ public class Maze implements Graph {
             for (int i = 0; i < getHeight(); i++) {
                 for (int u = 0; u < getWidth(); u++) {
 
-                    if (getMazeBox(i,u).isWall())
+                    if (getMazeBox(i, u).isWall())
                         pw.print('W');
                     else if (maze[i][u].isArrival())
                         pw.print('A');
@@ -152,13 +154,13 @@ public class Maze implements Graph {
         if (line != 0) {
             successors.add(maze[line - 1][column]);
         }
-        if (line != maze.length-1) {
+        if (line != maze.length - 1) {
             successors.add(maze[line + 1][column]);
         }
         if (column != 0) {
             successors.add(maze[line][column - 1]);
         }
-        if (column != maze[0].length-1) {
+        if (column != maze[0].length - 1) {
             successors.add(maze[line][column + 1]);
         }
 
@@ -166,14 +168,14 @@ public class Maze implements Graph {
             if (line != 0 && column != 0) {
                 successors.add(maze[line - 1][column - 1]);
             }
-            if (line != maze.length-1 && column != 0) {
+            if (line != maze.length - 1 && column != 0) {
                 successors.add(maze[line + 1][column - 1]);
             }
         } else {
-            if (line != 0 && column != maze[0].length-1) {
+            if (line != 0 && column != maze[0].length - 1) {
                 successors.add(maze[line - 1][column + 1]);
             }
-            if (line != maze.length-1 && column != maze[0].length-1) {
+            if (line != maze.length - 1 && column != maze[0].length - 1) {
                 successors.add(maze[line + 1][column + 1]);
             }
         }
@@ -196,49 +198,71 @@ public class Maze implements Graph {
         return 1;
     }
 
-    public MazeBox getArrival(){
-        arrival=null;
-        for(int i=0;i<maze.length;i++){
-            for(int u=0;u<maze[0].length;u++){
-                if(maze[i][u].isArrival()) arrival=maze[i][u];
+    public MazeBox getArrival() {
+        arrival = null;
+        for (int i = 0; i < maze.length; i++) {
+            for (int u = 0; u < maze[0].length; u++) {
+                if (maze[i][u].isArrival()) arrival = maze[i][u];
             }
         }
         return arrival;
     }
 
-    public MazeBox getDeparture(){
-        departure=null;
-        for(int i=0;i<maze.length;i++){
-            for(int u=0;u<maze[0].length;u++){
-                if(maze[i][u].isDeparture()) departure=maze[i][u];
+    public MazeBox getDeparture() {
+        departure = null;
+        for (int i = 0; i < maze.length; i++) {
+            for (int u = 0; u < maze[0].length; u++) {
+                if (maze[i][u].isDeparture()) departure = maze[i][u];
             }
         }
         return departure;
     }
 
-    public VertexPath dijkstra(){
+    public VertexPath dijkstra() {
         getDeparture();
         getArrival();
 
         Graph graph = this;
-        this.solveMaze = Dijkstra.dijkstra(graph,departure,arrival);
+        this.solveMaze = Dijkstra.dijkstra(graph, departure, arrival);
         return solveMaze;
     }
 
-    public void showToConsole(){
-        for(int i=0;i<getHeight();i++){
-            if(i%2 != 0)System.out.print(" ");
-            for(int u=0;u<getWidth();u++){
+    public void showToConsole() {
+        for (int i = 0; i < getHeight(); i++) {
+            if (i % 2 != 0) System.out.print(" ");
+            for (int u = 0; u < getWidth(); u++) {
                 String color;
-                if(maze[i][u].isDeparture()) color = "\u001B[34m";
-                else if(maze[i][u].isArrival()) color = "\u001B[36m";
-                else if(maze[i][u].isWall()) color = "\u001B[30m";
+                if (maze[i][u].isDeparture()) color = "\u001B[34m";
+                else if (maze[i][u].isArrival()) color = "\u001B[36m";
+                else if (maze[i][u].isWall()) color = "\u001B[30m";
                 else color = "\u001B[0m";
-                System.out.print(color+""+maze[i][u].getLabel()+" ");
+                System.out.print(color + "" + maze[i][u].getLabel() + " ");
             }
             System.out.println();
         }
         System.out.println("\u001B[0m");
+    }
+
+    public void changeBox(MazeBox box, String choice) {
+
+        if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())){
+
+
+            switch (choice) {
+                case "A":
+                    setBox(new ArrivalBox(box.getLine(), box.getColumn()));
+                    break;
+                case "D":
+                    setBox(new DepartureBox(box.getLine(), box.getColumn()));
+                    break;
+                case "E":
+                    setBox(new EmptyBox(box.getLine(), box.getColumn()));
+                    break;
+                case "W":
+                    setBox(new WallBox(box.getLine(), box.getColumn()));
+                    break;
+            }
+        }
     }
 
 }

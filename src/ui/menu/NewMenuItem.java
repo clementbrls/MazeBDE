@@ -15,13 +15,10 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
         super("Nouveau") ; // Text of menu item
         addActionListener(this);
         this.frame = frame;
+        setFont(new Font("Verdana",Font.PLAIN,12));
     }
 
     public final void actionPerformed(ActionEvent evt){
-        /*frame.dispose();
-        JFrame jFrame = new JFrame();
-        String getMessage = JOptionPane.showInputDialog(jFrame, "Enter your message");
-*/
         JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,20,1));
         JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,20,1));
         Object[] message = {

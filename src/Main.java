@@ -9,8 +9,8 @@ public class Main {
         Maze laby1 = new Maze(12,15);
 
 
-        laby1.initBlank();
-        //laby1.initFromTextFile("data/test.maze");
+        //laby1.initBlank();
+        laby1.initFromTextFile("data/test.maze");
         new FrameUI(laby1);
 
 

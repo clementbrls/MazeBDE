@@ -4,6 +4,7 @@ import ui.*;
 import Maze.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,6 +19,7 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
         addActionListener(this);
         this.maze=maze;
         this.frame = frame;
+        setFont(new Font("Verdana",Font.PLAIN,12));
     }
 
     public final void actionPerformed(ActionEvent evt){

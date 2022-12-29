@@ -3,6 +3,7 @@ import Maze.*;
 import ui.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,6 +17,7 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
         addActionListener(this);
         this.maze=maze;
         this.frame = frame;
+        setFont(new Font("Verdana",Font.PLAIN,12));
     }
 
     public final void actionPerformed(ActionEvent evt){

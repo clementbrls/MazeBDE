@@ -8,6 +8,11 @@ import java.awt.*;
 public class DrawMaze {
 
     private static String select="E";
+    public static final Color colorArrival= new Color(254, 147, 140);
+    public static final Color colorDeparture = new Color(71, 229, 188);
+    public static final Color colorWall = new Color(54, 65, 86);
+    public static final Color colorEmpty = new Color(236, 235, 243);
+    public static final Color colorDefault = new Color(216, 229, 235);
 
     public DrawMaze(){
     }
@@ -17,11 +22,11 @@ public class DrawMaze {
         Color color=Color.lightGray;
         for(int i=0;i<maze.getHeight();i++){
             for(int u=0;u<maze.getWidth();u++){
-                if(maze.getMazeBox(i,u).isWall()) color = Color.black;
-                else if(maze.getMazeBox(i,u).isDeparture()) color = Color.blue;
-                else if(maze.getMazeBox(i,u).isArrival()) color = Color.cyan;
-                else color = Color.lightGray;
-                Polygon p=Hexagon.mazeBoxToHexa(maze.getMazeBox(i,u));
+                if(maze.getMazeBox(i,u).isWall()) color = colorWall;
+                else if(maze.getMazeBox(i,u).isDeparture()) color = colorDeparture;
+                else if(maze.getMazeBox(i,u).isArrival()) color = colorArrival;
+                else color = colorEmpty;
+                Polygon p= Geometry.mazeBoxToHexa(maze.getMazeBox(i,u));
                 g.setColor(color);
                 g.drawPolygon(p);
                 g.fillPolygon(p);
@@ -30,14 +35,16 @@ public class DrawMaze {
     }
 
     public static void drawPath(Graphics g, VertexPath path){
-        for(int i=0;i<path.size();i++){
-            if(i+1<path.size()) {
-                MazeBox box = (MazeBox) path.get(i);
-                MazeBox oldBox = (MazeBox) path.get(i + 1);
-                Graphics2D g2 = (Graphics2D) g;
-                g.setColor(Color.red);
-                g2.setStroke(new BasicStroke(5));
-                g.drawLine(Hexagon.mazeBoxToCoord(box).x, Hexagon.mazeBoxToCoord(box).y, Hexagon.mazeBoxToCoord(oldBox).x, Hexagon.mazeBoxToCoord(oldBox).y);
+        if(path!=null) {
+            for (int i = 0; i < path.size(); i++) {
+                if (i + 1 < path.size()) {
+                    MazeBox box = (MazeBox) path.get(i);
+                    MazeBox oldBox = (MazeBox) path.get(i + 1);
+                    Graphics2D g2 = (Graphics2D) g;
+                    g.setColor(new Color(7, 160, 195));
+                    g2.setStroke(new BasicStroke(5));
+                    g.drawLine(Geometry.mazeBoxToCoord(box).x, Geometry.mazeBoxToCoord(box).y, Geometry.mazeBoxToCoord(oldBox).x, Geometry.mazeBoxToCoord(oldBox).y);
+                }
             }
         }
     }
@@ -51,22 +58,7 @@ public class DrawMaze {
     }
 
     public static void changeBox(Maze maze,MazeBox box){
-       switch(select){
-           case "A":
-               maze.setBox(new ArrivalBox(box.getLine(),box.getColumn()));
-               break;
-           case "D":
-               maze.setBox(new DepartureBox(box.getLine(),box.getColumn()));
-               break;
-           case "E":
-               maze.setBox(new EmptyBox(box.getLine(),box.getColumn()));
-               break;
-           case "W":
-               maze.setBox(new WallBox(box.getLine(),box.getColumn()));
-           break;
-       }
-
-
+       maze.changeBox(box,select);
     }
 
 }
