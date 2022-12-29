@@ -1,15 +1,11 @@
 package Graph;
 
-import Maze.Maze;
-
-import java.util.ArrayList;
-
 public class Dijkstra {
 
     public Dijkstra() {
     }
 
-    public static Path dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
+    public static VertexPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
         ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
@@ -47,7 +43,7 @@ public class Dijkstra {
             processVertex.add(pivot);
         }
 
-        Path path = shortestPaths.getPath();
+        VertexPath path = shortestPaths.getPath();
         System.out.println("Distance : "+minDistance.minDistance(endVertex));
         return path;
     }

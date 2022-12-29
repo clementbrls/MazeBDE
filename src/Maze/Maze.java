@@ -9,15 +9,17 @@ public class Maze implements Graph {
     private MazeBox[][] maze;
     private MazeBox arrival;
     private MazeBox departure;
-    private Path solveMaze;
+    private VertexPath solveMaze;
 
 
-    public Maze() {
-        maze = new MazeBox[10][10];
+    public Maze(int height,int width) {
+        maze = new MazeBox[height][width];
+        this.initBlank();
     }
 
     public int getWidth(){
         return maze[0].length;
+
     }
 
     public int getHeight(){
@@ -28,33 +30,73 @@ public class Maze implements Graph {
     }
 
     public void setBox(MazeBox box){
+        if(box.isArrival()){
+            int aLine = getArrival().getLine();
+            int aColumn = getArrival().getColumn();
+            maze[aLine][aColumn]=new EmptyBox(aLine,aColumn);
+        }
+
+        if(box.isDeparture()){
+            int dLine = getDeparture().getLine();
+            int dColumn = getDeparture().getColumn();
+            maze[dLine][dColumn]=new EmptyBox(dLine,dColumn);
+        }
+
         int line=box.getLine();
         int column=box.getColumn();
         maze[line][column]=box;
     }
 
+    public void initBlank(){
+        for(int i=0;i< getHeight();i++){
+            for(int u=0;u<getWidth();u++){
+                setBox(new EmptyBox(i,u));
+            }
+        }
+        maze[0][0]=new DepartureBox(0,0);
+        maze[getHeight()-1][getWidth()-1]=new ArrivalBox(getHeight()-1,getWidth()-1);
+
+
+    }
+
     public final void initFromTextFile(String fileName) {
+        int fileHeight;
+        int fileWidth;
         try {
             FileReader fr = new FileReader(fileName);
-            BufferedReader br = new BufferedReader(fr);
-            for (int i = 0; i < maze.length; i++) {
-                String line = br.readLine();
-                for (int u = 0; u < maze[0].length; u++) {
-
-                    maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
-                        case 'E':
-                             yield new EmptyBox(i, u);
-                        case 'W':
-                            yield new WallBox(i, u);
-                        case 'A':
-                            yield new ArrivalBox(i, u);
-                        case 'D':
-                            yield new DepartureBox(i, u);
-                        default:
-                            throw new IllegalStateException("Unexpected value: " + line.charAt(u));
-                    };
-                }
+            BufferedReader br_test = new BufferedReader(fr);
+            String line_test = br_test.readLine();
+            fileWidth= line_test.length();
+            fileHeight=0;
+            while(line_test!=null){
+                fileHeight++;
+                line_test = br_test.readLine();
             }
+
+            this.maze = new MazeBox[fileHeight][fileWidth];
+
+            fr = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fr);
+
+            for (int i = 0; i < getHeight(); i++) {
+                String line = br.readLine();
+                    for (int u = 0; u < line.length(); u++) {
+
+                        maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
+                            case 'E':
+                                yield new EmptyBox(i, u);
+                            case 'W':
+                                yield new WallBox(i, u);
+                            case 'A':
+                                yield new ArrivalBox(i, u);
+                            case 'D':
+                                yield new DepartureBox(i, u);
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + line.charAt(u));
+                        };
+                    }
+                }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,16 +110,17 @@ public class Maze implements Graph {
             FileOutputStream fos = new FileOutputStream(fileName);
             PrintWriter pw = new PrintWriter(fos);
 
-            for (int i = 0; i < 10; i++) {
-                for (int u = 0; u < 10; u++) {
-                    if (maze[i][u] instanceof EmptyBox)
-                        pw.print("E");
-                    if (maze[i][u] instanceof WallBox)
+            for (int i = 0; i < getHeight(); i++) {
+                for (int u = 0; u < getWidth(); u++) {
+
+                    if (getMazeBox(i,u).isWall())
                         pw.print('W');
-                    if (maze[i][u] instanceof ArrivalBox)
+                    else if (maze[i][u].isArrival())
                         pw.print('A');
-                    if (maze[i][u] instanceof DepartureBox)
+                    else if (maze[i][u].isDeparture())
                         pw.print('D');
+                    else
+                        pw.print("E");
                 }
                 pw.println();
             }
@@ -109,13 +152,13 @@ public class Maze implements Graph {
         if (line != 0) {
             successors.add(maze[line - 1][column]);
         }
-        if (line != 9) {
+        if (line != maze.length-1) {
             successors.add(maze[line + 1][column]);
         }
         if (column != 0) {
             successors.add(maze[line][column - 1]);
         }
-        if (column != 9) {
+        if (column != maze[0].length-1) {
             successors.add(maze[line][column + 1]);
         }
 
@@ -123,14 +166,14 @@ public class Maze implements Graph {
             if (line != 0 && column != 0) {
                 successors.add(maze[line - 1][column - 1]);
             }
-            if (line != 9 && column != 0) {
+            if (line != maze.length-1 && column != 0) {
                 successors.add(maze[line + 1][column - 1]);
             }
         } else {
-            if (line != 0 && column != 9) {
+            if (line != 0 && column != maze[0].length-1) {
                 successors.add(maze[line - 1][column + 1]);
             }
-            if (line != 9 && column != 9) {
+            if (line != maze.length-1 && column != maze[0].length-1) {
                 successors.add(maze[line + 1][column + 1]);
             }
         }
@@ -173,7 +216,7 @@ public class Maze implements Graph {
         return departure;
     }
 
-    public Path dijkstra(){
+    public VertexPath dijkstra(){
         getDeparture();
         getArrival();
 
@@ -183,9 +226,9 @@ public class Maze implements Graph {
     }
 
     public void showToConsole(){
-        for(int i=0;i<10;i++){
+        for(int i=0;i<getHeight();i++){
             if(i%2 != 0)System.out.print(" ");
-            for(int u=0;u<10;u++){
+            for(int u=0;u<getWidth();u++){
                 String color;
                 if(maze[i][u].isDeparture()) color = "\u001B[34m";
                 else if(maze[i][u].isArrival()) color = "\u001B[36m";
@@ -195,7 +238,7 @@ public class Maze implements Graph {
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.println("\u001B[0m");
     }
 
 }

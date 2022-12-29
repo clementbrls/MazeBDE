@@ -1,10 +1,12 @@
 package ui;
 import Maze.*;
+import ui.button.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class WindowPanel extends JPanel {
-    private final MazePanel mazePanel;
+    private MazePanel mazePanel;
     private final ButtonPanel bPanel;
 
     public WindowPanel(FrameUI frame,Maze maze){

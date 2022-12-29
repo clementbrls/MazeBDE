@@ -5,8 +5,8 @@ import Maze.*;
 import java.awt.*;
 
 public class Hexagon {
-    public static final int size = 25;
-    public static final int border = 2;
+    public static final int size = 35;
+    public static final int border = 3;
     public static final int offsetOdd = size + border / 2;
     public static final int x_start = offsetOdd * 2;
     public static final int y_start = (int) Math.round(size / (Math.cos(Math.PI / 6)) + offsetOdd);
@@ -56,19 +56,10 @@ public class Hexagon {
             for(int u=0;u<maze.getWidth();u++){
                 MazeBox boxTest = maze.getMazeBox(i,u);
                 if(mazeBoxToCoord(boxTest).distance(new Point(x,y)) <= size){
-                    //System.out.println("i : "+i+" u : "+u);
                     box=boxTest;
                 }
             }
         }
         return box;
     }
-
-    public static int distance(Point a, Point b){
-        System.out.println("Distance : "+(int) Math.round(Math.sqrt((b.x-a.x)^2+(b.y-a.y)^2)));
-        System.out.println("Distance interne : "+a.distance(b));
-
-        return (int) Math.round(Math.sqrt((b.x-a.x)^2+(b.y-a.y)^2));
-    }
-
 }

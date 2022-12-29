@@ -36,8 +36,8 @@ public class ShortestPathsImpl implements ShortestPaths{
         return hashMap.get(vert);
     }
 
-    public Path getPath(){
-        Path path = new Path();
+    public VertexPath getPath(){
+        VertexPath path = new VertexPath();
         Vertex oldV = endVertex;
         while(oldV != startVertex) {
             path.add(oldV);

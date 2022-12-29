@@ -2,10 +2,10 @@ package Graph;
 
 import java.util.ArrayList;
 
-public class Path {
+public class VertexPath {
     private ArrayList<Vertex> path;
 
-    public Path(){
+    public VertexPath(){
         path = new ArrayList<Vertex>();
     }
 
@@ -27,5 +27,9 @@ public class Path {
             txt=this.get(i).getLabel()+" => "+txt;
         }
         return txt;
+    }
+
+    public int getDistance(){
+        return path.size()-1;
     }
 }
