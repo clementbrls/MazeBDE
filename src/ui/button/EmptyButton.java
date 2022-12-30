@@ -14,18 +14,19 @@ public class EmptyButton extends JButton implements ActionListener {
         super("Effacer");
         this.frame=frame;
         this.bPanel=bPanel;
+        setFocusable(false);
         addActionListener(this);
         setMargin(new Insets(0,0,0,0));
     }
 
     public final void actionPerformed(ActionEvent evt){
-        DrawMaze.setSelect("E");
+        frame.getDrawMaze().setSelect("E");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(DrawMaze.getSelect() == "E"){
+        if(frame.getDrawMaze().getSelect() == "E"){
             setBackground(DrawMaze.colorWall);
             setForeground(Color.white);
         } else {

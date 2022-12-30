@@ -10,6 +10,7 @@ public class Maze implements Graph {
     private MazeBox arrival;
     private MazeBox departure;
     private VertexPath solveMaze;
+    private Boolean isChanged=false;
 
 
     public Maze(int height, int width) {
@@ -64,6 +65,7 @@ public class Maze implements Graph {
     public final void initFromTextFile(String fileName) {
         int fileHeight;
         int fileWidth;
+        isChanged=true;
         try {
             FileReader fr = new FileReader(fileName);
             BufferedReader br_test = new BufferedReader(fr);
@@ -76,13 +78,13 @@ public class Maze implements Graph {
             }
 
             this.maze = new MazeBox[fileHeight][fileWidth];
-
+            initBlank();
             fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
 
             for (int i = 0; i < getHeight(); i++) {
                 String line = br.readLine();
-                for (int u = 0; u < line.length(); u++) {
+                for (int u = 0; u < getWidth(); u++) {
 
                     maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
                         case 'E':
@@ -100,8 +102,26 @@ public class Maze implements Graph {
             }
 
 
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        //Check maze
+        int countArrival=0;
+        int countDeparture=0;
+        for (int i = 0; i < maze.length; i++) {
+            for (int u = 0; u < maze[0].length; u++) {
+
+                if (maze[i][u].isArrival()) countArrival++;
+                if (maze[i][u].isDeparture()) countDeparture++;
+
+            }
+        }
+        if (countDeparture == 0){
+            maze[0][0]=new DepartureBox(0,0);
+        }
+        if (countArrival == 0){
+            maze[0][0]=new ArrivalBox(getHeight()-1,getWidth()-1);
         }
 
 
@@ -221,9 +241,17 @@ public class Maze implements Graph {
     public VertexPath dijkstra() {
         getDeparture();
         getArrival();
+        isChanged=false;
 
         Graph graph = this;
         this.solveMaze = Dijkstra.dijkstra(graph, departure, arrival);
+        return solveMaze;
+    }
+
+    public VertexPath getPath(){
+        if (isChanged){
+            dijkstra();
+        }
         return solveMaze;
     }
 
@@ -244,7 +272,7 @@ public class Maze implements Graph {
     }
 
     public void changeBox(MazeBox box, String choice) {
-
+        isChanged=true;
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())){
 
 

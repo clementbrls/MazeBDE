@@ -13,18 +13,19 @@ public class WallButton extends JButton implements ActionListener {
         super("Mur");
         this.frame=frame;
         this.bPanel=bPanel;
+        setFocusable(false);
         addActionListener(this);
         setMargin(new Insets(0,0,0,0));
     }
 
     public final void actionPerformed(ActionEvent evt){
-        DrawMaze.setSelect("W");
+        frame.getDrawMaze().setSelect("W");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(DrawMaze.getSelect() == "W"){
+        if(frame.getDrawMaze().getSelect() == "W"){
             setBackground(DrawMaze.colorWall);
             setForeground(Color.white);
         } else {

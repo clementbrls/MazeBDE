@@ -8,51 +8,57 @@ import java.awt.event.MouseListener;
 
 public class MazePanel extends JPanel implements MouseListener {
     private final FrameUI frame;
-    private final Maze maze;
     private final int width;
     private final int height;
-    public MazePanel(FrameUI frame,Maze maze) {
+    public MazePanel(FrameUI frame) {
         this.frame = frame;
-        this.maze=maze;
+        DrawMaze drawMaze=frame.getDrawMaze();
         setBackground(Color.white);
-        width = (2* Geometry.size+ Geometry.border)*maze.getWidth()+ Geometry.x_start+ Geometry.offsetOdd;
-        height = (int) Math.round((Geometry.size/(Math.cos(Math.PI/6)) + Geometry.border + Math.tan(Math.PI/6)* Geometry.size)*maze.getHeight()+ Geometry.y_start);
+        width = (2* Geometry.size+ Geometry.border)*drawMaze.getMaze().getWidth()+ Geometry.x_start+ Geometry.offsetOdd;
+        height = (int) Math.round((Geometry.size/(Math.cos(Math.PI/6)) + Geometry.border + Math.tan(Math.PI/6)* Geometry.size)*drawMaze.getMaze().getHeight()+ Geometry.y_start);
         setPreferredSize(new Dimension(width, height));
         addMouseListener(this);
     }
 
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
 
-        DrawMaze.drawMaze(g,maze);
+        frame.getDrawMaze().drawMaze(g);
 
-        VertexPath path = maze.dijkstra();
-        DrawMaze.drawPath(g,path);
-
+        if(frame.getDrawMaze().getAutoDijkstra()) {
+            frame.getDrawMaze().drawPath(g);
+        }
 
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e){
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         int x=e.getX();
         int y=e.getY();
-        MazeBox box = Geometry.coordToMazeBox(maze,x,y);
+
+        MazeBox box = Geometry.coordToMazeBox(frame.getDrawMaze().getMaze(),x,y);
 
         if(box!=null){
-
-            DrawMaze.changeBox(maze,box);
+            if(SwingUtilities.isLeftMouseButton(e)) {
+                frame.getDrawMaze().changeBox(box);
+            } else if (SwingUtilities.isRightMouseButton(e)){
+                frame.getDrawMaze().changeBox(box,true);
+            }
             repaint();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        frame.repaint();
     }
 
     @Override

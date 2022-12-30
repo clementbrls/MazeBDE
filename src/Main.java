@@ -10,7 +10,7 @@ public class Main {
 
 
         //laby1.initBlank();
-        laby1.initFromTextFile("data/test.maze");
+        laby1.initFromTextFile("data/laby.maze");
         new FrameUI(laby1);
 
 

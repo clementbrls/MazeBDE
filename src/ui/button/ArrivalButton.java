@@ -12,6 +12,7 @@ public class ArrivalButton extends JButton implements ActionListener {
 
     public ArrivalButton(FrameUI frame,ButtonPanel bPanel){
         super("Arrivée");
+        setFocusable(false);
         this.frame=frame;
         this.bPanel=bPanel;
         addActionListener(this);
@@ -20,13 +21,13 @@ public class ArrivalButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        DrawMaze.setSelect("A");
+        frame.getDrawMaze().setSelect("A");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(DrawMaze.getSelect() == "A"){
+        if(frame.getDrawMaze().getSelect() == "A"){
             setBackground(DrawMaze.colorArrival);
             setForeground(Color.white);
         } else {

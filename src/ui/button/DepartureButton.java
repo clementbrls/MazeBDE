@@ -11,6 +11,7 @@ public class DepartureButton extends JButton implements ActionListener {
 
     public DepartureButton(FrameUI frame,ButtonPanel bPanel) {
         super("Depart");
+        setFocusable(false);
         this.frame=frame;
         this.bPanel=bPanel;
         addActionListener(this);
@@ -18,13 +19,13 @@ public class DepartureButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        DrawMaze.setSelect("D");
+        frame.getDrawMaze().setSelect("D");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(DrawMaze.getSelect() == "D"){
+        if(frame.getDrawMaze().getSelect() == "D"){
             setBackground(DrawMaze.colorDeparture);
             setForeground(Color.white);
         } else {

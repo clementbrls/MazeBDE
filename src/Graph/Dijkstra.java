@@ -11,6 +11,7 @@ public class Dijkstra {
         MinDistance minDistance = new MinDistanceImpl();
         ShortestPaths shortestPaths = new ShortestPathsImpl(startVertex,endVertex);
 
+        if(startVertex==null) System.out.println("null");
         processVertex.add(startVertex);
         pivot = startVertex;
         minDistance.set(startVertex, 0);
@@ -45,7 +46,7 @@ public class Dijkstra {
         }
 
         System.out.println("Distance : "+minDistance.minDistance(endVertex));
-        VertexPath path=null;
+        VertexPath path= new VertexPath();
         if(!noPath) {
             path = shortestPaths.getPath();
         }

@@ -30,6 +30,12 @@ public class VertexPath {
     }
 
     public int getDistance(){
-        return path.size()-1;
+        int distance;
+        if(path == null){
+            distance=999;
+        } else {
+            distance=path.size()-1;
+        }
+        return distance;
     }
 }
