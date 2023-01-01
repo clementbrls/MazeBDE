@@ -14,10 +14,10 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
     private final Maze maze;
 
-    public OpenMenuItem(FrameUI frame,Maze maze) {
+    public OpenMenuItem(FrameUI frame) {
         super("Ouvrir") ; // Text of menu item
         addActionListener(this);
-        this.maze=maze;
+        this.maze=frame.getDrawMaze().getMaze();
         this.frame = frame;
         setFont(new Font("Verdana",Font.PLAIN,12));
     }

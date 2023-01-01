@@ -10,14 +10,14 @@ public final class FileMenu extends JMenu {
     private final OpenMenuItem openMenuItem;
     private final NewMenuItem newMenuItem;
 
-    public FileMenu(FrameUI frame,Maze maze){
+    public FileMenu(FrameUI frame){
         super("Fichier");
         setFont(new Font("Verdana",Font.PLAIN,18));
         setForeground(Color.white);
-
+        setPreferredSize(new Dimension(80,getHeight()));
         quitMenuItem = new QuitMenuItem(frame);
-        saveMenuItem = new SaveMenuItem(frame,maze);
-        openMenuItem = new OpenMenuItem(frame,maze);
+        saveMenuItem = new SaveMenuItem(frame);
+        openMenuItem = new OpenMenuItem(frame);
         newMenuItem = new NewMenuItem(frame);
 
         quitMenuItem.setBackground(DrawMaze.colorWall);

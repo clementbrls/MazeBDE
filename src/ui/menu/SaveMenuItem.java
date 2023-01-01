@@ -12,10 +12,10 @@ import java.awt.event.ActionListener;
 public class SaveMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
     private Maze maze;
-    public SaveMenuItem(FrameUI frame,Maze maze) {
+    public SaveMenuItem(FrameUI frame) {
         super("Sauvegarder"); // Text of menu item
         addActionListener(this);
-        this.maze=maze;
+        this.maze=frame.getDrawMaze().getMaze();
         this.frame = frame;
         setFont(new Font("Verdana",Font.PLAIN,12));
     }

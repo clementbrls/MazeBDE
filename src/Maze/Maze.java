@@ -10,7 +10,6 @@ public class Maze implements Graph {
     private MazeBox arrival;
     private MazeBox departure;
     private VertexPath solveMaze;
-    private Boolean isChanged=false;
 
 
     public Maze(int height, int width) {
@@ -51,6 +50,7 @@ public class Maze implements Graph {
     }
 
     public void initBlank() {
+        isChanged();
         for (int i = 0; i < getHeight(); i++) {
             for (int u = 0; u < getWidth(); u++) {
                 setBox(new EmptyBox(i, u));
@@ -65,7 +65,7 @@ public class Maze implements Graph {
     public final void initFromTextFile(String fileName) {
         int fileHeight;
         int fileWidth;
-        isChanged=true;
+        isChanged();
         try {
             FileReader fr = new FileReader(fileName);
             BufferedReader br_test = new BufferedReader(fr);
@@ -241,7 +241,6 @@ public class Maze implements Graph {
     public VertexPath dijkstra() {
         getDeparture();
         getArrival();
-        isChanged=false;
 
         Graph graph = this;
         this.solveMaze = Dijkstra.dijkstra(graph, departure, arrival);
@@ -249,9 +248,6 @@ public class Maze implements Graph {
     }
 
     public VertexPath getPath(){
-        if (isChanged){
-            dijkstra();
-        }
         return solveMaze;
     }
 
@@ -272,7 +268,7 @@ public class Maze implements Graph {
     }
 
     public void changeBox(MazeBox box, String choice) {
-        isChanged=true;
+        isChanged();
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())){
 
 
@@ -291,6 +287,10 @@ public class Maze implements Graph {
                     break;
             }
         }
+    }
+
+    private void isChanged(){
+        solveMaze=new VertexPath();
     }
 
 }

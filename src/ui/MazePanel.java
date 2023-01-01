@@ -27,9 +27,8 @@ public class MazePanel extends JPanel implements MouseListener {
 
         frame.getDrawMaze().drawMaze(g);
 
-        if(frame.getDrawMaze().getAutoDijkstra()) {
-            frame.getDrawMaze().drawPath(g);
-        }
+        frame.getDrawMaze().drawPath(g);
+
 
 
     }
