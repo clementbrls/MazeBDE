@@ -1,6 +1,6 @@
 package ui.menu;
 import ui.*;
-import Maze.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,8 @@ public class SettingsMenu extends JMenu {
             public void actionPerformed(ActionEvent ae) {
                 JFrame jFrame = new JFrame();
                 int result = JOptionPane.showConfirmDialog(jFrame, "Dijkstra automatique ?");
-                if (result == 0) frame.getDrawMaze().setAutoDijkstra(true);
-                else if (result == 1) frame.getDrawMaze().setAutoDijkstra(false);
+                if (result == 0) frame.getdMaze().setAutoDijkstra(true);
+                else if (result == 1) frame.getdMaze().setAutoDijkstra(false);
                 frame.repaint();
             }
         });

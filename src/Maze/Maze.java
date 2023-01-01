@@ -208,14 +208,14 @@ public class Maze implements Graph {
             successors.add(maze[line][column + 1]);
         }
 
-        if (line % 2 == 0) {
+        if (line % 2 == 0) {//Ligne pair
             if (line != 0 && column != 0) {
                 successors.add(maze[line - 1][column - 1]);
             }
             if (line != maze.length - 1 && column != 0) {
                 successors.add(maze[line + 1][column - 1]);
             }
-        } else {
+        } else {//ligne impair
             if (line != 0 && column != maze[0].length - 1) {
                 successors.add(maze[line - 1][column + 1]);
             }

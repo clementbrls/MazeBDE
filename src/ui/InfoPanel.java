@@ -36,7 +36,7 @@ public class InfoPanel extends JPanel {
 
         SolveMazeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-               frame.getDrawMaze().getMaze().dijkstra();
+               frame.getdMaze().getMaze().dijkstra();
                frame.repaint();
             }
         });
@@ -44,14 +44,14 @@ public class InfoPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g){
-        valueDistance.setText(""+frame.getDrawMaze().getDistance());
-        if(frame.getDrawMaze().getDistance() == 999){
+        valueDistance.setText(""+frame.getdMaze().getDistance());
+        if(frame.getdMaze().getDistance() == 999){
             distPanel.setVisible(false);
         } else {
            distPanel.setVisible(true);
         }
 
-        if (frame.getDrawMaze().getAutoDijkstra()) {
+        if (frame.getdMaze().getAutoDijkstra()) {
             SolveMazeButton.setVisible(false);
 
         } else {

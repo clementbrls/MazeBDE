@@ -1,8 +1,6 @@
 package ui;
-
 import Graph.*;
 import Maze.*;
-
 import java.awt.*;
 
 
@@ -43,7 +41,7 @@ public class DrawMaze {
 
     public void drawPath(Graphics g) {
         VertexPath path = maze.getPath();
-        if (autoDijkstra) {
+        if (autoDijkstra && path.size() == 0) {
             path = maze.dijkstra();
         }
 
@@ -53,7 +51,8 @@ public class DrawMaze {
                 MazeBox box = (MazeBox) path.get(i);
                 MazeBox oldBox = (MazeBox) path.get(i + 1);
                 Graphics2D g2 = (Graphics2D) g;
-                g.setColor(new Color(7, 160, 195));
+                //g.setColor(new Color(7, 160, 195));
+                g.setColor(new Color(0, 168, 224));
                 g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
                 g.drawLine(Geometry.mazeBoxToCoord(box).x, Geometry.mazeBoxToCoord(box).y, Geometry.mazeBoxToCoord(oldBox).x, Geometry.mazeBoxToCoord(oldBox).y);
             }

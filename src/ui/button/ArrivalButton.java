@@ -1,7 +1,6 @@
 package ui.button;
 import ui.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,13 +20,13 @@ public class ArrivalButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getDrawMaze().setSelect("A");
+        frame.getdMaze().setSelect("A");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getDrawMaze().getSelect() == "A"){
+        if(frame.getdMaze().getSelect() == "A"){
             setBackground(DrawMaze.colorArrival);
             setForeground(Color.white);
         } else {

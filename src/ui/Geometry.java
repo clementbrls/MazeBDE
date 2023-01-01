@@ -5,7 +5,7 @@ import Maze.*;
 import java.awt.*;
 
 public class Geometry {
-    public static final int size = 25;
+    public static final int size = 22;
     public static final int border = 3;
     public static final int offsetOdd = size + border / 2;
     public static final int x_start = offsetOdd * 2;
@@ -55,7 +55,7 @@ public class Geometry {
         for(int i=0;i<maze.getHeight();i++){
             for(int u=0;u<maze.getWidth();u++){
                 MazeBox boxTest = maze.getMazeBox(i,u);
-                if(mazeBoxToCoord(boxTest).distance(new Point(x,y)) <= size){
+                if(mazeBoxToCoord(boxTest).distance(new Point(x,y)) <= size+border/2){//Hitbox circulaire
                     box=boxTest;
                 }
             }

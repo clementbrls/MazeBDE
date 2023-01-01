@@ -17,7 +17,7 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
     public OpenMenuItem(FrameUI frame) {
         super("Ouvrir") ; // Text of menu item
         addActionListener(this);
-        this.maze=frame.getDrawMaze().getMaze();
+        this.maze=frame.getdMaze().getMaze();
         this.frame = frame;
         setFont(new Font("Verdana",Font.PLAIN,12));
     }

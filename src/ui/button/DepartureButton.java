@@ -19,13 +19,13 @@ public class DepartureButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getDrawMaze().setSelect("D");
+        frame.getdMaze().setSelect("D");
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getDrawMaze().getSelect() == "D"){
+        if(frame.getdMaze().getSelect() == "D"){
             setBackground(DrawMaze.colorDeparture);
             setForeground(Color.white);
         } else {

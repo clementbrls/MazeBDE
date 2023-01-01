@@ -30,7 +30,7 @@ public class FrameUI extends JFrame {
         setVisible(true) ;  // The great show
     }
 
-    public DrawMaze getDrawMaze() {
+    public DrawMaze getdMaze() {
         return drawMaze;
     }
 

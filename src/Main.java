@@ -11,7 +11,7 @@ public class Main {
 
         //laby1.initBlank();
         try {
-            laby1.initFromTextFile("laby.maze");
+            laby1.initFromTextFile("data/laby.maze");
         } catch (MazeReadingException e) {
             throw new RuntimeException(e);
         }
