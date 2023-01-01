@@ -62,11 +62,12 @@ public class Maze implements Graph {
 
     }
 
-    public final void initFromTextFile(String fileName) {
+    public final void initFromTextFile(String fileName) throws MazeReadingException {
         int fileHeight;
         int fileWidth;
         isChanged();
         try {
+            //Changement de la taille du labyrinthe en fonction du fichier
             FileReader fr = new FileReader(fileName);
             BufferedReader br_test = new BufferedReader(fr);
             String line_test = br_test.readLine();
@@ -96,32 +97,55 @@ public class Maze implements Graph {
                         case 'D':
                             yield new DepartureBox(i, u);
                         default:
-                            throw new IllegalStateException("Unexpected value: " + line.charAt(u));
+                            initBlank();
+                            throw new MazeReadingException(fileName, u, "Unexpected value: " + line.charAt(u));
                     };
                 }
             }
+            //Check maze
+            int countArrival = 0;
+            int countDeparture = 0;
+            int lineError = -1;
+            for (int i = 0; i < maze.length; i++) {
+                for (int u = 0; u < maze[0].length; u++) {
+
+                    if (maze[i][u].isArrival()) {
+                        countArrival++;
+                        lineError = i;
+                    }
+                    if (maze[i][u].isDeparture()) {
+                        countDeparture++;
+                        lineError = i;
+                    }
+
+                }
+            }
+            if (countDeparture == 0) {
+                maze[0][0] = new DepartureBox(0, 0);
+                throw new MazeReadingException(fileName,getHeight(),"One departure is required");
+            }
+            if (countArrival == 0) {
+                maze[0][0] = new ArrivalBox(getHeight() - 1, getWidth() - 1);
+                throw new MazeReadingException(fileName,getHeight(),"One arrival is required");
+            }
+
+            if (countArrival > 1) {
+                initBlank();
+                throw new MazeReadingException(fileName, lineError, countArrival+ " arrival is too much, only one arrival is required");
+            }
+            if (countDeparture > 1) {
+                initBlank();
+                throw new MazeReadingException(fileName, lineError, countDeparture+" departure is too much, only one departure is required");
+            }
 
 
+        } catch (IndexOutOfBoundsException e) {
+            initBlank();
+            throw new MazeReadingException(fileName, 0, "All line must be the same length");
 
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //Check maze
-        int countArrival=0;
-        int countDeparture=0;
-        for (int i = 0; i < maze.length; i++) {
-            for (int u = 0; u < maze[0].length; u++) {
-
-                if (maze[i][u].isArrival()) countArrival++;
-                if (maze[i][u].isDeparture()) countDeparture++;
-
-            }
-        }
-        if (countDeparture == 0){
-            maze[0][0]=new DepartureBox(0,0);
-        }
-        if (countArrival == 0){
-            maze[0][0]=new ArrivalBox(getHeight()-1,getWidth()-1);
+            initBlank();
+            throw new MazeReadingException(fileName, 0, e.getMessage());
         }
 
 
@@ -247,7 +271,7 @@ public class Maze implements Graph {
         return solveMaze;
     }
 
-    public VertexPath getPath(){
+    public VertexPath getPath() {
         return solveMaze;
     }
 
@@ -269,7 +293,7 @@ public class Maze implements Graph {
 
     public void changeBox(MazeBox box, String choice) {
         isChanged();
-        if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())){
+        if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
 
             switch (choice) {
@@ -289,8 +313,8 @@ public class Maze implements Graph {
         }
     }
 
-    private void isChanged(){
-        solveMaze=new VertexPath();
+    private void isChanged() {
+        solveMaze = new VertexPath();
     }
 
 }

@@ -10,8 +10,13 @@ public class Main {
 
 
         //laby1.initBlank();
-        laby1.initFromTextFile("data/laby.maze");
+        try {
+            laby1.initFromTextFile("laby.maze");
+        } catch (MazeReadingException e) {
+            throw new RuntimeException(e);
+        }
         new FrameUI(laby1);
+
 
 
     }

@@ -21,15 +21,11 @@ public class MazePanel extends JPanel implements MouseListener {
     }
 
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
 
         frame.getDrawMaze().drawMaze(g);
-
         frame.getDrawMaze().drawPath(g);
-
-
 
     }
 
