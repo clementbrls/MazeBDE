@@ -24,7 +24,10 @@ public class DrawMaze {
         this.maze = maze;
     }
 
-
+    /**
+     * draw the maze
+     * @param g Graphics
+     */
     public void drawMaze(Graphics g) {
         Color color;
         for (int i = 0; i < maze.getHeight(); i++) {
@@ -44,6 +47,10 @@ public class DrawMaze {
         }
     }
 
+    /**
+     * draw the path
+     * @param g Graphics
+     */
     public void drawPath(Graphics g) {
         VertexPath path = maze.getPath();
         if (autoDijkstra && path.getDistance()==-1) {
@@ -66,14 +73,26 @@ public class DrawMaze {
         frame.repaint();
     }
 
+    /**
+     * get the type of element to draw
+     * @return
+     */
     public String getSelect() {
         return select;
     }
 
+    /**
+     * set the type of element to draw
+     * @param selection
+     */
     public void setSelect(String selection) {
         select = selection;
     }
 
+    /**
+     * change the box clicked
+     * @param box the box to change
+     */
     public void changeBox(MazeBox box) {
         maze.changeBox(box, select);
     }
@@ -86,18 +105,34 @@ public class DrawMaze {
         }
     }
 
+    /**
+     * get the distance to solve the maze
+     * @return the distance
+     */
     public int getDistance() {
         return maze.getPath().getDistance();
     }
 
+    /**
+     * get the maze
+     * @return the maze
+     */
     public Maze getMaze() {
         return maze;
     }
 
+    /**
+     * get the autoDijkstra parameter
+     * @return the autoDijkstra parameter
+     */
     public Boolean getAutoDijkstra() {
         return autoDijkstra;
     }
 
+    /**
+     * set the autoDijkstra parameter
+     * @param autoDijkstra can be true or false
+     */
     public void setAutoDijkstra(Boolean autoDijkstra) {
         this.autoDijkstra = autoDijkstra;
     }

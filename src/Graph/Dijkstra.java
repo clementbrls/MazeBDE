@@ -1,11 +1,15 @@
 package Graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dijkstra {
 
     public Dijkstra() {
     }
 
     public static VertexPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
+        long timestart = System.currentTimeMillis();
         ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
@@ -16,10 +20,11 @@ public class Dijkstra {
         pivot = startVertex;
         minDistance.set(startVertex, 0);
         Vertex succVertex=pivot;
+        List<Vertex> graphAllVertexes = graph.getAllVertexes();
 
-        for (int i = 0; i < graph.getAllVertexes().size(); i++) {
-            if(graph.getAllVertexes().get(i) != pivot)
-                minDistance.set(graph.getAllVertexes().get(i), 999);
+        for (int i = 0; i < graphAllVertexes.size(); i++) {
+            if(graphAllVertexes.get(i) != pivot)
+                minDistance.set(graphAllVertexes.get(i), 999);
         }
         boolean noPath=false;
         while (!processVertex.isIncluded(endVertex) && !noPath) {
@@ -35,15 +40,17 @@ public class Dijkstra {
             }
             int distMin = 999;
             noPath=true;
-            for (int i = 0; i < graph.getAllVertexes().size(); i++) {
-                if(minDistance.minDistance(graph.getAllVertexes().get(i))< distMin && !processVertex.isIncluded(graph.getAllVertexes().get(i))){
-                    pivot=graph.getAllVertexes().get(i);
+            for (int i = 0; i < graphAllVertexes.size(); i++) {
+                if(minDistance.minDistance(graphAllVertexes.get(i))< distMin && !processVertex.isIncluded(graphAllVertexes.get(i))){
+                    pivot=graphAllVertexes.get(i);
                     noPath=false;
-                    distMin=minDistance.minDistance(graph.getAllVertexes().get(i));
+                    distMin=minDistance.minDistance(graphAllVertexes.get(i));
                 }
             }
             processVertex.add(pivot);
         }
+        long timeend = System.currentTimeMillis();
+        System.out.println("Dijkstra time: " + (timeend - timestart) + " ms");
 
         System.out.println("Distance : "+minDistance.minDistance(endVertex));
         VertexPath path= new VertexPath();

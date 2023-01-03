@@ -20,6 +20,7 @@ public final class FileMenu extends JMenu {
         openMenuItem = new OpenMenuItem(frame);
         newMenuItem = new NewMenuItem(frame);
 
+
         quitMenuItem.setBackground(Color.white);
         openMenuItem.setBackground(Color.white);
         saveMenuItem.setBackground(Color.white);;
