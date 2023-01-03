@@ -49,6 +49,8 @@ public class Dijkstra {
         VertexPath path= new VertexPath();
         if(!noPath) {
             path = shortestPaths.getPath();
+        } else {
+            path = new VertexPath(true);
         }
         return path;
     }

@@ -12,10 +12,10 @@ public class QuitMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
 
     public QuitMenuItem(FrameUI frame) {
-        super("Quitter") ; // Text of menu item
+        super("Quit") ; // Text of menu item
         addActionListener(this);
         this.frame = frame;
-        setFont(new Font("Verdana",Font.PLAIN,12));
+        setFont(new Font("Verdana",Font.PLAIN,14));
     }
 
     public final void actionPerformed(ActionEvent evt){

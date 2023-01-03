@@ -11,7 +11,7 @@ public class EmptyButton extends JButton implements ActionListener {
     private final ButtonPanel bPanel;
 
     public EmptyButton(FrameUI frame,ButtonPanel bPanel) {
-        super("Effacer");
+        super("Wipe");
         this.frame=frame;
         this.bPanel=bPanel;
         setFocusable(false);

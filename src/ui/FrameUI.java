@@ -15,7 +15,7 @@ public class FrameUI extends JFrame {
         ImageIcon img = new ImageIcon("data/icon.png");
         setIconImage(img.getImage());
 
-        this.drawMaze = new DrawMaze(maze);
+        this.drawMaze = new DrawMaze(this,maze);
 
         //Affichage de la barre de menu
         menuBar = new DrawingMenuBar(this,maze);

@@ -1,6 +1,7 @@
 package ui;
 import Graph.*;
 import Maze.*;
+
 import java.awt.*;
 
 
@@ -14,8 +15,12 @@ public class DrawMaze {
     private final Maze maze;
     private String select = "W";
     private Boolean autoDijkstra = true;
+    private FrameUI frame;
 
-    public DrawMaze(Maze maze) {
+    private Boolean infoPanelVisibility =true;
+
+    public DrawMaze(FrameUI frame,Maze maze) {
+        this.frame=frame;
         this.maze = maze;
     }
 
@@ -41,7 +46,7 @@ public class DrawMaze {
 
     public void drawPath(Graphics g) {
         VertexPath path = maze.getPath();
-        if (autoDijkstra && path.size() == 0) {
+        if (autoDijkstra && path.getDistance()==-1) {
             path = maze.dijkstra();
         }
 
@@ -58,6 +63,7 @@ public class DrawMaze {
             }
         }
 
+        frame.repaint();
     }
 
     public String getSelect() {
@@ -94,5 +100,13 @@ public class DrawMaze {
 
     public void setAutoDijkstra(Boolean autoDijkstra) {
         this.autoDijkstra = autoDijkstra;
+    }
+
+    public Boolean getInfoPanelVisibility() {
+        return infoPanelVisibility;
+    }
+
+    public void setInfoPanelVisibility(Boolean infoPanelVisibility) {
+        this.infoPanelVisibility = infoPanelVisibility;
     }
 }

@@ -9,7 +9,7 @@ public class Maze implements Graph {
     private MazeBox[][] maze;
     private MazeBox arrival;
     private MazeBox departure;
-    private VertexPath solveMaze;
+    private VertexPath solveMaze=new VertexPath();
 
 
     public Maze(int height, int width) {
@@ -17,19 +17,35 @@ public class Maze implements Graph {
         this.initBlank();
     }
 
+    /**
+     *  @return return the width of the maze (number of column)
+     */
     public int getWidth() {
         return maze[0].length;
 
     }
 
+    /**
+     *  @return return the length of the maze (number of line)
+     */
     public int getHeight() {
         return maze.length;
     }
 
+    /**
+     * Get a MazeBox of the maze
+     * @param line coordinate of the Mazebox wanted
+     * @param column coordinate of the Mazebox wanted
+     * @return the MazeBox wanted
+     */
     public MazeBox getMazeBox(int line, int column) {
         return maze[line][column];
     }
 
+    /**
+     * set a mazebox to something else, it also delete the old arrival or departure
+     * @param box the mazebox to change
+     */
     private void setBox(MazeBox box) {
         int line = box.getLine();
         int column = box.getColumn();
@@ -49,6 +65,9 @@ public class Maze implements Graph {
 
     }
 
+    /**
+     * Initialize the maze with all the mazebox empty, with the exception of one departure and one arrival at one corner each
+     */
     public void initBlank() {
         isChanged();
         for (int i = 0; i < getHeight(); i++) {
@@ -62,6 +81,11 @@ public class Maze implements Graph {
 
     }
 
+    /**
+     * Initialize the maze from a text file
+     * @param fileName the path of the file from the source folder of the project
+     * @throws MazeReadingException all the exception that can generate a wrong type of file
+     */
     public final void initFromTextFile(String fileName) throws MazeReadingException {
         int fileHeight;
         int fileWidth;
@@ -188,6 +212,11 @@ public class Maze implements Graph {
         return allVertex;
     }
 
+    /**
+     *
+     * @param vertex
+     * @return all the mazebox who are not wall neigbhoor of a mazebox
+     */
     public ArrayList<Vertex> getSuccessors(Vertex vertex) {
         MazeBox box = (MazeBox) vertex;
         int line = box.getLine();
@@ -238,10 +267,20 @@ public class Maze implements Graph {
         return successors;
     }
 
+    /**
+     *
+     * @param src a mazeBox
+     * @param dst a mazebox
+     * @return the distance between 2 consecutive mazebox
+     */
     public int getDistance(Vertex src, Vertex dst) {
         return 1;
     }
 
+    /**
+     * Get the arrival mazebox
+     * @return the arrival mazebox
+     */
     public MazeBox getArrival() {
         arrival = null;
         for (int i = 0; i < maze.length; i++) {
@@ -252,6 +291,10 @@ public class Maze implements Graph {
         return arrival;
     }
 
+    /**
+     * Get the departure mazebox
+     * @return the departure mazebox
+     */
     public MazeBox getDeparture() {
         departure = null;
         for (int i = 0; i < maze.length; i++) {
@@ -262,6 +305,10 @@ public class Maze implements Graph {
         return departure;
     }
 
+    /**
+     * Calculate the shortest path to solve the maze, register it as an attribute, et also return it
+     * @return a VertexPath that correspond to the shortest path to solve the maze
+     */
     public VertexPath dijkstra() {
         getDeparture();
         getArrival();
@@ -271,6 +318,10 @@ public class Maze implements Graph {
         return solveMaze;
     }
 
+    /**
+     * Give the shortest path the maze know to solve itself
+     * @return a VertexPath who correspond of the shortest path to solve the maze
+     */
     public VertexPath getPath() {
         return solveMaze;
     }
@@ -291,6 +342,11 @@ public class Maze implements Graph {
         System.out.println("\u001B[0m");
     }
 
+    /** Allow to change the type of a specified mazebox
+     *
+     * @param box
+     * @param choice, a string who can be D for departure, A for arrival, W for wall or E for empty
+     */
     public void changeBox(MazeBox box, String choice) {
         isChanged();
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
@@ -313,6 +369,8 @@ public class Maze implements Graph {
         }
     }
 
+    /** when a method is used that edit the maze, it reset the solution path
+     */
     private void isChanged() {
         solveMaze = new VertexPath();
     }

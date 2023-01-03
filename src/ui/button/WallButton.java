@@ -10,7 +10,7 @@ public class WallButton extends JButton implements ActionListener {
     private final ButtonPanel bPanel;
 
     public WallButton(FrameUI frame,ButtonPanel bPanel) {
-        super("Mur");
+        super("Wall");
         this.frame=frame;
         this.bPanel=bPanel;
         setFocusable(false);

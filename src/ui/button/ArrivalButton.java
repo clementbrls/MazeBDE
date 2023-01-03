@@ -10,7 +10,7 @@ public class ArrivalButton extends JButton implements ActionListener {
     private final ButtonPanel bPanel;
 
     public ArrivalButton(FrameUI frame,ButtonPanel bPanel){
-        super("Arrivée");
+        super("Arrival");
         setFocusable(false);
         this.frame=frame;
         this.bPanel=bPanel;

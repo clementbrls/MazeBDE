@@ -10,7 +10,7 @@ public class DepartureButton extends JButton implements ActionListener {
     private final ButtonPanel bPanel;
 
     public DepartureButton(FrameUI frame,ButtonPanel bPanel) {
-        super("Depart");
+        super("Departure");
         setFocusable(false);
         this.frame=frame;
         this.bPanel=bPanel;

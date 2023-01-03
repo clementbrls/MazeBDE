@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 public class VertexPath {
     private ArrayList<Vertex> path;
+    private Boolean noPath=false;
 
     public VertexPath(){
         path = new ArrayList<Vertex>();
+    }
+    public VertexPath(boolean noPath){
+        path = new ArrayList<Vertex>();
+        this.noPath=noPath;
     }
 
     public void add(Vertex vertex){
@@ -23,7 +28,7 @@ public class VertexPath {
 
     public String toString() {
         String txt=this.get(0).getLabel();
-        for(int i=1;i<this.size();i++){
+        for(int i=1;i<path.size();i++){
             txt=this.get(i).getLabel()+" => "+txt;
         }
         return txt;
@@ -31,7 +36,7 @@ public class VertexPath {
 
     public int getDistance(){
         int distance;
-        if(path.size()==0){
+        if(noPath){
             distance=999;
         } else {
             distance=path.size()-1;

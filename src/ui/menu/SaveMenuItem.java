@@ -13,16 +13,16 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
     private Maze maze;
     public SaveMenuItem(FrameUI frame) {
-        super("Sauvegarder"); // Text of menu item
+        super("Save"); // Text of menu item
         addActionListener(this);
         this.maze=frame.getdMaze().getMaze();
         this.frame = frame;
-        setFont(new Font("Verdana",Font.PLAIN,12));
+        setFont(new Font("Verdana",Font.PLAIN,14));
     }
 
     public final void actionPerformed(ActionEvent evt){
         JFrame jFrame = new JFrame();
-        String getNameFile = JOptionPane.showInputDialog(jFrame, "Donnez un nom au labyrinthe");
+        String getNameFile = JOptionPane.showInputDialog(jFrame, "Give a name to the maze");
         String file = "data/"+getNameFile+".maze";
         maze.saveToTextFile(file);
 

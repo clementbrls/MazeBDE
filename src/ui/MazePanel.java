@@ -25,7 +25,6 @@ public class MazePanel extends JPanel implements MouseListener {
 
         frame.getdMaze().drawMaze(g);
         frame.getdMaze().drawPath(g);
-        frame.repaint();
     }
 
     @Override
@@ -46,8 +45,9 @@ public class MazePanel extends JPanel implements MouseListener {
             } else if (SwingUtilities.isRightMouseButton(e)){
                 frame.getdMaze().changeBox(box,true);//permet d'effacer une case avec un clic droit
             }
-            frame.repaint();
+
         }
+
     }
 
     @Override

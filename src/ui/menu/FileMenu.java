@@ -11,23 +11,23 @@ public final class FileMenu extends JMenu {
     private final NewMenuItem newMenuItem;
 
     public FileMenu(FrameUI frame){
-        super("Fichier");
+        super("File");
         setFont(new Font("Verdana",Font.PLAIN,18));
         setForeground(Color.white);
-        setPreferredSize(new Dimension(80,getHeight()));
+        //setPreferredSize(new Dimension(80,getHeight()));
         quitMenuItem = new QuitMenuItem(frame);
         saveMenuItem = new SaveMenuItem(frame);
         openMenuItem = new OpenMenuItem(frame);
         newMenuItem = new NewMenuItem(frame);
 
-        quitMenuItem.setBackground(DrawMaze.colorWall);
-        openMenuItem.setBackground(DrawMaze.colorWall);
-        saveMenuItem.setBackground(DrawMaze.colorWall);;
-        newMenuItem.setBackground(DrawMaze.colorWall);
-        quitMenuItem.setForeground(Color.white);
-        openMenuItem.setForeground(Color.white);
-        saveMenuItem.setForeground(Color.white);;
-        newMenuItem.setForeground(Color.white);
+        quitMenuItem.setBackground(Color.white);
+        openMenuItem.setBackground(Color.white);
+        saveMenuItem.setBackground(Color.white);;
+        newMenuItem.setBackground(Color.white);
+        quitMenuItem.setForeground(Color.black);
+        openMenuItem.setForeground(Color.black);
+        saveMenuItem.setForeground(Color.black);;
+        newMenuItem.setForeground(Color.black);
 
         add(newMenuItem);
         add(saveMenuItem);
