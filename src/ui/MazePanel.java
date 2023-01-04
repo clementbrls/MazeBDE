@@ -13,8 +13,8 @@ public class MazePanel extends JPanel implements MouseListener {
         this.frame = frame;
         DrawMaze drawMaze=frame.getdMaze();
         setBackground(Color.white);
-        width = (2* Geometry.size+ Geometry.border)*drawMaze.getMaze().getWidth()+ Geometry.x_start+ Geometry.offsetOdd;
-        height = (int) Math.round((Geometry.size/(Math.cos(Math.PI/6)) + Geometry.border + Math.tan(Math.PI/6)* Geometry.size)*drawMaze.getMaze().getHeight()+ Geometry.y_start);
+        width = (2* GeometryFactory.size+ GeometryFactory.border)*drawMaze.getMaze().getWidth()+ GeometryFactory.x_start+ GeometryFactory.offsetOdd;
+        height = (int) Math.round((GeometryFactory.size/(Math.cos(Math.PI/6)) + GeometryFactory.border + Math.tan(Math.PI/6)* GeometryFactory.size)*drawMaze.getMaze().getHeight()+ GeometryFactory.y_start);
         setPreferredSize(new Dimension(width, height));
         addMouseListener(this);
     }
@@ -37,7 +37,7 @@ public class MazePanel extends JPanel implements MouseListener {
         int x=e.getX();
         int y=e.getY();
 
-        MazeBox box = Geometry.coordToMazeBox(frame.getdMaze().getMaze(),x,y);
+        MazeBox box = GeometryFactory.coordToMazeBox(frame.getdMaze().getMaze(),x,y);
 
         if(box!=null){
             if(SwingUtilities.isLeftMouseButton(e)) {

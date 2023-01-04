@@ -14,10 +14,13 @@ public class InfoPanel extends JPanel {
 
     public InfoPanel(FrameUI frame) {
         this.frame = frame;
-        setLayout(new BorderLayout());
+       // setLayout(null);
         setFocusable(false);
         setPreferredSize(new Dimension(100, getHeight()));
 
+        //NoPath
+        add(noPath);
+        
         //Distance
         JLabel distance = new JLabel("Distance : ");
         distPanel = new JPanel();
@@ -36,8 +39,7 @@ public class InfoPanel extends JPanel {
         add(bPanel, BorderLayout.CENTER);
         SolveMazeButton.setSize(new Dimension(getWidth(), 200));
 
-        //NoPath
-        add(noPath, BorderLayout.SOUTH);
+
 
 
         SolveMazeButton.addActionListener(new ActionListener() {
@@ -46,6 +48,17 @@ public class InfoPanel extends JPanel {
                 frame.repaint();
             }
         });
+
+        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getdMaze().getAutoDijkstra());
+        add(autoDijkstra, BorderLayout.CENTER);
+        autoDijkstra.setFocusable(false);
+        autoDijkstra.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                frame.getdMaze().setAutoDijkstra(autoDijkstra.isSelected());
+                frame.repaint();
+            }
+        });
+
 
     }
 
@@ -64,8 +77,6 @@ public class InfoPanel extends JPanel {
 
         SolveMazeButton.setVisible(!frame.getdMaze().getAutoDijkstra());
 
-        setVisible(frame.getdMaze().getInfoPanelVisibility());
-        frame.pack();
     }
 
 

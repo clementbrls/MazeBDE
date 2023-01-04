@@ -4,7 +4,7 @@ import Maze.*;
 
 import java.awt.*;
 
-public class Geometry {
+public class GeometryFactory {
     public static final int size = 22; //width of a hexagon
     public static final int border = 3; //distance between two hexagons
     public static final int offsetOdd = size + border / 2; //offset for odd lines
@@ -12,7 +12,7 @@ public class Geometry {
     public static final int y_start = (int) Math.round(size / (Math.cos(Math.PI / 6)) + offsetOdd); //y position of the first hexagon
 
 
-    public Geometry() {
+    public GeometryFactory() {
 
     }
 

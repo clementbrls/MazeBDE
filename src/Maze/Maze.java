@@ -281,7 +281,7 @@ public class Maze implements Graph {
      * Get the arrival mazebox
      * @return the arrival mazebox
      */
-    public MazeBox getArrival() {
+    private MazeBox getArrival() {
         arrival = null;
         for (int i = 0; i < maze.length; i++) {
             for (int u = 0; u < maze[0].length; u++) {
@@ -295,7 +295,7 @@ public class Maze implements Graph {
      * Get the departure mazebox
      * @return the departure mazebox
      */
-    public MazeBox getDeparture() {
+    private MazeBox getDeparture() {
         departure = null;
         for (int i = 0; i < maze.length; i++) {
             for (int u = 0; u < maze[0].length; u++) {
@@ -312,9 +312,7 @@ public class Maze implements Graph {
     public VertexPath dijkstra() {
         getDeparture();
         getArrival();
-
-        Graph graph = this;
-        this.solveMaze = Dijkstra.dijkstra(graph, departure, arrival);
+        this.solveMaze = Dijkstra.dijkstra(this, departure, arrival);
         return solveMaze;
     }
 
@@ -335,7 +333,7 @@ public class Maze implements Graph {
                 else if (maze[i][u].isArrival()) color = "\u001B[36m";
                 else if (maze[i][u].isWall()) color = "\u001B[30m";
                 else color = "\u001B[0m";
-                System.out.print(color + "" + maze[i][u].getLabel() + " ");
+                System.out.print(color + "" + maze[i][u].toString() + " ");
             }
             System.out.println();
         }

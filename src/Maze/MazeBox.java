@@ -5,13 +5,13 @@ import Graph.Vertex;
 public abstract class MazeBox implements Vertex {
     private final int line;
     private final int column;
-    private final String label;
+    private final String name;
 
 
     public MazeBox(int x, int y) {
         line = x;
         column = y;
-        label=""+x+y;
+        name =""+x+y;
     }
 
     public int getLine() {
@@ -22,8 +22,8 @@ public abstract class MazeBox implements Vertex {
         return column;
     }
 
-    public String getLabel(){
-        return label;
+    public String toString(){
+        return name;
     }
 
     public boolean isWall(){

@@ -6,18 +6,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ButtonPanel extends JPanel {
+    public static final Insets buttonMargin = new Insets(10,10,10,10);
     private final ArrivalButton arrivalButton;
     private final DepartureButton departureButton;
     private final EmptyButton emptyButton;
     private final WallButton wallButton;
     public ButtonPanel(FrameUI frame){
-        setLayout(new GridLayout(1,4));
+        //setLayout(new BorderLayout());
 
         add(departureButton = new DepartureButton(frame,this));
         add(arrivalButton = new ArrivalButton(frame,this));
         add(emptyButton = new EmptyButton(frame,this));
         add(wallButton = new WallButton(frame,this));
-        setPreferredSize(new Dimension(getWidth(),60));
+        //setPreferredSize(new Dimension(getWidth(),60));
     }
 
 

@@ -27,9 +27,9 @@ public class VertexPath {
     }
 
     public String toString() {
-        String txt=this.get(0).getLabel();
+        String txt=this.get(0).toString();
         for(int i=1;i<path.size();i++){
-            txt=this.get(i).getLabel()+" => "+txt;
+            txt=this.get(i).toString()+" => "+txt;
         }
         return txt;
     }

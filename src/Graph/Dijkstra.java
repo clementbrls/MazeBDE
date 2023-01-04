@@ -9,7 +9,6 @@ public class Dijkstra {
     }
 
     public static VertexPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
-        long timestart = System.currentTimeMillis();
         ProcessedVertexes processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
@@ -19,7 +18,7 @@ public class Dijkstra {
         processVertex.add(startVertex);
         pivot = startVertex;
         minDistance.set(startVertex, 0);
-        Vertex succVertex=pivot;
+        Vertex succVertex;
         List<Vertex> graphAllVertexes = graph.getAllVertexes();
 
         for (int i = 0; i < graphAllVertexes.size(); i++) {
@@ -49,11 +48,9 @@ public class Dijkstra {
             }
             processVertex.add(pivot);
         }
-        long timeend = System.currentTimeMillis();
-        System.out.println("Dijkstra time: " + (timeend - timestart) + " ms");
 
         System.out.println("Distance : "+minDistance.minDistance(endVertex));
-        VertexPath path= new VertexPath();
+        VertexPath path;
         if(!noPath) {
             path = shortestPaths.getPath();
         } else {

@@ -15,7 +15,7 @@ public class ArrivalButton extends JButton implements ActionListener {
         this.frame=frame;
         this.bPanel=bPanel;
         addActionListener(this);
-        setMargin(new Insets(0,0,0,0));
+        setMargin(ButtonPanel.buttonMargin);
 
     }
 

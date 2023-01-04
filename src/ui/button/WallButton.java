@@ -15,7 +15,7 @@ public class WallButton extends JButton implements ActionListener {
         this.bPanel=bPanel;
         setFocusable(false);
         addActionListener(this);
-        setMargin(new Insets(0,0,0,0));
+        setMargin(ButtonPanel.buttonMargin);
     }
 
     public final void actionPerformed(ActionEvent evt){

@@ -12,10 +12,10 @@ public class ShortestPathsImpl implements ShortestPaths{
     private ArrayList<Vertex> path;
 
     public String toString() {
-        String txt= String.valueOf(endVertex.getLabel());
+        String txt= String.valueOf(endVertex.toString());
         Vertex oldV = endVertex;
         while(oldV != startVertex) {
-            txt = previous(oldV).getLabel() + " => " + txt;
+            txt = previous(oldV).toString() + " => " + txt;
             oldV=previous(oldV);
 
         }

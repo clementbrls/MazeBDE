@@ -17,7 +17,6 @@ public class DrawMaze {
     private Boolean autoDijkstra = true;
     private FrameUI frame;
 
-    private Boolean infoPanelVisibility =true;
 
     public DrawMaze(FrameUI frame,Maze maze) {
         this.frame=frame;
@@ -36,7 +35,7 @@ public class DrawMaze {
                 else if (maze.getMazeBox(i, u).isDeparture()) color = colorDeparture;
                 else if (maze.getMazeBox(i, u).isArrival()) color = colorArrival;
                 else color = colorEmpty;
-                Polygon p = Geometry.mazeBoxToHexa(maze.getMazeBox(i, u));
+                Polygon p = GeometryFactory.mazeBoxToHexa(maze.getMazeBox(i, u));
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
                 g.setColor(color);
@@ -63,10 +62,9 @@ public class DrawMaze {
                 MazeBox box = (MazeBox) path.get(i);
                 MazeBox oldBox = (MazeBox) path.get(i + 1);
                 Graphics2D g2 = (Graphics2D) g;
-                //g.setColor(new Color(7, 160, 195));
                 g.setColor(new Color(0, 168, 224));
                 g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
-                g.drawLine(Geometry.mazeBoxToCoord(box).x, Geometry.mazeBoxToCoord(box).y, Geometry.mazeBoxToCoord(oldBox).x, Geometry.mazeBoxToCoord(oldBox).y);
+                g.drawLine(GeometryFactory.mazeBoxToCoord(box).x, GeometryFactory.mazeBoxToCoord(box).y, GeometryFactory.mazeBoxToCoord(oldBox).x, GeometryFactory.mazeBoxToCoord(oldBox).y);
             }
         }
 
@@ -135,13 +133,5 @@ public class DrawMaze {
      */
     public void setAutoDijkstra(Boolean autoDijkstra) {
         this.autoDijkstra = autoDijkstra;
-    }
-
-    public Boolean getInfoPanelVisibility() {
-        return infoPanelVisibility;
-    }
-
-    public void setInfoPanelVisibility(Boolean infoPanelVisibility) {
-        this.infoPanelVisibility = infoPanelVisibility;
     }
 }
