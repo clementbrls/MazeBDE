@@ -20,7 +20,7 @@ public class InfoPanel extends JPanel {
 
         //NoPath
         add(noPath);
-        
+
         //Distance
         JLabel distance = new JLabel("Distance : ");
         distPanel = new JPanel();
@@ -63,7 +63,7 @@ public class InfoPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-
+        super.paintComponent(g);
         if (frame.getdMaze().getDistance() == 999 || (frame.getdMaze().getDistance() == -1 && !frame.getdMaze().getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {

@@ -112,13 +112,13 @@ public class Maze implements Graph {
                 for (int u = 0; u < getWidth(); u++) {
 
                     maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
-                        case 'E':
+                        case EmptyBox.Label:
                             yield new EmptyBox(i, u);
-                        case 'W':
+                        case WallBox.Label:
                             yield new WallBox(i, u);
-                        case 'A':
+                        case ArrivalBox.Label:
                             yield new ArrivalBox(i, u);
-                        case 'D':
+                        case DepartureBox.Label:
                             yield new DepartureBox(i, u);
                         default:
                             initBlank();
@@ -184,13 +184,13 @@ public class Maze implements Graph {
                 for (int u = 0; u < getWidth(); u++) {
 
                     if (getMazeBox(i, u).isWall())
-                        pw.print('W');
+                        pw.print(WallBox.Label);
                     else if (maze[i][u].isArrival())
-                        pw.print('A');
+                        pw.print(ArrivalBox.Label);
                     else if (maze[i][u].isDeparture())
-                        pw.print('D');
+                        pw.print(DepartureBox.Label);
                     else
-                        pw.print("E");
+                        pw.print(EmptyBox.Label);
                 }
                 pw.println();
             }
@@ -345,22 +345,22 @@ public class Maze implements Graph {
      * @param box
      * @param choice, a string who can be D for departure, A for arrival, W for wall or E for empty
      */
-    public void changeBox(MazeBox box, String choice) {
+    public void changeBox(MazeBox box, char choice) {
         isChanged();
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
 
             switch (choice) {
-                case "A":
+                case ArrivalBox.Label:
                     setBox(new ArrivalBox(box.getLine(), box.getColumn()));
                     break;
-                case "D":
+                case DepartureBox.Label:
                     setBox(new DepartureBox(box.getLine(), box.getColumn()));
                     break;
-                case "E":
+                case EmptyBox.Label:
                     setBox(new EmptyBox(box.getLine(), box.getColumn()));
                     break;
-                case "W":
+                case WallBox.Label:
                     setBox(new WallBox(box.getLine(), box.getColumn()));
                     break;
             }

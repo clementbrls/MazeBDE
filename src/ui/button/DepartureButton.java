@@ -1,4 +1,5 @@
 package ui.button;
+import Maze.DepartureBox;
 import ui.*;
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +20,13 @@ public class DepartureButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect("D");
+        frame.getdMaze().setSelect(DepartureBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == "D"){
+        if(frame.getdMaze().getSelect() == DepartureBox.Label){
             setBackground(DrawMaze.colorDeparture);
             setForeground(Color.white);
         } else {

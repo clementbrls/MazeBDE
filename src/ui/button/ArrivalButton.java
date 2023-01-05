@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Maze.*;
 
 public class ArrivalButton extends JButton implements ActionListener {
     private final FrameUI frame;
@@ -20,13 +21,13 @@ public class ArrivalButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect("A");
+        frame.getdMaze().setSelect(ArrivalBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == "A"){
+        if(frame.getdMaze().getSelect() == ArrivalBox.Label){
             setBackground(DrawMaze.colorArrival);
             setForeground(Color.white);
         } else {

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Maze.*;
 
 public class WallButton extends JButton implements ActionListener {
     private final FrameUI frame;
@@ -19,13 +20,13 @@ public class WallButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect("W");
+        frame.getdMaze().setSelect(WallBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == "W"){
+        if(frame.getdMaze().getSelect() == WallBox.Label){
             setBackground(DrawMaze.colorWall);
             setForeground(Color.white);
         } else {

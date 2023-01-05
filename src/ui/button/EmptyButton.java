@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Maze.*;
 
 public class EmptyButton extends JButton implements ActionListener {
 
@@ -20,13 +21,13 @@ public class EmptyButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect("E");
+        frame.getdMaze().setSelect(EmptyBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == "E"){
+        if(frame.getdMaze().getSelect() == EmptyBox.Label){
             setBackground(DrawMaze.colorWall);
             setForeground(Color.white);
         } else {

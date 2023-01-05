@@ -13,7 +13,7 @@ public class DrawMaze {
     public static final Color colorEmpty = new Color(236, 235, 243);
     public static final Color colorDefault = new Color(241, 243, 244);
     private final Maze maze;
-    private String select = "W";
+    private char select = WallBox.Label;
     private Boolean autoDijkstra = true;
     private FrameUI frame;
 
@@ -39,11 +39,16 @@ public class DrawMaze {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
                 g.setColor(color);
-                g.drawPolygon(p);
+               // g.drawPolygon(p);
                 g.fillPolygon(p);
 
             }
         }
+    }
+
+    public void drawHover(Graphics g,int x, int y){
+        MazeBox boxHover = GeometryFactory.coordToMazeBox(maze,x,y);
+        g.fillPolygon(GeometryFactory.mazeBoxToHexa(boxHover));
     }
 
     /**
@@ -75,7 +80,7 @@ public class DrawMaze {
      * get the type of element to draw
      * @return
      */
-    public String getSelect() {
+    public char getSelect() {
         return select;
     }
 
@@ -83,7 +88,7 @@ public class DrawMaze {
      * set the type of element to draw
      * @param selection
      */
-    public void setSelect(String selection) {
+    public void setSelect(char selection) {
         select = selection;
     }
 
@@ -97,7 +102,7 @@ public class DrawMaze {
 
     public void changeBox(MazeBox box, Boolean setEmpty) {
         if (setEmpty) {
-            maze.changeBox(box, "E");
+            maze.changeBox(box, EmptyBox.Label);
         } else {
             maze.changeBox(box, select);
         }
