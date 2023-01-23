@@ -13,6 +13,7 @@ public class DrawMaze {
     public static final Color colorEmpty = new Color(236, 235, 243);
     public static final Color colorDefault = new Color(241, 243, 244);
     private final Maze maze;
+    private MazeBox boxHover;
     private char select = WallBox.Label;
     private Boolean autoDijkstra = true;
     private FrameUI frame;
@@ -46,9 +47,8 @@ public class DrawMaze {
         }
     }
 
-    public void drawHover(Graphics g,int x, int y){
-        MazeBox boxHover = GeometryFactory.coordToMazeBox(maze,x,y);
-        g.fillPolygon(GeometryFactory.mazeBoxToHexa(boxHover));
+    public void drawHover(Graphics g){
+        g.setColor(Color.BLACK);
     }
 
     /**
@@ -138,5 +138,10 @@ public class DrawMaze {
      */
     public void setAutoDijkstra(Boolean autoDijkstra) {
         this.autoDijkstra = autoDijkstra;
+    }
+
+
+    public void setBoxHover(MazeBox boxHover) {
+        this.boxHover = boxHover;
     }
 }

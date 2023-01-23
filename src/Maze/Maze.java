@@ -273,6 +273,8 @@ public class Maze implements Graph {
      * @param dst a mazebox
      * @return the distance between 2 consecutive mazebox
      */
+
+
     public int getDistance(Vertex src, Vertex dst) {
         return 1;
     }
@@ -372,5 +374,4 @@ public class Maze implements Graph {
     private void isChanged() {
         solveMaze = new VertexPath();
     }
-
 }

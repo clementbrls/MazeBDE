@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-
-public class MazePanel extends JPanel implements MouseListener {
+public class MazePanel extends JPanel implements MouseListener,MouseMotionListener {
     private final FrameUI frame;
     private Graphics g;
     private final int width;
@@ -28,6 +28,7 @@ public class MazePanel extends JPanel implements MouseListener {
 
         frame.getdMaze().drawMaze(g);
         frame.getdMaze().drawPath(g);
+        frame.getdMaze().drawHover(g);
     }
 
     @Override
@@ -67,14 +68,21 @@ public class MazePanel extends JPanel implements MouseListener {
 
     }
 
-
+    @Override
     public void mouseDragged(MouseEvent e) {
         int x=e.getX();
         int y=e.getY();
-        frame.getdMaze().drawHover(g,x,y);
+        frame.getdMaze().setBoxHover(GeometryFactory.coordToMazeBox(frame.getdMaze().getMaze(), x,y));
+        repaint();
+        System.out.println("dragged");
+    }
 
-
-
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        int x=e.getX();
+        int y=e.getY();
+        //frame.getdMaze().drawHover(g,x,y);
+        System.out.println("moved");
     }
 
 
