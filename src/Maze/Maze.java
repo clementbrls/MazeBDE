@@ -348,7 +348,9 @@ public class Maze implements Graph {
      * @param choice, a string who can be D for departure, A for arrival, W for wall or E for empty
      */
     public void changeBox(MazeBox box, char choice) {
-        isChanged();
+        if(!(choice==WallBox.Label && !solveMaze.isIncluded(box))){
+            isChanged();
+        }
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
 

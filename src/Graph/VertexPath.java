@@ -43,4 +43,9 @@ public class VertexPath {
         }
         return distance;
     }
+
+    public boolean isIncluded(Vertex vertex){
+        return path.contains(vertex);
+    }
+
 }
