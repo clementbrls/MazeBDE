@@ -15,7 +15,7 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
     public SaveMenuItem(FrameUI frame) {
         super("Save"); // Text of menu item
         addActionListener(this);
-        this.maze=frame.getdMaze().getMaze();
+        this.maze=frame.getModel().getMaze();
         this.frame = frame;
         setFont(new Font("Verdana",Font.PLAIN,14));
     }

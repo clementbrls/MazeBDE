@@ -5,55 +5,49 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.EventListener;
 
 public class MazePanel extends JPanel implements MouseListener,MouseMotionListener {
     private final FrameUI frame;
-    private Graphics g;
     private final int width;
     private final int height;
     public MazePanel(FrameUI frame) {
         this.frame = frame;
-        DrawMaze drawMaze=frame.getdMaze();
+        Model model=frame.getModel();
         setBackground(Color.white);
-        width = (2* GeometryFactory.sizeDefault + GeometryFactory.border)*drawMaze.getMaze().getWidth()+ GeometryFactory.x_start+ GeometryFactory.offsetOdd;
-        height = (int) Math.round((GeometryFactory.sizeDefault /(Math.cos(Math.PI/6)) + GeometryFactory.border + Math.tan(Math.PI/6)* GeometryFactory.sizeDefault)*drawMaze.getMaze().getHeight()+ GeometryFactory.y_start);
+        width = (2* GeometryFactory.sizeDefault + GeometryFactory.border)*model.getMaze().getWidth()+ GeometryFactory.x_start+ GeometryFactory.offsetOdd;
+        height = (int) Math.round((GeometryFactory.sizeDefault /(Math.cos(Math.PI/6)) + GeometryFactory.border + Math.tan(Math.PI/6)* GeometryFactory.sizeDefault)*model.getMaze().getHeight()+ GeometryFactory.y_start);
         setPreferredSize(new Dimension(width, height));
         addMouseListener(this);
         addMouseMotionListener(this);
     }
 
     public void paintComponent(Graphics g) {
-        this.g=g;
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
 
-        frame.getdMaze().drawMaze(g);
-        frame.getdMaze().drawPath(g);
-        frame.getdMaze().drawHover(g);
+        frame.getDrawMaze().drawMaze(g);
+        frame.getDrawMaze().drawPath(g);
     }
 
     @Override
     public void mouseClicked(MouseEvent e){
-        System.out.println("Mouse Clicked");
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         int x=e.getX();
         int y=e.getY();
-
-        MazeBox box = GeometryFactory.coordToMazeBox(frame.getdMaze().getMaze(),x,y);
+        MazeBox box = GeometryFactory.coordToMazeBox(frame.getModel().getMaze(),x,y);
 
         if(box!=null){
             if(SwingUtilities.isLeftMouseButton(e)) {
-                frame.getdMaze().changeBox(box);
+                frame.getModel().changeBox(box);
             } else if (SwingUtilities.isRightMouseButton(e)){
-                frame.getdMaze().changeBox(box,true);//permet d'effacer une case avec un clic droit
+                frame.getModel().changeBox(box,true);//permet d'effacer une case avec un clic droit
             }
 
         }
-
+        repaint();
     }
 
     @Override
@@ -72,24 +66,33 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
 
     @Override
     public void mouseDragged(MouseEvent e) {
+
         int x=e.getX();
         int y=e.getY();
 
-        MazeBox box = GeometryFactory.coordToMazeBox(frame.getdMaze().getMaze(),x,y);
+        MazeBox box = GeometryFactory.coordToMazeBox(frame.getModel().getMaze(),x,y);
 
         if(box!=null){
             if(SwingUtilities.isLeftMouseButton(e)) {
-                frame.getdMaze().changeBox(box);
+                frame.getModel().changeBox(box);
             } else if (SwingUtilities.isRightMouseButton(e)){
-                frame.getdMaze().changeBox(box,true);//permet d'effacer une case avec un clic droit
+                frame.getModel().changeBox(box,true);//permet d'effacer une case avec un clic droit
             }
 
+        }
+
+        if(frame.getModel().isMazeChanged()) {
+            repaint();
+            System.out.println("repaint");
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("moved");
+        frame.getModel().setBoxHover(GeometryFactory.coordToMazeBox(frame.getModel().getMaze(),e.getX(),e.getY()));
+        frame.getDrawMaze().drawHover(getGraphics());
+
+        frame.getDrawMaze().drawPath(getGraphics());
     }
 
 

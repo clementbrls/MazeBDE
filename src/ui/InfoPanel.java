@@ -44,17 +44,17 @@ public class InfoPanel extends JPanel {
 
         SolveMazeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getdMaze().getMaze().dijkstra();
+                frame.getModel().getMaze().dijkstra();
                 frame.repaint();
             }
         });
 
-        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getdMaze().getAutoDijkstra());
+        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getModel().getAutoDijkstra());
         add(autoDijkstra, BorderLayout.CENTER);
         autoDijkstra.setFocusable(false);
         autoDijkstra.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getdMaze().setAutoDijkstra(autoDijkstra.isSelected());
+                frame.getModel().setAutoDijkstra(autoDijkstra.isSelected());
                 frame.repaint();
             }
         });
@@ -64,18 +64,18 @@ public class InfoPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (frame.getdMaze().getDistance() == 999 || (frame.getdMaze().getDistance() == -1 && !frame.getdMaze().getAutoDijkstra())) {
+        if (frame.getModel().getDistance() == 999 || (frame.getModel().getDistance() == -1 && !frame.getModel().getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {
-            if (frame.getdMaze().getDistance() != -1)
-                valueDistance.setText("" + frame.getdMaze().getDistance());
+            if (frame.getModel().getDistance() != -1)
+                valueDistance.setText("" + frame.getModel().getDistance());
             distPanel.setVisible(true);
         }
 
-        noPath.setVisible(frame.getdMaze().getDistance() == 999);
+        noPath.setVisible(frame.getModel().getDistance() == 999);
 
 
-        SolveMazeButton.setVisible(!frame.getdMaze().getAutoDijkstra());
+        SolveMazeButton.setVisible(!frame.getModel().getAutoDijkstra());
 
     }
 

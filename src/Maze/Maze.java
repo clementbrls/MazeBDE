@@ -69,7 +69,7 @@ public class Maze implements Graph {
      * Initialize the maze with all the mazebox empty, with the exception of one departure and one arrival at one corner each
      */
     public void initBlank() {
-        isChanged();
+        pathChanged();
         for (int i = 0; i < getHeight(); i++) {
             for (int u = 0; u < getWidth(); u++) {
                 setBox(new EmptyBox(i, u));
@@ -89,7 +89,7 @@ public class Maze implements Graph {
     public final void initFromTextFile(String fileName) throws MazeReadingException {
         int fileHeight;
         int fileWidth;
-        isChanged();
+        pathChanged();
         try {
             //Changement de la taille du labyrinthe en fonction du fichier
             FileReader fr = new FileReader(fileName);
@@ -347,33 +347,45 @@ public class Maze implements Graph {
      * @param box
      * @param choice, a string who can be D for departure, A for arrival, W for wall or E for empty
      */
-    public void changeBox(MazeBox box, char choice) {
+    public boolean changeBox(MazeBox box, char choice) {
+        boolean changed = false;
         if(!(choice==WallBox.Label && !solveMaze.isIncluded(box))){
-            isChanged();
+            pathChanged();
         }
+
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
 
             switch (choice) {
                 case ArrivalBox.Label:
-                    setBox(new ArrivalBox(box.getLine(), box.getColumn()));
+                    if(!box.isArrival()) {
+                        setBox(new ArrivalBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case DepartureBox.Label:
-                    setBox(new DepartureBox(box.getLine(), box.getColumn()));
+                    if(!box.isDeparture()){
+                        setBox(new DepartureBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case EmptyBox.Label:
                     setBox(new EmptyBox(box.getLine(), box.getColumn()));
                     break;
                 case WallBox.Label:
-                    setBox(new WallBox(box.getLine(), box.getColumn()));
+                    if(!box.isWall()){
+                        setBox(new WallBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
             }
         }
+        return changed;
     }
 
     /** when a method is used that edit the maze, it reset the solution path
      */
-    private void isChanged() {
+    private void pathChanged() {
         solveMaze = new VertexPath();
     }
 }

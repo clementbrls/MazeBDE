@@ -10,6 +10,7 @@ public class FrameUI extends JFrame {
     private final WindowPanel windowPanel;
 
 
+    private final Model model;
     private final DrawMaze drawMaze;
 
     public FrameUI(Maze maze) {
@@ -17,7 +18,8 @@ public class FrameUI extends JFrame {
         ImageIcon img = new ImageIcon("data/icon.png");
         setIconImage(img.getImage());
 
-        this.drawMaze = new DrawMaze(this, maze);
+        this.model = new Model(maze);
+        this.drawMaze = new DrawMaze(this);
 
         //Affichage de la barre de menu
         menuBar = new DrawingMenuBar(this, maze);
@@ -32,9 +34,12 @@ public class FrameUI extends JFrame {
         setVisible(true);  // The great show
     }
 
-    public DrawMaze getdMaze() {
-        return drawMaze;
+    public Model getModel() {
+        return model;
     }
 
 
+    public DrawMaze getDrawMaze() {
+        return drawMaze;
+    }
 }
