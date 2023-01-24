@@ -370,7 +370,10 @@ public class Maze implements Graph {
                     }
                     break;
                 case EmptyBox.Label:
-                    setBox(new EmptyBox(box.getLine(), box.getColumn()));
+                    if(!box.isEmpty()){
+                        setBox(new EmptyBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case WallBox.Label:
                     if(!box.isWall()){

@@ -6,7 +6,6 @@ public class Model {
     private final Maze maze;
     private boolean mazeChanged=true;
     private MazeBox boxHover=null;
-    private MazeBox oldBoxHover=null;
     private char select = WallBox.Label;
     private Boolean autoDijkstra = true;
 
@@ -79,13 +78,13 @@ public class Model {
     }
 
 
-    public void setBoxHover(MazeBox boxHover) {
+    public boolean setBoxHover(MazeBox boxHover) {
+        boolean changed = false;
         if(boxHover!=this.boxHover){
-            if(this.boxHover!=null){
-                oldBoxHover=this.boxHover;
-            }
+            changed=true;
             this.boxHover = boxHover;
         }
+        return changed;
     }
 
 
@@ -95,10 +94,5 @@ public class Model {
 
     public boolean isMazeChanged() {
         return mazeChanged;
-    }
-
-
-    public MazeBox getOldBoxHover() {
-        return oldBoxHover;
     }
 }

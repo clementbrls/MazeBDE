@@ -8,6 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 public class MazePanel extends JPanel implements MouseListener,MouseMotionListener {
     private final FrameUI frame;
+    boolean mouseMoved = false;
     private final int width;
     private final int height;
     public MazePanel(FrameUI frame) {
@@ -26,7 +27,12 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
         g.clearRect(0, 0, width, height);
 
         frame.getDrawMaze().drawMaze(g);
+        if(mouseMoved){
+            frame.getDrawMaze().drawHover(g);
+        }
         frame.getDrawMaze().drawPath(g);
+
+        //System.out.println("width: "+width+" height: "+height);
     }
 
     @Override
@@ -47,12 +53,16 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
             }
 
         }
+        mouseMoved=false;
         repaint();
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        mouseMoved=false;
         frame.repaint();
+
     }
 
     @Override
@@ -83,16 +93,18 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
 
         if(frame.getModel().isMazeChanged()) {
             repaint();
-            System.out.println("repaint");
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        frame.getModel().setBoxHover(GeometryFactory.coordToMazeBox(frame.getModel().getMaze(),e.getX(),e.getY()));
-        frame.getDrawMaze().drawHover(getGraphics());
 
-        frame.getDrawMaze().drawPath(getGraphics());
+        if(frame.getModel().setBoxHover(GeometryFactory.coordToMazeBox(frame.getModel().getMaze(),e.getX(),e.getY()))) {
+            repaint();
+        }
+
+        mouseMoved=true;
+
     }
 
 

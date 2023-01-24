@@ -27,7 +27,7 @@ public class DrawMaze {
      * @param g Graphics
      */
     public void drawMaze(Graphics g) {
-        System.out.println("Drawmaze");
+        //System.out.println("Drawmaze \n \n");
         Maze maze = frame.getModel().getMaze();
         Color color;
         for (int i = 0; i < maze.getHeight(); i++) {
@@ -44,33 +44,12 @@ public class DrawMaze {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
                 g.setColor(color);
-                //g.drawPolygon(p);
                 g.fillPolygon(p);
 
             }
         }
     }
 
-    public void drawHover(Graphics g) {
-        MazeBox boxHover = frame.getModel().getBoxHover();
-        MazeBox oldBoxHover = frame.getModel().getOldBoxHover();
-        if (boxHover != null) {
-            g.setColor(Color.BLACK);
-            Polygon p = GeometryFactory.mazeBoxToHexa(boxHover);
-            g.fillPolygon(p);
-            Color color;
-            if (oldBoxHover != null) {
-                if (oldBoxHover.isWall()) color = colorWall;
-                else if (oldBoxHover.isDeparture()) color = colorDeparture;
-                else if (oldBoxHover.isArrival()) color = colorArrival;
-                else color = colorEmpty;
-                g.setColor(color);
-                p = GeometryFactory.mazeBoxToHexa(oldBoxHover);
-                g.fillPolygon(p);
-            }
-
-        }
-    }
 
     /**
      * draw the path
@@ -94,6 +73,19 @@ public class DrawMaze {
                 g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
                 g.drawLine(GeometryFactory.mazeBoxToCoord(box).x, GeometryFactory.mazeBoxToCoord(box).y, GeometryFactory.mazeBoxToCoord(oldBox).x, GeometryFactory.mazeBoxToCoord(oldBox).y);
             }
+        }
+    }
+
+    public void drawHover(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
+
+        MazeBox boxHover = frame.getModel().getBoxHover();
+        if (boxHover != null) {
+            g2.setColor(colorEmpty.darker());
+            Polygon p = GeometryFactory.mazeBoxToHexa(boxHover);
+            g2.fillPolygon(p);
+
         }
     }
 
