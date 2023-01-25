@@ -35,11 +35,13 @@ public class DrawMaze {
                 MazeBox box = maze.getMazeBox(i, u);
 
                 //Couleur de l'hexagone
+                /*
                 if (box.isWall()) color = colorWall;
                 else if (box.isDeparture()) color = colorDeparture;
                 else if (box.isArrival()) color = colorArrival;
                 else color = colorEmpty;
-
+                */
+                color = box.getColor();
                 Polygon p = GeometryFactory.mazeBoxToHexa(box);
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
@@ -82,7 +84,7 @@ public class DrawMaze {
 
         MazeBox boxHover = frame.getModel().getBoxHover();
         if (boxHover != null) {
-            g2.setColor(colorEmpty.darker());
+            g2.setColor(boxHover.getColor().darker());
             Polygon p = GeometryFactory.mazeBoxToHexa(boxHover);
             g2.fillPolygon(p);
 

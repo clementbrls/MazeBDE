@@ -2,6 +2,8 @@ package Maze;
 
 import Graph.Vertex;
 
+import java.awt.*;
+
 public abstract class MazeBox implements Vertex {
     private final int line;
     private final int column;
@@ -38,5 +40,7 @@ public abstract class MazeBox implements Vertex {
     public boolean isArrival(){
         return false;
     }
+
+    public abstract Color getColor();
 
 }
