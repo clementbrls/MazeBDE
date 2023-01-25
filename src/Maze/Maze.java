@@ -10,6 +10,8 @@ public class Maze implements Graph {
     private MazeBox arrival;
     private MazeBox departure;
     private VertexPath solvePath =new VertexPath();
+    private MazeBox oldArrival;
+    private MazeBox oldDeparture;
 
 
     public Maze(int height, int width) {
@@ -49,16 +51,27 @@ public class Maze implements Graph {
     private void setBox(MazeBox box) {
         int line = box.getLine();
         int column = box.getColumn();
+
         if (box.isArrival()) {
             int aLine = getArrival().getLine();
             int aColumn = getArrival().getColumn();
-            maze[aLine][aColumn] = new EmptyBox(aLine, aColumn);
+            if(oldArrival!=null) {
+                maze[aLine][aColumn] = oldArrival;
+            } else {
+                maze[aLine][aColumn] = new EmptyBox(aLine, aColumn);
+            }
+            oldArrival = getMazeBox(line, column);
         }
 
         if (box.isDeparture()) {
             int dLine = getDeparture().getLine();
             int dColumn = getDeparture().getColumn();
-            maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
+            if(oldDeparture!=null) {
+                maze[dLine][dColumn] = oldDeparture;
+            } else {
+                maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
+            }
+            oldDeparture = getMazeBox(line, column);
         }
 
         maze[line][column] = box;
