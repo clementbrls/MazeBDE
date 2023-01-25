@@ -42,4 +42,8 @@ public class FrameUI extends JFrame {
     public DrawMaze getDrawMaze() {
         return drawMaze;
     }
+
+    public void repaintInfo(){
+        windowPanel.repaintInfo();
+    }
 }

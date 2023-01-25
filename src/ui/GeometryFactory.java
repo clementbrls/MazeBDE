@@ -49,7 +49,7 @@ public class GeometryFactory {
         y = (int) Math.round(y_start + line * ((2 * sizeDefault + border) * Math.cos(Math.PI / 6)));
 
         if (line % 2 == 0) x = x_start + 2 * sizeDefault * column + (column * border);
-        else x = (int) Math.round(x_start + 2 * sizeDefault * column + (column * border) + offsetOdd);
+        else x = Math.round(x_start + 2 * sizeDefault * column + (column * border) + offsetOdd);
 
         return new Point(x, y);
     }
@@ -80,7 +80,7 @@ public class GeometryFactory {
                 MazeBox boxTest = maze.getMazeBox(i,u);
                 if(mazeBoxToHexa(boxTest).contains(x,y)){
                     box = boxTest;
-                };
+                }
             }
         }
         return box;

@@ -3,7 +3,7 @@ package Graph;
 import java.util.ArrayList;
 
 public class VertexPath {
-    private ArrayList<Vertex> path;
+    private final ArrayList<Vertex> path;
     private Boolean noPath=false;
 
     public VertexPath(){

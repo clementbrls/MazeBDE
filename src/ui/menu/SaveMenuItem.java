@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class SaveMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
-    private Maze maze;
+    private final Maze maze;
     public SaveMenuItem(FrameUI frame) {
         super("Save"); // Text of menu item
         addActionListener(this);

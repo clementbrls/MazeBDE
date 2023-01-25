@@ -6,11 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InfoPanel extends JPanel {
-    private JLabel valueDistance = new JLabel("1");
-    private JPanel distPanel;
-    private FrameUI frame;
-    private JButton SolveMazeButton;
-    private JLabel noPath = new JLabel("No Path");
+    private final JLabel valueDistance = new JLabel("1");
+    private final JPanel distPanel;
+    private final FrameUI frame;
+    private final JButton SolveMazeButton;
+    private final JLabel noPath = new JLabel("No Path");
 
     public InfoPanel(FrameUI frame) {
         this.frame = frame;
@@ -70,6 +70,7 @@ public class InfoPanel extends JPanel {
             if (frame.getModel().getDistance() != -1)
                 valueDistance.setText("" + frame.getModel().getDistance());
             distPanel.setVisible(true);
+            //System.out.println("Distance infoPanel : " + frame.getModel().getDistance());
         }
 
         noPath.setVisible(frame.getModel().getDistance() == 999);

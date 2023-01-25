@@ -23,11 +23,11 @@ public final class FileMenu extends JMenu {
 
         quitMenuItem.setBackground(Color.white);
         openMenuItem.setBackground(Color.white);
-        saveMenuItem.setBackground(Color.white);;
+        saveMenuItem.setBackground(Color.white);
         newMenuItem.setBackground(Color.white);
         quitMenuItem.setForeground(Color.black);
         openMenuItem.setForeground(Color.black);
-        saveMenuItem.setForeground(Color.black);;
+        saveMenuItem.setForeground(Color.black);
         newMenuItem.setForeground(Color.black);
 
         add(newMenuItem);

@@ -59,10 +59,10 @@ public class DrawMaze {
     public void drawPath(Graphics g) {
         Model model = frame.getModel();
         VertexPath path = model.getMaze().getPath();
+
         if (model.getAutoDijkstra() && path.getDistance() == -1) {
             path = frame.getModel().getMaze().dijkstra();
         }
-
 
         for (int i = 0; i < path.size(); i++) {
             if (i + 1 < path.size()) {

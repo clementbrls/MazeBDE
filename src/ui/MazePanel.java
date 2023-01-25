@@ -31,6 +31,7 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
             frame.getDrawMaze().drawHover(g);
         }
         frame.getDrawMaze().drawPath(g);
+        frame.repaintInfo();
 
         //System.out.println("width: "+width+" height: "+height);
     }
@@ -61,8 +62,7 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseMoved=false;
-        frame.repaint();
-
+        //frame.repaint();
     }
 
     @Override

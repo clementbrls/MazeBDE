@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class ShortestPathsImpl implements ShortestPaths{
 
-    private HashMap<Vertex,Vertex> hashMap;
-    private Vertex startVertex;
-    private Vertex endVertex;
+    private final HashMap<Vertex,Vertex> hashMap;
+    private final Vertex startVertex;
+    private final Vertex endVertex;
 
     private ArrayList<Vertex> path;
 
