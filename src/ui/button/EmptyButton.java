@@ -28,10 +28,10 @@ public class EmptyButton extends JButton implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(frame.getModel().getSelect() == EmptyBox.Label){
-            setBackground(DrawMaze.colorWall);
+            setBackground(EmptyBox.color);
             setForeground(Color.white);
         } else {
-            setBackground(DrawMaze.colorDefault);
+            setBackground(ButtonPanel.colorDefault);
             setForeground(Color.black);
         }
         setFont(bPanel.getFontButton());

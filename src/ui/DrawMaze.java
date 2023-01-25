@@ -8,14 +8,7 @@ import java.awt.*;
 
 public class DrawMaze {
 
-    public static final Color colorArrival = new Color(254, 147, 140);
-    public static final Color colorDeparture = new Color(71, 229, 188);
-    public static final Color colorWall = new Color(54, 65, 86);
-    public static final Color colorEmpty = new Color(236, 235, 243);
-    public static final Color colorDefault = new Color(241, 243, 244);
-
     private final FrameUI frame;
-
 
     public DrawMaze(FrameUI frame) {
         this.frame = frame;

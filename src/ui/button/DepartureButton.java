@@ -29,10 +29,10 @@ public class DepartureButton extends JButton implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (frame.getModel().getSelect() == DepartureBox.Label) {
-            setBackground(DrawMaze.colorDeparture);
+            setBackground(DepartureBox.color);
             setForeground(Color.white);
         } else {
-            setBackground(DrawMaze.colorDefault);
+            setBackground(ButtonPanel.colorDefault);
             setForeground(Color.black);
         }
         setFont(bPanel.getFontButton());

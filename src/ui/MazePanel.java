@@ -15,7 +15,8 @@ public class MazePanel extends JPanel implements MouseListener,MouseMotionListen
         this.frame = frame;
         Model model=frame.getModel();
         setBackground(Color.white);
-        width = (2* GeometryFactory.sizeDefault + GeometryFactory.border)*model.getMaze().getWidth()+ GeometryFactory.x_start+ GeometryFactory.offsetOdd;
+        //width = (2* GeometryFactory.sizeDefault + GeometryFactory.border)*model.getMaze().getWidth()+ GeometryFactory.x_start+ GeometryFactory.offsetOdd;
+        width=3*GeometryFactory.sizeDefault+4*GeometryFactory.border;
         height = (int) Math.round((GeometryFactory.sizeDefault /(Math.cos(Math.PI/6)) + GeometryFactory.border + Math.tan(Math.PI/6)* GeometryFactory.sizeDefault)*model.getMaze().getHeight()+ GeometryFactory.y_start);
         setPreferredSize(new Dimension(width, height));
         addMouseListener(this);

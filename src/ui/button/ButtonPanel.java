@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class ButtonPanel extends JPanel {
     public static final Insets buttonMargin = new Insets(10,10,10,10);
+    public static final Color colorDefault = new Color(241, 243, 244);
     private final ArrivalButton arrivalButton;
     private final DepartureButton departureButton;
     private final EmptyButton emptyButton;

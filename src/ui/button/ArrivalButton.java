@@ -28,10 +28,10 @@ public class ArrivalButton extends JButton implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(frame.getModel().getSelect() == ArrivalBox.Label){
-            setBackground(DrawMaze.colorArrival);
+            setBackground(ArrivalBox.color);
             setForeground(Color.white);
         } else {
-            setBackground(DrawMaze.colorDefault);
+            setBackground(ButtonPanel.colorDefault);
             setForeground(Color.black);
         }
         setFont(bPanel.getFontButton());

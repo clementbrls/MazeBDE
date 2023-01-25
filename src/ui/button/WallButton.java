@@ -27,10 +27,10 @@ public class WallButton extends JButton implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(frame.getModel().getSelect() == WallBox.Label){
-            setBackground(DrawMaze.colorWall);
+            setBackground(WallBox.color);
             setForeground(Color.white);
         } else {
-            setBackground(DrawMaze.colorDefault);
+            setBackground(ButtonPanel.colorDefault);
             setForeground(Color.BLACK);
         }
         setFont(bPanel.getFontButton());
