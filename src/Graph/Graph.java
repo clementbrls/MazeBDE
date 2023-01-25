@@ -3,7 +3,7 @@ package Graph;
 import java.util.List;
 
 public interface Graph {
-    public List<Vertex> getAllVertexes() ;
-    public List<Vertex> getSuccessors(Vertex vertex) ;
-    public int getDistance(Vertex src,Vertex dst) ;
+    List<Vertex> getAllVertexes() ;
+    List<Vertex> getSuccessors(Vertex vertex) ;
+    int getDistance(Vertex src, Vertex dst);
 }

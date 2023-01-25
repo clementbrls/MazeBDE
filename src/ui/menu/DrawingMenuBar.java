@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DrawingMenuBar extends JMenuBar {
-    private FileMenu fileMenu;
+    private final FileMenu fileMenu;
     private final HelpMenu helpMenu;
 
     public DrawingMenuBar(FrameUI frame,Maze maze) {

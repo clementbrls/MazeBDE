@@ -9,7 +9,7 @@ public class Maze implements Graph {
     private MazeBox[][] maze;
     private MazeBox arrival;
     private MazeBox departure;
-    private VertexPath solveMaze=new VertexPath();
+    private VertexPath solvePath =new VertexPath();
 
 
     public Maze(int height, int width) {
@@ -69,7 +69,7 @@ public class Maze implements Graph {
      * Initialize the maze with all the mazebox empty, with the exception of one departure and one arrival at one corner each
      */
     public void initBlank() {
-        isChanged();
+        pathChanged();
         for (int i = 0; i < getHeight(); i++) {
             for (int u = 0; u < getWidth(); u++) {
                 setBox(new EmptyBox(i, u));
@@ -89,7 +89,7 @@ public class Maze implements Graph {
     public final void initFromTextFile(String fileName) throws MazeReadingException {
         int fileHeight;
         int fileWidth;
-        isChanged();
+        pathChanged();
         try {
             //Changement de la taille du labyrinthe en fonction du fichier
             FileReader fr = new FileReader(fileName);
@@ -101,6 +101,7 @@ public class Maze implements Graph {
                 fileHeight++;
                 line_test = br_test.readLine();
             }
+            br_test.close();
 
             this.maze = new MazeBox[fileHeight][fileWidth];
             initBlank();
@@ -126,6 +127,8 @@ public class Maze implements Graph {
                     };
                 }
             }
+            br.close();
+
             //Check maze
             int countArrival = 0;
             int countDeparture = 0;
@@ -273,6 +276,8 @@ public class Maze implements Graph {
      * @param dst a mazebox
      * @return the distance between 2 consecutive mazebox
      */
+
+
     public int getDistance(Vertex src, Vertex dst) {
         return 1;
     }
@@ -312,8 +317,8 @@ public class Maze implements Graph {
     public VertexPath dijkstra() {
         getDeparture();
         getArrival();
-        this.solveMaze = Dijkstra.dijkstra(this, departure, arrival);
-        return solveMaze;
+        this.solvePath = Dijkstra.dijkstra(this, departure, arrival);
+        return solvePath;
     }
 
     /**
@@ -321,7 +326,7 @@ public class Maze implements Graph {
      * @return a VertexPath who correspond of the shortest path to solve the maze
      */
     public VertexPath getPath() {
-        return solveMaze;
+        return solvePath;
     }
 
     public void showToConsole() {
@@ -340,37 +345,56 @@ public class Maze implements Graph {
         System.out.println("\u001B[0m");
     }
 
-    /** Allow to change the type of a specified mazebox
+    /** Allow to change the type of specified mazebox
      *
      * @param box
      * @param choice, a string who can be D for departure, A for arrival, W for wall or E for empty
      */
-    public void changeBox(MazeBox box, char choice) {
-        isChanged();
+    public boolean changeBox(MazeBox box, char choice) {
+        boolean changed = false;
+        if(choice == DepartureBox.Label){
+            System.out.println("test");
+        }
+        if((choice == WallBox.Label && solvePath.isIncluded(box)) || choice != WallBox.Label){
+            pathChanged();
+        }
+
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival() || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
 
             switch (choice) {
                 case ArrivalBox.Label:
-                    setBox(new ArrivalBox(box.getLine(), box.getColumn()));
+                    if(!box.isArrival()) {
+                        setBox(new ArrivalBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case DepartureBox.Label:
-                    setBox(new DepartureBox(box.getLine(), box.getColumn()));
+                    if(!box.isDeparture()){
+                        setBox(new DepartureBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case EmptyBox.Label:
-                    setBox(new EmptyBox(box.getLine(), box.getColumn()));
+                    if(!box.isEmpty()){
+                        setBox(new EmptyBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
                 case WallBox.Label:
-                    setBox(new WallBox(box.getLine(), box.getColumn()));
+                    if(!box.isWall()){
+                        setBox(new WallBox(box.getLine(), box.getColumn()));
+                        changed = true;
+                    }
                     break;
             }
         }
+        return changed;
     }
 
     /** when a method is used that edit the maze, it reset the solution path
      */
-    private void isChanged() {
-        solveMaze = new VertexPath();
+    private void pathChanged() {
+        solvePath = new VertexPath();
     }
-
 }

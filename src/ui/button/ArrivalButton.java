@@ -21,13 +21,13 @@ public class ArrivalButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect(ArrivalBox.Label);
+        frame.getModel().setSelect(ArrivalBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == ArrivalBox.Label){
+        if(frame.getModel().getSelect() == ArrivalBox.Label){
             setBackground(DrawMaze.colorArrival);
             setForeground(Color.white);
         } else {

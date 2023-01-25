@@ -3,7 +3,7 @@ package Graph;
 import java.util.HashMap;
 
 public class MinDistanceImpl implements MinDistance{
-    private HashMap<Vertex, Integer> hashMap;
+    private final HashMap<Vertex, Integer> hashMap;
 
     public MinDistanceImpl(){
         hashMap = new HashMap<Vertex, Integer>();

@@ -17,5 +17,9 @@ public class WindowPanel extends JPanel {
         add(infoPanel = new InfoPanel(frame),BorderLayout.EAST);
     }
 
+    protected void repaintInfo(){
+        infoPanel.repaint();
+    }
+
 
 }

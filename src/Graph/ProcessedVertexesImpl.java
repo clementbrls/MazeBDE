@@ -3,7 +3,7 @@ package Graph;
 import java.util.HashSet;
 
 public class ProcessedVertexesImpl implements ProcessedVertexes {
-    private HashSet<Vertex> list;
+    private final HashSet<Vertex> list;
 
     public ProcessedVertexesImpl() {
         list = new HashSet<Vertex>();

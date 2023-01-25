@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class HelpMenu extends JMenu {
-    private JMenuItem help;
-    private JMenuItem about;
+    private final JMenuItem help;
+    private final JMenuItem about;
     public HelpMenu(FrameUI frame) {
         super("Help");
         setFont(new Font("Verdana", Font.PLAIN, 18));

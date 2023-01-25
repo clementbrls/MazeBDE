@@ -11,4 +11,5 @@ public class ArrivalBox extends EmptyBox {
     public boolean isArrival() {
         return true;
     }
+
 }

@@ -3,7 +3,7 @@ package Graph;
 import java.util.ArrayList;
 
 public class VertexPath {
-    private ArrayList<Vertex> path;
+    private final ArrayList<Vertex> path;
     private Boolean noPath=false;
 
     public VertexPath(){
@@ -43,4 +43,9 @@ public class VertexPath {
         }
         return distance;
     }
+
+    public boolean isIncluded(Vertex vertex){
+        return path.contains(vertex);
+    }
+
 }

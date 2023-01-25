@@ -21,7 +21,7 @@ public class Dijkstra {
         Vertex succVertex;
         List<Vertex> graphAllVertexes = graph.getAllVertexes();
 
-        for (int i = 0; i < graphAllVertexes.size(); i++) {
+        for(int i = 0; i < graphAllVertexes.size(); i++) {
             if(graphAllVertexes.get(i) != pivot)
                 minDistance.set(graphAllVertexes.get(i), 999);
         }

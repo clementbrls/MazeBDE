@@ -6,11 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InfoPanel extends JPanel {
-    private JLabel valueDistance = new JLabel("1");
-    private JPanel distPanel;
-    private FrameUI frame;
-    private JButton SolveMazeButton;
-    private JLabel noPath = new JLabel("No Path");
+    private final JLabel valueDistance = new JLabel("1");
+    private final JPanel distPanel;
+    private final FrameUI frame;
+    private final JButton SolveMazeButton;
+    private final JLabel noPath = new JLabel("No Path");
 
     public InfoPanel(FrameUI frame) {
         this.frame = frame;
@@ -44,17 +44,17 @@ public class InfoPanel extends JPanel {
 
         SolveMazeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getdMaze().getMaze().dijkstra();
+                frame.getModel().getMaze().dijkstra();
                 frame.repaint();
             }
         });
 
-        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getdMaze().getAutoDijkstra());
+        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getModel().getAutoDijkstra());
         add(autoDijkstra, BorderLayout.CENTER);
         autoDijkstra.setFocusable(false);
         autoDijkstra.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getdMaze().setAutoDijkstra(autoDijkstra.isSelected());
+                frame.getModel().setAutoDijkstra(autoDijkstra.isSelected());
                 frame.repaint();
             }
         });
@@ -64,18 +64,19 @@ public class InfoPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (frame.getdMaze().getDistance() == 999 || (frame.getdMaze().getDistance() == -1 && !frame.getdMaze().getAutoDijkstra())) {
+        if (frame.getModel().getDistance() == 999 || (frame.getModel().getDistance() == -1 && !frame.getModel().getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {
-            if (frame.getdMaze().getDistance() != -1)
-                valueDistance.setText("" + frame.getdMaze().getDistance());
+            if (frame.getModel().getDistance() != -1)
+                valueDistance.setText("" + frame.getModel().getDistance());
             distPanel.setVisible(true);
+            //System.out.println("Distance infoPanel : " + frame.getModel().getDistance());
         }
 
-        noPath.setVisible(frame.getdMaze().getDistance() == 999);
+        noPath.setVisible(frame.getModel().getDistance() == 999);
 
 
-        SolveMazeButton.setVisible(!frame.getdMaze().getAutoDijkstra());
+        SolveMazeButton.setVisible(!frame.getModel().getAutoDijkstra());
 
     }
 

@@ -1,6 +1,8 @@
 package ui.button;
+
 import Maze.DepartureBox;
 import ui.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,23 +12,23 @@ public class DepartureButton extends JButton implements ActionListener {
     private final FrameUI frame;
     private final ButtonPanel bPanel;
 
-    public DepartureButton(FrameUI frame,ButtonPanel bPanel) {
+    public DepartureButton(FrameUI frame, ButtonPanel bPanel) {
         super("Departure");
         setFocusable(false);
-        this.frame=frame;
-        this.bPanel=bPanel;
+        this.frame = frame;
+        this.bPanel = bPanel;
         addActionListener(this);
         setMargin(ButtonPanel.buttonMargin);
     }
 
-    public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect(DepartureBox.Label);
+    public final void actionPerformed(ActionEvent evt) {
+        frame.getModel().setSelect(DepartureBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == DepartureBox.Label){
+        if (frame.getModel().getSelect() == DepartureBox.Label) {
             setBackground(DrawMaze.colorDeparture);
             setForeground(Color.white);
         } else {

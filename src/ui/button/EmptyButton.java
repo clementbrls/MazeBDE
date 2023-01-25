@@ -21,13 +21,13 @@ public class EmptyButton extends JButton implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getdMaze().setSelect(EmptyBox.Label);
+        frame.getModel().setSelect(EmptyBox.Label);
         frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(frame.getdMaze().getSelect() == EmptyBox.Label){
+        if(frame.getModel().getSelect() == EmptyBox.Label){
             setBackground(DrawMaze.colorWall);
             setForeground(Color.white);
         } else {
