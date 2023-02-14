@@ -3,9 +3,10 @@ import ui.DrawMaze;
 import ui.FrameUI;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 
-public class ButtonPanel extends JPanel {
+public class ButtonPanel extends JPanel implements ChangeListener {
     public static final Insets buttonMargin = new Insets(10,10,10,10);
     public static final Color colorDefault = new Color(241, 243, 244);
     private final ArrivalButton arrivalButton;
@@ -14,7 +15,7 @@ public class ButtonPanel extends JPanel {
     private final WallButton wallButton;
     public ButtonPanel(FrameUI frame){
         //setLayout(new BorderLayout());
-
+        frame.getModel().addObserver(this);
         add(departureButton = new DepartureButton(frame,this));
         add(arrivalButton = new ArrivalButton(frame,this));
         add(emptyButton = new EmptyButton(frame,this));
@@ -34,5 +35,13 @@ public class ButtonPanel extends JPanel {
             font = new Font("Verdana",Font.PLAIN,20);
         }
         return font;
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        departureButton.repaint();
+        arrivalButton.repaint();
+        emptyButton.repaint();
+        wallButton.repaint();
     }
 }

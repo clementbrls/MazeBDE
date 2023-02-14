@@ -198,7 +198,6 @@ public class Maze implements Graph {
 
             for (int i = 0; i < getHeight(); i++) {
                 for (int u = 0; u < getWidth(); u++) {
-
                     if (getMazeBox(i, u).isWall())
                         pw.print(WallBox.Label);
                     else if (maze[i][u].isArrival())

@@ -1,6 +1,9 @@
 package ui;
 import Maze.*;
 
+import javax.swing.event.*;
+import java.util.*;
+
 public class Model {
 
     private final Maze maze;
@@ -8,6 +11,8 @@ public class Model {
     private MazeBox boxHover=null;
     private char select = WallBox.Label;
     private Boolean autoDijkstra = true;
+
+    private final List<ChangeListener> listeners = new ArrayList<ChangeListener>() ;
 
     public Model(Maze maze) {
         this.maze = maze;
@@ -27,6 +32,7 @@ public class Model {
      */
     public void setSelect(char selection) {
         select = selection;
+        stateChanged();
     }
 
     /**
@@ -35,6 +41,9 @@ public class Model {
      */
     public void changeBox(MazeBox box) {
         mazeChanged=maze.changeBox(box, select);
+        if(mazeChanged){
+            stateChanged();
+        }
     }
 
     public void changeBox(MazeBox box, Boolean setEmpty) {
@@ -42,6 +51,9 @@ public class Model {
             mazeChanged=maze.changeBox(box, EmptyBox.Label);
         } else {
             mazeChanged=maze.changeBox(box, select);
+        }
+        if(mazeChanged){
+            stateChanged();
         }
     }
 
@@ -61,6 +73,11 @@ public class Model {
         return maze;
     }
 
+    public void doDijsktra(){
+        maze.dijkstra();
+        stateChanged();
+    }
+
     /**
      * get the autoDijkstra parameter
      * @return the autoDijkstra parameter
@@ -75,6 +92,7 @@ public class Model {
      */
     public void setAutoDijkstra(Boolean autoDijkstra) {
         this.autoDijkstra = autoDijkstra;
+        stateChanged();
     }
 
 
@@ -83,6 +101,7 @@ public class Model {
         if(boxHover!=this.boxHover){
             changed=true;
             this.boxHover = boxHover;
+            stateChanged();
         }
         return changed;
     }
@@ -92,7 +111,14 @@ public class Model {
         return boxHover;
     }
 
-    public boolean isMazeChanged() {
-        return mazeChanged;
+    public void stateChanged() {
+        ChangeEvent evt = new ChangeEvent(this);
+
+        for (ChangeListener listener : listeners) {
+            listener.stateChanged(evt);
+        }
+    }
+    public void addObserver(ChangeListener listener) {
+        listeners.add(listener) ;
     }
 }

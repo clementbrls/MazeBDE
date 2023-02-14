@@ -54,6 +54,24 @@ public class GeometryFactory {
         return new Point(x, y);
     }
 
+    public static Point mazeBoxToCoord(MazeBox box, int width, int height) {
+        int size = (int) Math.round(Math.min(width / (2 * (box.getColumn() + 1) + 1), height / (2 * (box.getLine() + 1) + 1)));
+        int offsetOdd = size + border / 2; //offset for odd lines
+        int x_start = offsetOdd * 2; //x position of the first hexagon
+        int y_start = (int) Math.round(size / (Math.cos(Math.PI / 6)) + offsetOdd); //y position of the first hexagon
+        int line = box.getLine();
+        int column = box.getColumn();
+        int x;
+        int y;
+
+        y = (int) Math.round(y_start + line * ((2 * sizeDefault + border) * Math.cos(Math.PI / 6)));
+
+        if (line % 2 == 0) x = x_start + 2 * sizeDefault * column + (column * border);
+        else x = Math.round(x_start + 2 * sizeDefault * column + (column * border) + offsetOdd);
+
+        return new Point(x, y);
+    }
+
     /**
      * give a mazebox and it will give you the coordinates of the 6 summit of the hexagon
      * @param box the mazebox
@@ -85,4 +103,6 @@ public class GeometryFactory {
         }
         return box;
     }
+
+
 }

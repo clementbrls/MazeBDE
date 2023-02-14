@@ -1,6 +1,7 @@
 package ui.button;
 import ui.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -17,12 +18,10 @@ public class ArrivalButton extends JButton implements ActionListener {
         this.bPanel=bPanel;
         addActionListener(this);
         setMargin(ButtonPanel.buttonMargin);
-
     }
 
     public final void actionPerformed(ActionEvent evt){
         frame.getModel().setSelect(ArrivalBox.Label);
-        frame.repaint();
     }
 
     public void paintComponent(Graphics g) {

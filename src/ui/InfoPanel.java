@@ -1,23 +1,24 @@
 package ui;
-
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InfoPanel extends JPanel {
+public class InfoPanel extends JPanel implements ChangeListener {
     private final JLabel valueDistance = new JLabel("1");
     private final JPanel distPanel;
-    private final FrameUI frame;
     private final JButton SolveMazeButton;
     private final JLabel noPath = new JLabel("No Path");
+    private final Model model;
 
     public InfoPanel(FrameUI frame) {
-        this.frame = frame;
        // setLayout(null);
         setFocusable(false);
         setPreferredSize(new Dimension(100, getHeight()));
-
+        model=frame.getModel();
+        model.addObserver(this);
         //NoPath
         add(noPath);
 
@@ -38,24 +39,25 @@ public class InfoPanel extends JPanel {
         SolveMazeButton.setFocusable(false);
         add(bPanel, BorderLayout.CENTER);
         SolveMazeButton.setSize(new Dimension(getWidth(), 200));
-
-
-
-
+        SolveMazeButton.setBackground(new Color(50, 50, 50));
+        SolveMazeButton.setForeground(Color.white);
         SolveMazeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getModel().getMaze().dijkstra();
-                frame.repaint();
+                model.doDijsktra();
             }
         });
 
-        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",frame.getModel().getAutoDijkstra());
+
+        //Auto Dijkstra
+        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",model.getAutoDijkstra());
+        //change background color of only the box to white
+        autoDijkstra.setBackground(Color.white);
+
         add(autoDijkstra, BorderLayout.CENTER);
         autoDijkstra.setFocusable(false);
         autoDijkstra.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                frame.getModel().setAutoDijkstra(autoDijkstra.isSelected());
-                frame.repaint();
+                model.setAutoDijkstra(autoDijkstra.isSelected());
             }
         });
 
@@ -64,21 +66,25 @@ public class InfoPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (frame.getModel().getDistance() == 999 || (frame.getModel().getDistance() == -1 && !frame.getModel().getAutoDijkstra())) {
+        if (model.getDistance() == 999 || (model.getDistance() == -1 && !model.getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {
-            if (frame.getModel().getDistance() != -1)
-                valueDistance.setText("" + frame.getModel().getDistance());
+            if (model.getDistance() != -1)
+                valueDistance.setText("" + model.getDistance());
             distPanel.setVisible(true);
-            //System.out.println("Distance infoPanel : " + frame.getModel().getDistance());
+            //System.out.println("Distance infoPanel : " + model.getDistance());
         }
 
-        noPath.setVisible(frame.getModel().getDistance() == 999);
+        noPath.setVisible(model.getDistance() == 999);
 
 
-        SolveMazeButton.setVisible(!frame.getModel().getAutoDijkstra());
+        SolveMazeButton.setVisible(!model.getAutoDijkstra());
 
     }
 
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        repaint();
+    }
 }

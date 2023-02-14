@@ -22,13 +22,12 @@ public class EmptyButton extends JButton implements ActionListener {
 
     public final void actionPerformed(ActionEvent evt){
         frame.getModel().setSelect(EmptyBox.Label);
-        frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(frame.getModel().getSelect() == EmptyBox.Label){
-            setBackground(EmptyBox.color);
+            setBackground(WallBox.color);
             setForeground(Color.white);
         } else {
             setBackground(ButtonPanel.colorDefault);

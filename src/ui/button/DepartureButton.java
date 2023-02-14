@@ -23,7 +23,6 @@ public class DepartureButton extends JButton implements ActionListener {
 
     public final void actionPerformed(ActionEvent evt) {
         frame.getModel().setSelect(DepartureBox.Label);
-        frame.repaint();
     }
 
     public void paintComponent(Graphics g) {
