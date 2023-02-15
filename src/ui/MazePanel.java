@@ -40,8 +40,6 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         }
         drawMaze.drawPath();
         frame.repaintInfo();
-        //System.out.println("width: "+width+" height: "+height);
-        System.out.println("width: " + getWidth() + " height: " + getHeight());
     }
 
     @Override
