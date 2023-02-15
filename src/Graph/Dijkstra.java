@@ -14,7 +14,6 @@ public class Dijkstra {
         MinDistance minDistance = new MinDistanceImpl();
         ShortestPaths shortestPaths = new ShortestPathsImpl(startVertex,endVertex);
 
-        if(startVertex==null) System.out.println("null");
         processVertex.add(startVertex);
         pivot = startVertex;
         minDistance.set(startVertex, 0);
@@ -23,7 +22,7 @@ public class Dijkstra {
 
         for(int i = 0; i < graphAllVertexes.size(); i++) {
             if(graphAllVertexes.get(i) != pivot)
-                minDistance.set(graphAllVertexes.get(i), 999);
+                minDistance.set(graphAllVertexes.get(i), Integer.MAX_VALUE);
         }
         boolean noPath=false;
         while (!processVertex.isIncluded(endVertex) && !noPath) {
@@ -37,12 +36,12 @@ public class Dijkstra {
                     }
                 }
             }
-            int distMin = 999;
-            noPath=true;
-            for (int i = 0; i < graphAllVertexes.size(); i++) {
+            Integer distMin = Integer.MAX_VALUE;
+            noPath=true; //Par défaut noPath est vrai
+            for (int i = 0; i < graphAllVertexes.size(); i++) {//Récup le sommet le plus proche
                 if(minDistance.minDistance(graphAllVertexes.get(i))< distMin && !processVertex.isIncluded(graphAllVertexes.get(i))){
                     pivot=graphAllVertexes.get(i);
-                    noPath=false;
+                    noPath=false;//tant qu'on arrive a trouvé un autre sommet qui n'est pas déjà dans processVertex, noPath est faux, et donc on continue la boucle
                     distMin=minDistance.minDistance(graphAllVertexes.get(i));
                 }
             }

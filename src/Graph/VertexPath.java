@@ -37,7 +37,7 @@ public class VertexPath {
     public int getDistance(){
         int distance;
         if(noPath){
-            distance=999;
+            distance=9999;
         } else {
             distance=path.size()-1;
         }

@@ -66,7 +66,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (model.getDistance() == 999 || (model.getDistance() == -1 && !model.getAutoDijkstra())) {
+        if (model.getDistance() == 9999 || (model.getDistance() == -1 && !model.getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {
             if (model.getDistance() != -1)
@@ -75,7 +75,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
             //System.out.println("Distance infoPanel : " + model.getDistance());
         }
 
-        noPath.setVisible(model.getDistance() == 999);
+        noPath.setVisible(model.getDistance() == 9999);
 
 
         SolveMazeButton.setVisible(!model.getAutoDijkstra());

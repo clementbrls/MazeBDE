@@ -6,9 +6,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener {
     private final FrameUI frame;
@@ -22,9 +20,9 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         model = frame.getModel();
         model.addObserver(this);
         setBackground(Color.white);
-        width = (2 * GeometryFactory.sizeDefault + GeometryFactory.border) * model.getMaze().getWidth() + GeometryFactory.x_start + GeometryFactory.offsetOdd;
-        //width=3*GeometryFactory.sizeDefault+4*GeometryFactory.border;
-        height = (int) Math.round((GeometryFactory.sizeDefault / (Math.cos(Math.PI / 6)) + GeometryFactory.border + Math.tan(Math.PI / 6) * GeometryFactory.sizeDefault) * model.getMaze().getHeight() + GeometryFactory.y_start);
+        width = (2 * DrawMaze.GeometryFactory.sizeDefault + DrawMaze.GeometryFactory.border) * model.getMaze().getWidth() + DrawMaze.GeometryFactory.x_start + DrawMaze.GeometryFactory.offsetOdd;
+        //width=3*DrawMaze.GeometryFactory.sizeDefault+4*DrawMaze.GeometryFactory.border;
+        height = (int) Math.round((DrawMaze.GeometryFactory.sizeDefault / (Math.cos(Math.PI / 6)) + DrawMaze.GeometryFactory.border + Math.tan(Math.PI / 6) * DrawMaze.GeometryFactory.sizeDefault) * model.getMaze().getHeight() + DrawMaze.GeometryFactory.y_start);
         setPreferredSize(new Dimension(width, height));
         addMouseListener(this);
 
@@ -35,6 +33,8 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
 
+
+
         frame.getDrawMaze().drawMaze(g);
         if (mouseMoved) {
             frame.getDrawMaze().drawHover(g);
@@ -42,7 +42,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         frame.getDrawMaze().drawPath(g);
         frame.repaintInfo();
         //System.out.println("width: "+width+" height: "+height);
-        frame.pack();
+        System.out.println("width: " + getWidth() + " height: " + getHeight());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        MazeBox box = GeometryFactory.coordToMazeBox(model.getMaze(), x, y);
+        MazeBox box = DrawMaze.GeometryFactory.coordToMazeBox(model.getMaze(), x, y);
 
         if (box != null) {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -87,7 +87,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         int x = e.getX();
         int y = e.getY();
 
-        MazeBox box = GeometryFactory.coordToMazeBox(model.getMaze(), x, y);
+        MazeBox box = DrawMaze.GeometryFactory.coordToMazeBox(model.getMaze(), x, y);
 
         if (box != null) {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -100,7 +100,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        model.setBoxHover(GeometryFactory.coordToMazeBox(model.getMaze(), e.getX(), e.getY()));
+        model.setBoxHover(DrawMaze.GeometryFactory.coordToMazeBox(model.getMaze(), e.getX(), e.getY()));
         mouseMoved = true;
     }
 
