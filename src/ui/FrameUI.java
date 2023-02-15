@@ -11,7 +11,6 @@ public class FrameUI extends JFrame {
 
 
     private final Model model;
-    private final DrawMaze drawMaze;
 
     public FrameUI(Maze maze) {
         super("Labyrinthe"); // Window title
@@ -19,7 +18,6 @@ public class FrameUI extends JFrame {
         setIconImage(img.getImage());
 
         this.model = new Model(maze);
-        this.drawMaze = new DrawMaze(this);
 
         //Affichage de la barre de menu
         menuBar = new DrawingMenuBar(this, maze);
@@ -38,10 +36,6 @@ public class FrameUI extends JFrame {
         return model;
     }
 
-
-    public DrawMaze getDrawMaze() {
-        return drawMaze;
-    }
 
     public void repaintInfo(){
         windowPanel.repaintInfo();
