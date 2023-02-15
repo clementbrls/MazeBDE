@@ -6,21 +6,20 @@ import Maze.*;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.nio.file.Path;
 
 public class DrawMaze {
     public static final float sizeDefault = 22; //width of a hexagon
     public float border = 3; //distance between two hexagons
     private final Model model;
     private float size = sizeDefault;
-    private Graphics g;
+    private Graphics2D g2;
 
     public DrawMaze(Model model) {
         this.model = model;
     }
 
     public void setInfo(Graphics g, int width, int height) {
-        this.g = g;
+        this.g2 =(Graphics2D) g;
         this.size = calcSize(model.getMaze(), (float)width, (float)height);
     }
 
@@ -32,14 +31,12 @@ public class DrawMaze {
     public void drawMaze() {
         Maze maze = model.getMaze();
         Color color;
-        System.out.println(size);
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int u = 0; u < maze.getWidth(); u++) {
                 MazeBox box = maze.getMazeBox(i, u);
                 color = box.getColor();
                 Path2D hexa = mazeBoxToHexa(box);
-                Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
                 g2.setColor(color);
                 g2.fill(hexa);
@@ -63,9 +60,9 @@ public class DrawMaze {
             if (i + 1 < path.size()) {
                 MazeBox box = (MazeBox) path.get(i);
                 MazeBox oldBox = (MazeBox) path.get(i + 1);
-                Graphics2D g2 = (Graphics2D) g;
-                g.setColor(new Color(0, 168, 224));
-                g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
+                g2.setColor(new Color(0, 168, 224));
+                float stroke= border*2;
+                g2.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
                 Point2D pBox = mazeBoxToCoord(box);
                 Point2D pOldBox = mazeBoxToCoord(oldBox);
                 g2.draw(new Line2D.Double(pBox, pOldBox));
@@ -74,7 +71,6 @@ public class DrawMaze {
     }
 
     public void drawHover() {
-        Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
 
         MazeBox boxHover = model.getBoxHover();
