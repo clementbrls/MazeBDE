@@ -5,12 +5,14 @@ import Maze.*;
 
 
 import java.awt.*;
+import java.awt.geom.*;
+import java.nio.file.Path;
 
 public class DrawMaze {
-    public static final int sizeDefault = 22; //width of a hexagon
-    public static final int border = 3; //distance between two hexagons
+    public static final float sizeDefault = 22; //width of a hexagon
+    public float border = 3; //distance between two hexagons
     private final Model model;
-    private int size = sizeDefault;
+    private float size = sizeDefault;
     private Graphics g;
 
     public DrawMaze(Model model) {
@@ -19,7 +21,7 @@ public class DrawMaze {
 
     public void setInfo(Graphics g, int width, int height) {
         this.g = g;
-        this.size = calcSize(model.getMaze(), width, height);
+        this.size = calcSize(model.getMaze(), (float)width, (float)height);
     }
 
     /**
@@ -30,15 +32,17 @@ public class DrawMaze {
     public void drawMaze() {
         Maze maze = model.getMaze();
         Color color;
+        System.out.println(size);
+
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int u = 0; u < maze.getWidth(); u++) {
                 MazeBox box = maze.getMazeBox(i, u);
                 color = box.getColor();
-                Polygon p = mazeBoxToHexa(box);
+                Path2D hexa = mazeBoxToHexa(box);
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
-                g.setColor(color);
-                g.fillPolygon(p);
+                g2.setColor(color);
+                g2.fill(hexa);
             }
         }
     }
@@ -62,7 +66,9 @@ public class DrawMaze {
                 Graphics2D g2 = (Graphics2D) g;
                 g.setColor(new Color(0, 168, 224));
                 g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
-                g.drawLine(mazeBoxToCoord(box).x, mazeBoxToCoord(box).y, mazeBoxToCoord(oldBox).x, mazeBoxToCoord(oldBox).y);
+                Point2D pBox = mazeBoxToCoord(box);
+                Point2D pOldBox = mazeBoxToCoord(oldBox);
+                g2.draw(new Line2D.Double(pBox, pOldBox));
             }
         }
     }
@@ -74,36 +80,34 @@ public class DrawMaze {
         MazeBox boxHover = model.getBoxHover();
         if (boxHover != null) {
             g2.setColor(boxHover.getColor().darker());
-            Polygon p = mazeBoxToHexa(boxHover);
-            g2.fillPolygon(p);
+            Path2D hexa = mazeBoxToHexa(boxHover);
+            g2.fill(hexa);
 
         }
     }
 
     //------------------------------------GeometryFactory------------------------------------//
-    int offsetOdd = size + border / 2;
-    int x_start = offsetOdd * 2; //x position of the first hexagon
-    int y_start = size * 2; //y position of the first hexagon
+    float offsetOdd = size + border / 2;
+    float x_start = offsetOdd * 2; //x position of the first hexagon
+    float y_start = size * 2; //y position of the first hexagon
 
-    public int calcSize(Maze maze, int width, int height) {
-        int sizeWidth = (width - border * maze.getWidth()) / (2 + 2 * maze.getWidth());
-        int sizeHeight = (int) Math.round((height - (maze.getHeight() + 1) * Math.cos(Math.PI / 6) * border) / ((maze.getHeight() + 1) * 2 * Math.cos(Math.PI / 6) + 1));
+    public float calcSize(Maze maze, float width, float height) {
+        float sizeWidth = (width - border * maze.getWidth()) / (2 + 2 * maze.getWidth());
+        float sizeHeight = (float) ((height - (maze.getHeight() + 1) * Math.cos(Math.PI / 6) * border) / ((maze.getHeight() + 1) * 2 * Math.cos(Math.PI / 6) + 1));
 
+        border= (float) Math.min(sizeWidth, sizeHeight)*0.15f;
 
-        //width= (int) DrawMaze.GeometryFactory.x_start+(2*DrawMaze.GeometryFactory.sizeDefault+DrawMaze.GeometryFactory.border)*model.getMaze().getWidth()+DrawMaze.GeometryFactory.x_start/2;
-        //height= (int) Math.round(DrawMaze.GeometryFactory.sizeDefault + (model.getMaze().getHeight()) * ((2 * DrawMaze.GeometryFactory.sizeDefault + DrawMaze.GeometryFactory.border * Math.cos(Math.PI / 6))));
 
         if(sizeHeight > sizeWidth) {
             offsetOdd = size + border / 2;
             x_start = size*2; //x position of the first hexagon
-            int sizetheo=(int) Math.round(sizeWidth + (maze.getHeight()) * ((2 * sizeWidth + border * Math.cos(Math.PI / 6))));
+            float sizetheo= (float) (sizeWidth + (maze.getHeight()) * ((2 * sizeWidth + border * Math.cos(Math.PI / 6))));
             y_start = (height/2)-(sizetheo/2)+sizeWidth*2; //y position of the first hexagon
             return sizeWidth;
         } else {
             offsetOdd = size + border / 2;
-
             y_start = size * 2; //y position of the first hexagon
-            int sizetheo=(int) sizeHeight*2+(2*sizeHeight+border)*maze.getWidth()+sizeHeight;
+            float sizetheo= sizeHeight*2+(2*sizeHeight+border)*maze.getWidth()+sizeHeight;
             x_start = (width/2)-(sizetheo/2)+sizeHeight*2; //x position of the first hexagon
             return sizeHeight;
         }
@@ -118,16 +122,18 @@ public class DrawMaze {
      * @param size the width of the hexagon
      * @return the coordinates of the 6 summit of the hexagon
      */
-    public Polygon createHexa(int x, int y) {
+    public Path2D createHexa(float x, float y) {
         //Fonction qui va renvoyer les coordonnées des 6 sommets d'un hexagone, en prenant le centre de celui ci en entrée
-        int[] xhex = new int[6];
-        int[] yhex = new int[6];
         float arc = (float) (size / Math.cos(Math.PI / 6));
-        for (int i = 0; i < 6; i++) {
-            xhex[i] = (int) Math.round(Math.cos((Math.PI / 3) * i + Math.PI / 6) * arc + x);
-            yhex[i] = (int) Math.round(Math.sin((Math.PI / 3) * i + Math.PI / 6) * arc + y);
+        Path2D hexa= new Path2D.Float();
+        hexa.moveTo(x, y);
+        for (int i = 0; i <= 6; i++) {
+            float nextX = (float) (Math.cos((Math.PI / 3) * i + Math.PI / 6) * arc + x);
+            float nextY = (float) (Math.sin((Math.PI / 3) * i + Math.PI / 6) * arc + y);
+            hexa.lineTo(nextX, nextY);
         }
-        return new Polygon(xhex, yhex, 6);
+        hexa.closePath();
+        return hexa;
     }
 
 
@@ -137,25 +143,19 @@ public class DrawMaze {
      * @param box the mazebox
      * @return the coordinates of the center of the hexagon
      */
-    public Point mazeBoxToCoord(MazeBox box) {
+    public Point2D mazeBoxToCoord(MazeBox box) {
         int line = box.getLine();
         int column = box.getColumn();
-        int x;
-        int y;
-        //int offsetOdd = size + border / 2; //offset for odd lines
-        /*
-        int x_start = offsetOdd * 2; //x position of the first hexagon
-        int y_start = size * 2; //y position of the first hexagon
+        float x;
+        float y;
 
-         */
-
-        y = (int) Math.round(y_start + line * ((2 * size + border) * Math.cos(Math.PI / 6)));
+        y = (float) Math.round(y_start + line * ((2 * size + border) * Math.cos(Math.PI / 6)));
 
         if (line % 2 == 0) x = x_start + 2 * size * column + (column * border);
-        else x = Math.round(x_start + 2 * size * column + (column * border) + offsetOdd);
+        else x = x_start + 2 * size * column + (column * border) + offsetOdd;
 
 
-        return new Point(x, y);
+        return new Point2D.Float(x, y);
     }
 
 
@@ -165,10 +165,10 @@ public class DrawMaze {
      * @param box the mazebox
      * @return the coordinates of the 6 summit of the hexagon
      */
-    public Polygon mazeBoxToHexa(MazeBox box) {
-        Point a = mazeBoxToCoord(box);
+    public Path2D mazeBoxToHexa(MazeBox box) {
+        Point2D a = mazeBoxToCoord(box);
 
-        return createHexa(a.x, a.y);
+        return createHexa((float)a.getX(), (float)a.getY());
     }
 
     /**
@@ -177,7 +177,7 @@ public class DrawMaze {
      * @param y    the y coordinate of the mouse
      * @return the mazebox where the mouse is
      */
-    public MazeBox coordToMazeBox(Maze maze, int x, int y, int size) {
+    public MazeBox coordToMazeBox(Maze maze, int x, int y) {
         MazeBox box = null;
 
         for (int i = 0; i < maze.getHeight(); i++) {

@@ -12,14 +12,12 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     private final FrameUI frame;
     private final Model model;
     private final DrawMaze drawMaze;
-    private int size;
     boolean mouseMoved = false;
 
     public MazePanel(FrameUI frame) {
         setPreferredSize(new Dimension(550, 450));
         this.frame = frame;
         model = frame.getModel();
-        this.size=20;
 
         model.addObserver(this);
         this.drawMaze = new DrawMaze(frame.getModel());
@@ -32,7 +30,6 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //g.clearRect(0, 0, width, height);
-        size = drawMaze.calcSize(model.getMaze(), getWidth(), getHeight());
         drawMaze.setInfo(g,getWidth(),getHeight());
         drawMaze.drawMaze();
         if (mouseMoved) {
@@ -50,7 +47,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y,size);
+        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y);
 
         if (box != null) {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -84,7 +81,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         int x = e.getX();
         int y = e.getY();
 
-        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y,size);
+        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y);
 
         if (box != null) {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -97,7 +94,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        model.setBoxHover(drawMaze.coordToMazeBox(model.getMaze(), e.getX(), e.getY(),size));
+        model.setBoxHover(drawMaze.coordToMazeBox(model.getMaze(), e.getX(), e.getY()));
         mouseMoved = true;
     }
 
