@@ -88,7 +88,7 @@ public class DrawMaze {
     float y_start = size * 2; //y position of the first hexagon
 
     public float calcSize(Maze maze, float width, float height) {
-        float sizeWidth = (width - border * maze.getWidth()) / (2 + 2 * maze.getWidth());
+        float sizeWidth = (width - border * maze.getWidth()) / (2 + 2 * maze.getWidth()+1);
         float sizeHeight = (float) ((height - (maze.getHeight() + 1) * Math.cos(Math.PI / 6) * border) / ((maze.getHeight() + 1) * 2 * Math.cos(Math.PI / 6) + 1));
 
         border= (float) Math.min(sizeWidth, sizeHeight)*0.15f;
@@ -98,7 +98,7 @@ public class DrawMaze {
             offsetOdd = size + border / 2;
             x_start = size*2; //x position of the first hexagon
             float sizetheo= (float) (sizeWidth + (maze.getHeight()) * ((2 * sizeWidth + border * Math.cos(Math.PI / 6))));
-            y_start = (height/2)-(sizetheo/2)+sizeWidth*2; //y position of the first hexagon
+            y_start = (height/2)-(sizetheo/2)+sizeWidth*2.5f; //y position of the first hexagon
             return sizeWidth;
         } else {
             offsetOdd = size + border / 2;

@@ -125,15 +125,19 @@ public class Maze implements Graph {
                 String line = br.readLine();
                 for (int u = 0; u < getWidth(); u++) {
 
-                    maze[i][u] = switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
+                    switch (line.charAt(u)) {//Création de chaque cellule du labyrinthe en fonction du fichier.
                         case EmptyBox.Label:
-                            yield new EmptyBox(i, u);
+                            maze[i][u] = new EmptyBox(i, u);
+                            break;
                         case WallBox.Label:
-                            yield new WallBox(i, u);
+                            maze[i][u] = new WallBox(i, u);
+                            break;
                         case ArrivalBox.Label:
-                            yield new ArrivalBox(i, u);
+                            maze[i][u] = new ArrivalBox(i, u);
+                            break;
                         case DepartureBox.Label:
-                            yield new DepartureBox(i, u);
+                            maze[i][u] = new DepartureBox(i, u);
+                            break;
                         default:
                             initBlank();
                             throw new MazeReadingException(fileName, u, "Unexpected value: " + line.charAt(u));
