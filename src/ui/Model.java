@@ -62,7 +62,12 @@ public class Model {
      * @return the distance
      */
     public int getDistance() {
-        return maze.getPath().getDistance();
+        int distance = maze.getPath().getDistance();
+        if (distance == -1 && autoDijkstra) {
+            maze.dijkstra();
+            distance = maze.getPath().getDistance();
+        }
+        return distance ;
     }
 
     /**

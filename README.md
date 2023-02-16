@@ -27,7 +27,7 @@ Vous pouvez désactiver Dijsktra automatique. A chaque fois que le labyrinthe se
 * Lecture de fichier : le labyrinthe s'adaptera automatiquement à la taille du fichier donnée. Si le fichier présente un problème, le labyrinthe chargement vide, et un message popup apparaitra.
 * Couleurs des cases : La couleurs des cases est un attribut static de chaque box. Cela permet un code plus lisible. L'alternative étant de faire un switch case, qui ne respecte pas non plus entièrement l'O.O. L'ajout de cet attribut n'empeche toute fois pas l'utilisation d'un switch case. Le principe d'O.O est selon moi toujours respecté.
 * La méthode "chageBox" qui modifie le labyrinthe est "protégé" dans le sens où on lui indique en paramètre ce que l'on souhaite faire, et il va s'adapter tout seul si jamais cela pose des problèmes (départ ou arrivé modifié par exemple). Ainsi on ne modifie pas directement l'attribut, ce qui permet de respecté à 100% le principe de non-intrusion.
-
+* L'utilisation de Path2D au lieu de Polygon permet d'avoir des coordonnées qui ne sont pas forcément entière, et ainsi d'avoir des hexagones plus propres.
 
 
 

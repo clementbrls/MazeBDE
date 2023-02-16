@@ -69,10 +69,10 @@ public class InfoPanel extends JPanel implements ChangeListener {
         if (model.getDistance() == 9999 || (model.getDistance() == -1 && !model.getAutoDijkstra())) {
             distPanel.setVisible(false);
         } else {
-            if (model.getDistance() != -1)
+            if (model.getDistance() != -1) {
                 valueDistance.setText("" + model.getDistance());
+            }
             distPanel.setVisible(true);
-            //System.out.println("Distance infoPanel : " + model.getDistance());
         }
 
         noPath.setVisible(model.getDistance() == 9999);

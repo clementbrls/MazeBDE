@@ -8,35 +8,44 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 
+
+//----- Controleur -----
 public class MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener {
-    private final FrameUI frame;
+    private final FrameUI frame;//la frame
     private final Model model;
     private final DrawMaze drawMaze;
     boolean mouseMoved = false;
 
+    /**
+     * Constructor of the MazePanel
+     * @param frame the frame
+     */
     public MazePanel(FrameUI frame) {
         setPreferredSize(new Dimension(550, 450));
         this.frame = frame;
         model = frame.getModel();
-
-        model.addObserver(this);
         this.drawMaze = new DrawMaze(frame.getModel());
-        setBackground(Color.white);
 
-        addMouseListener(this);
+        model.addObserver(this);//Ajoute le pannel comme observer du model
+        addMouseListener(this);//Ajoute le pannel comme listener de la souris
         addMouseMotionListener(this);
+
+
+
+        setBackground(Color.white);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //g.clearRect(0, 0, width, height);
-        drawMaze.setInfo(g,getWidth(),getHeight());
-        drawMaze.drawMaze();
+        drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos neccessaire pour dessiner le labyrinthe
+        drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {
-            drawMaze.drawHover();
+            drawMaze.drawHover();//Dessine la case survolé par la souris
         }
-        drawMaze.drawPath();
-        frame.repaintInfo();
+        drawMaze.drawPath();//Dessine le chemin trouvé par Dijkstra
+
+        //frame.repaintInfo();//Casse le principe d'O.O, a channger
     }
 
     @Override
@@ -47,11 +56,11 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y);
+        MazeBox box = drawMaze.coordToMazeBox(model.getMaze(), x, y);//Récupère la case sur laquelle on a cliqué
 
         if (box != null) {
             if (SwingUtilities.isLeftMouseButton(e)) {
-                model.changeBox(box);
+                model.changeBox(box);//change la case
             } else if (SwingUtilities.isRightMouseButton(e)) {
                 model.changeBox(box, true);//permet d'effacer une case avec un clic droit
             }

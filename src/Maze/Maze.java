@@ -368,10 +368,8 @@ public class Maze implements Graph {
      */
     public boolean changeBox(MazeBox box, char choice) {
         boolean changed = false;
-        if(choice == DepartureBox.Label){
-            System.out.println("test");
-        }
-        if((choice == WallBox.Label && solvePath.isIncluded(box)) || choice != WallBox.Label){
+
+        if(choice != WallBox.Label || solvePath.isIncluded(box)){
             pathChanged();
         }
 

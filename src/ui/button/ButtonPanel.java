@@ -26,7 +26,6 @@ public class ButtonPanel extends JPanel implements ChangeListener {
 
     protected Font getFontButton(){
         Font font;
-        //System.out.println(getWidth());
         if (getWidth() < 460 && getWidth() > 340) {
             font = new Font("Verdana",Font.PLAIN,12);
         } else if (getWidth() < 340){

@@ -38,6 +38,6 @@ public class FrameUI extends JFrame {
 
 
     public void repaintInfo(){
-        windowPanel.repaintInfo();
+        //windowPanel.repaintInfo();
     }
 }
