@@ -8,16 +8,22 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class DrawMaze {
-    public static final float sizeDefault = 22; //width of a hexagon
-    public float border = 3; //distance between two hexagons
-    private final Model model;
-    private float size = sizeDefault;
+    public static final float sizeDefault = 22; //largeur d'un hexagone
+    public float border = 3; //distance entre 2 hexagones (ici 3, mais sera recalculé après)
+    private final Model model; //model
+    private float size = sizeDefault; //taille d'un hexagone
     private Graphics2D g2;
 
     public DrawMaze(Model model) {
-        this.model = model;
+        this.model = model;//On initiliase le model
     }
 
+    /**
+     * Set the info to correctly draw the maze in the panel
+     * @param g Graphics //Graphics of the panel
+     * @param width float of the panel
+     * @param height float of the panel
+     */
     public void setInfo(Graphics g, int width, int height) {
         this.g2 =(Graphics2D) g;
         this.size = calcSize(model.getMaze(), (float)width, (float)height);
@@ -25,57 +31,58 @@ public class DrawMaze {
 
     /**
      * draw the maze
-     *
-     * @param g Graphics
      */
     public void drawMaze() {
-        Maze maze = model.getMaze();
+        Maze maze = model.getMaze();//récup le maze depuis le model
         Color color;
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int u = 0; u < maze.getWidth(); u++) {
-                MazeBox box = maze.getMazeBox(i, u);
-                color = box.getColor();
+                MazeBox box = maze.getMazeBox(i, u);//2 boucles for imbriquer qui permette de récupérer chaque case
+                color = box.getColor();//On a choisi d'utiliser la couleur que la case propose (on aurait pu faire différement)
                 Path2D hexa = mazeBoxToHexa(box);
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
                 g2.setColor(color);
-                g2.fill(hexa);
+                g2.fill(hexa);//Affiche la case
             }
         }
     }
 
     /**
-     * draw the path
+     * draw the path that Dijkstra found
      *
-     * @param g Graphics
      */
     public void drawPath() {
         VertexPath path = model.getMaze().getPath();
 
         if (model.getAutoDijkstra() && path.getDistance() == -1) {
-            path = model.getMaze().dijkstra();
+            path = model.getMaze().dijkstra();//Si le mode auto est activé et que le chemin n'est pas trouvé, on le cherche
         }
 
         for (int i = 0; i < path.size(); i++) {
             if (i + 1 < path.size()) {
                 MazeBox box = (MazeBox) path.get(i);
-                MazeBox oldBox = (MazeBox) path.get(i + 1);
+                MazeBox oldBox = (MazeBox) path.get(i + 1);//On prends les cases qui sont relier 2 à 2
+                Point2D pBox = mazeBoxToCoord(box);//On calcule les coordonnées des cases
+                Point2D pOldBox = mazeBoxToCoord(oldBox);
+                //On trace la ligne :
                 g2.setColor(new Color(0, 168, 224));
                 float stroke= border*2;
-                g2.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Line more thick with rounded corners
-                Point2D pBox = mazeBoxToCoord(box);
-                Point2D pOldBox = mazeBoxToCoord(oldBox);
+                g2.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Ligne plus épaisse et bord arrondi
                 g2.draw(new Line2D.Double(pBox, pOldBox));
             }
         }
     }
 
+    /**
+     * draw the hover box
+     */
     public void drawHover() {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
 
         MazeBox boxHover = model.getBoxHover();
         if (boxHover != null) {
-            g2.setColor(boxHover.getColor().darker());
+            g2.setColor(boxHover.getColor().darker());//La case que l'on a sélectionnée devient plus foncé. On continue d'utiliser la couleur que mazebox propose
             Path2D hexa = mazeBoxToHexa(boxHover);
             g2.fill(hexa);
 
@@ -83,6 +90,7 @@ public class DrawMaze {
     }
 
     //------------------------------------GeometryFactory------------------------------------//
+    //Cette partie possède toutes les méthodes mathématiques qui permettent de calculer les coordonnées des cases
     float offsetOdd = size + border / 2;
     float x_start = offsetOdd * 2; //x position of the first hexagon
     float y_start = size * 2; //y position of the first hexagon
