@@ -15,7 +15,6 @@ public class Main {
         }
         new FrameUI(laby1);
 
-
-
+//test comofsd
     }
 }
