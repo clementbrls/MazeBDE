@@ -10,29 +10,29 @@ public class InfoPanel extends JPanel implements ChangeListener {
     private final JLabel valueDistance = new JLabel("1");
     private final JPanel distPanel;
     private final JButton SolveMazeButton;
-    private final JLabel noPath = new JLabel("No Path");
     private final Model model;
+    private final JLabel noPath;
 
     public InfoPanel(FrameUI frame) {
-       // setLayout(null);
         setFocusable(false);
         setPreferredSize(new Dimension(120, getHeight()));
         model=frame.getModel();
-        model.addObserver(this);
-        //NoPath
-        add(noPath);
+        model.addObserver(this);//Ajoute le pannel comme observer du model
 
-        //Distance
+        //-----NoPath JLabel-----
+        add(noPath = new JLabel("No Path"));
+
+        //-----Distance JLabel-----
         JLabel distance = new JLabel("Distance : ");
         distPanel = new JPanel();
         distPanel.add(distance);
         distPanel.add(valueDistance);
-        distance.setFocusable(false);
+        distance.setFocusable(false);//permet d'empecher le focus sur le label (pas de bordure bleue)
         distance.setBackground(Color.white);
         add(distPanel, BorderLayout.NORTH);
 
 
-        //Solve maze button
+        //-----Solve maze button-----
         JPanel bPanel = new JPanel();
         SolveMazeButton = new JButton("Solve");
         bPanel.add(SolveMazeButton);
@@ -48,11 +48,10 @@ public class InfoPanel extends JPanel implements ChangeListener {
         });
 
 
-        //Auto Dijkstra
+        //-----Auto Dijkstra-----
         JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",model.getAutoDijkstra());
         //change background color of only the box to white
         autoDijkstra.setBackground(Color.white);
-
         add(autoDijkstra, BorderLayout.CENTER);
         autoDijkstra.setFocusable(false);
         autoDijkstra.addActionListener(new ActionListener() {
@@ -61,13 +60,14 @@ public class InfoPanel extends JPanel implements ChangeListener {
             }
         });
 
-
+        stateChanged(null);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
         if (model.getDistance() == 9999 || (model.getDistance() == -1 && !model.getAutoDijkstra())) {
-            distPanel.setVisible(false);
+            distPanel.setVisible(false);//Si pas de chemin, ou que le chemin n'est pas connu et que l'auto dijkstra est désactivé, on cache distance
         } else {
             if (model.getDistance() != -1) {
                 valueDistance.setText("" + model.getDistance());
@@ -78,13 +78,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
         noPath.setVisible(model.getDistance() == 9999);
 
 
-        SolveMazeButton.setVisible(!model.getAutoDijkstra());
+        SolveMazeButton.setVisible(!model.getAutoDijkstra());//Le bouton pour effectué le dijkstra n'est visible que si l'auto dijkstra est désactivé
 
-    }
-
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        repaint();
     }
 }

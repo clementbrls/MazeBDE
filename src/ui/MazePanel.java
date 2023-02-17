@@ -36,20 +36,19 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos neccessaire pour dessiner le labyrinthe
+        drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
         drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {
-            drawMaze.drawHover();//Dessine la case survolé par la souris
+            drawMaze.drawHover();//Dessine la case survolée par la souris
         }
         drawMaze.drawPath();//Dessine le chemin trouvé par Dijkstra
-
-        //frame.repaintInfo();//Casse le principe d'O.O, a channger
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    //Changer la case quand on clique dessus
     @Override
     public void mousePressed(MouseEvent e) {
         int x = e.getX();

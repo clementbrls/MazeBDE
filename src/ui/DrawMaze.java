@@ -70,8 +70,6 @@ public class DrawMaze {
                 MazeBox oldBox = (MazeBox) path.get(i + 1);//On prends les cases qui sont relier 2 à 2
                 Point2D pBox = mazeBoxToCoord(box);//On calcule les coordonnées des cases
                 Point2D pOldBox = mazeBoxToCoord(oldBox);
-                //On trace la ligne :
-                //g2.setColor(new Color(0, 168, 224));
                 g2.setColor(new Color(27, 169, 222));
                 float stroke= border*2;
                 g2.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Ligne plus épaisse et bord arrondi

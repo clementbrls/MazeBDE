@@ -12,8 +12,8 @@ public class WindowPanel extends JPanel {
 
     public WindowPanel(FrameUI frame){
         setLayout(new BorderLayout());
-        add(mazePanel = new MazePanel(frame),BorderLayout.CENTER);
-        add(bPanel = new ButtonPanel(frame),BorderLayout.SOUTH);
-        add(infoPanel = new InfoPanel(frame),BorderLayout.EAST);
+        add(mazePanel = new MazePanel(frame),BorderLayout.CENTER);//MazePanel
+        add(bPanel = new ButtonPanel(frame),BorderLayout.SOUTH);//ButtonPanel
+        add(infoPanel = new InfoPanel(frame),BorderLayout.EAST);//InfoPanel
     }
 }
