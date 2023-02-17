@@ -71,7 +71,8 @@ public class DrawMaze {
                 Point2D pBox = mazeBoxToCoord(box);//On calcule les coordonnées des cases
                 Point2D pOldBox = mazeBoxToCoord(oldBox);
                 //On trace la ligne :
-                g2.setColor(new Color(0, 168, 224));
+                //g2.setColor(new Color(0, 168, 224));
+                g2.setColor(new Color(27, 169, 222));
                 float stroke= border*2;
                 g2.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));//Ligne plus épaisse et bord arrondi
                 g2.draw(new Line2D.Double(pBox, pOldBox));

@@ -12,15 +12,15 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
 
     public NewMenuItem(FrameUI frame) {
-        super("New") ; // Text of menu item
+        super("New") ; //Texte du menu
         addActionListener(this);
         this.frame = frame;
         setFont(new Font("Verdana",Font.PLAIN,14));
     }
 
     public final void actionPerformed(ActionEvent evt){
-        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,30,1));//limit max value
-        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,30,1));//limit max value
+        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,30,1));//limite la valeur max
+        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,30,1));
         Object[] message = {
                 "Hauteur : ", newHeight,
                 "Largeur : ", newWidth,

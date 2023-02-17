@@ -16,7 +16,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
     public InfoPanel(FrameUI frame) {
        // setLayout(null);
         setFocusable(false);
-        setPreferredSize(new Dimension(100, getHeight()));
+        setPreferredSize(new Dimension(120, getHeight()));
         model=frame.getModel();
         model.addObserver(this);
         //NoPath

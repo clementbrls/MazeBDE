@@ -23,6 +23,8 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
     public final void actionPerformed(ActionEvent evt){
         JFrame jFrame = new JFrame();
         String getNameFile = JOptionPane.showInputDialog(jFrame, "Give a name to the maze");
+        getNameFile = getNameFile.replaceAll("/","");// Pour eviter les erreurs de chemin
+        getNameFile = getNameFile.replaceAll("\\.","");
         String file = "data/"+getNameFile+".maze";
         maze.saveToTextFile(file);
 

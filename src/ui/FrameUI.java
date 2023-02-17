@@ -13,8 +13,8 @@ public class FrameUI extends JFrame {
     private final Model model;
 
     public FrameUI(Maze maze) {
-        super("Labyrinthe"); // Window title
-        ImageIcon img = new ImageIcon("data/icon.png");
+        super("Maze by Clément Bourles"); // Window title
+        ImageIcon img = new ImageIcon("data/icon.png");//Icone de la fenetre
         setIconImage(img.getImage());
 
         this.model = new Model(maze);
@@ -34,10 +34,5 @@ public class FrameUI extends JFrame {
 
     public Model getModel() {
         return model;
-    }
-
-
-    public void repaintInfo(){
-        //windowPanel.repaintInfo();
     }
 }

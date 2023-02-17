@@ -4,6 +4,7 @@ import ui.*;
 import Maze.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
             File file = fc.getSelectedFile();
             System.out.println("Fichier : "+file.getName());
             try {
-                maze.initFromTextFile("data/"+file.getName());
+                maze.initFromTextFile(file.getPath());
             } catch (MazeReadingException e) {
                 JOptionPane.showMessageDialog(jFrame, e.getMessage());
             }

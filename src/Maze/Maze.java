@@ -96,16 +96,16 @@ public class Maze implements Graph {
 
     /**
      * Initialize the maze from a text file
-     * @param fileName the path of the file from the source folder of the project
+     * @param filePath the path of the file from the source folder of the project
      * @throws MazeReadingException all the exception that can generate a wrong type of file
      */
-    public final void initFromTextFile(String fileName) throws MazeReadingException {
+    public final void initFromTextFile(String filePath) throws MazeReadingException {
         int fileHeight;
         int fileWidth;
         pathChanged();
         try {
             //Changement de la taille du labyrinthe en fonction du fichier
-            FileReader fr = new FileReader(fileName);
+            FileReader fr = new FileReader(filePath);
             BufferedReader br_test = new BufferedReader(fr);
             String line_test = br_test.readLine();
             fileWidth = line_test.length();
@@ -118,7 +118,7 @@ public class Maze implements Graph {
 
             this.maze = new MazeBox[fileHeight][fileWidth];
             initBlank();
-            fr = new FileReader(fileName);
+            fr = new FileReader(filePath);
             BufferedReader br = new BufferedReader(fr);
 
             for (int i = 0; i < getHeight(); i++) {
@@ -140,8 +140,8 @@ public class Maze implements Graph {
                             break;
                         default:
                             initBlank();
-                            throw new MazeReadingException(fileName, u, "Unexpected value: " + line.charAt(u));
-                    };
+                            throw new MazeReadingException(filePath, u, "Unexpected value: " + line.charAt(u));
+                    }
                 }
             }
             br.close();
@@ -166,38 +166,38 @@ public class Maze implements Graph {
             }
             if (countDeparture == 0) {
                 maze[0][0] = new DepartureBox(0, 0);
-                throw new MazeReadingException(fileName,getHeight(),"One departure is required");
+                throw new MazeReadingException(filePath,getHeight(),"One departure is required");
             }
             if (countArrival == 0) {
                 maze[0][0] = new ArrivalBox(getHeight() - 1, getWidth() - 1);
-                throw new MazeReadingException(fileName,getHeight(),"One arrival is required");
+                throw new MazeReadingException(filePath,getHeight(),"One arrival is required");
             }
 
             if (countArrival > 1) {
                 initBlank();
-                throw new MazeReadingException(fileName, lineError, countArrival+ " arrival is too much, only one arrival is required");
+                throw new MazeReadingException(filePath, lineError, countArrival+ " arrival is too much, only one arrival is required");
             }
             if (countDeparture > 1) {
                 initBlank();
-                throw new MazeReadingException(fileName, lineError, countDeparture+" departure is too much, only one departure is required");
+                throw new MazeReadingException(filePath, lineError, countDeparture+" departure is too much, only one departure is required");
             }
 
 
         } catch (IndexOutOfBoundsException e) {
             initBlank();
-            throw new MazeReadingException(fileName, 0, "All line must be the same length");
+            throw new MazeReadingException(filePath, 0, "All line must be the same length");
 
         } catch (IOException e) {
             initBlank();
-            throw new MazeReadingException(fileName, 0, e.getMessage());
+            throw new MazeReadingException(filePath, 0, e.getMessage());
         }
 
 
     }
 
-    public final void saveToTextFile(String fileName) {
+    public final void saveToTextFile(String filePath) {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
+            FileOutputStream fos = new FileOutputStream(filePath);
             PrintWriter pw = new PrintWriter(fos);
 
             for (int i = 0; i < getHeight(); i++) {

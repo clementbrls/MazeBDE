@@ -11,7 +11,6 @@ import java.awt.event.*;
 
 //----- Controleur -----
 public class MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener {
-    private final FrameUI frame;//la frame
     private final Model model;
     private final DrawMaze drawMaze;
     boolean mouseMoved = false;
@@ -22,7 +21,6 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public MazePanel(FrameUI frame) {
         setPreferredSize(new Dimension(550, 450));
-        this.frame = frame;
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
@@ -66,7 +64,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
             }
 
         }
-        mouseMoved = false;
+        mouseMoved = false;//Pour eviter que la case survolé reste affiché en "hover"
 
     }
 
@@ -84,6 +82,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     }
 
+    //Permet de changer les cases en les restant appuyé
     @Override
     public void mouseDragged(MouseEvent e) {
 
@@ -101,13 +100,15 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         }
     }
 
+
+    //Permet de changer la case survolé par la souris
     @Override
     public void mouseMoved(MouseEvent e) {
         model.setBoxHover(drawMaze.coordToMazeBox(model.getMaze(), e.getX(), e.getY()));
         mouseMoved = true;
     }
 
-
+    //Méthode appellé par l'observable qui permet d'afficher le nouveau labyrinthe quand celui-ci change
     @Override
     public void stateChanged(ChangeEvent e) {
         repaint();

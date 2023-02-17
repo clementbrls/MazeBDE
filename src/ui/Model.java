@@ -28,7 +28,7 @@ public class Model {
 
     /**
      * set the type of element to draw
-     * @param selection
+     * @param selection the type of element to draw
      */
     public void setSelect(char selection) {
         select = selection;
@@ -46,6 +46,11 @@ public class Model {
         }
     }
 
+    /**
+     * change the box clicked
+     * @param box the box to change
+     * @param setEmpty if true, the box will be empty
+     */
     public void changeBox(MazeBox box, Boolean setEmpty) {
         if (setEmpty) {
             mazeChanged=maze.changeBox(box, EmptyBox.Label);
@@ -63,7 +68,7 @@ public class Model {
      */
     public int getDistance() {
         int distance = maze.getPath().getDistance();
-        if (distance == -1 && autoDijkstra) {
+        if (distance == -1 && autoDijkstra) {//S'il ne connait pas le chemin, mais que autoDijsktra est activé, il le calcule
             maze.dijkstra();
             distance = maze.getPath().getDistance();
         }
@@ -78,6 +83,9 @@ public class Model {
         return maze;
     }
 
+    /**
+     * Execute the dijkstra algorithm to find the shortest path
+     */
     public void doDijsktra(){
         maze.dijkstra();
         stateChanged();
@@ -101,6 +109,10 @@ public class Model {
     }
 
 
+    /**
+     * set the box hovered
+     * @param boxHover the box hovered
+     */
     public boolean setBoxHover(MazeBox boxHover) {
         boolean changed = false;
         if(boxHover!=this.boxHover){
@@ -111,11 +123,17 @@ public class Model {
         return changed;
     }
 
-
+    /**
+     * get the box hovered
+     * @return the box hovered
+     */
     public MazeBox getBoxHover() {
         return boxHover;
     }
 
+    /**
+     * Signal that the model has changed
+     */
     public void stateChanged() {
         ChangeEvent evt = new ChangeEvent(this);
 
