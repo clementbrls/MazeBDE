@@ -14,6 +14,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     private final Model model;
     private final DrawMaze drawMaze;
     boolean mouseMoved = false;
+    private final FrameUI frame;
 
     /**
      * Constructor of the MazePanel
@@ -21,6 +22,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public MazePanel(FrameUI frame) {
         setPreferredSize(new Dimension(550, 450));
+        this.frame=frame;
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
@@ -28,16 +30,12 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         addMouseListener(this);//Ajoute le pannel comme listener de la souris
         addMouseMotionListener(this);
 
-
-
         setBackground(Color.white);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+    public void paint(Graphics g) {
+        super.paint(g);
         drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
         drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {
@@ -112,6 +110,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     //Méthode appellé par l'observable qui permet d'afficher le nouveau labyrinthe quand celui-ci change
     @Override
     public void stateChanged(ChangeEvent e) {
-        repaint();
+        frame.revalidate();
+        frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque du lag, le temps que la frame se repaint
     }
 }

@@ -14,7 +14,5 @@ public class Main {
             throw new RuntimeException(e);
         }
         new FrameUI(laby1);
-
-//test comofsd
     }
 }
