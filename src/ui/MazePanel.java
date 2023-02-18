@@ -35,7 +35,9 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        //super.paintComponent(g);
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
         drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
         drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {

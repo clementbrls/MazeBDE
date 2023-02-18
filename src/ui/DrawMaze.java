@@ -34,6 +34,8 @@ public class DrawMaze {
         calcSize(model.getMaze(), (float)width, (float)height);
     }
 
+    Double time_start = (double) System.currentTimeMillis();
+
     /**
      * draw the maze
      */
@@ -164,7 +166,7 @@ public class DrawMaze {
         float x;
         float y;
 
-        y = (float) Math.round(y_start + line * ((2 * size + border) * Math.cos(Math.PI / 6)));
+        y = (float) (y_start + line * ((2 * size + border) * Math.cos(Math.PI / 6)));
 
         if (line % 2 == 0) x = x_start + 2 * size * column + (column * border);//Si la ligne est paire
         else x = x_start + 2 * size * column + (column * border) + offsetOdd;

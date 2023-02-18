@@ -20,7 +20,7 @@ public class ButtonPanel extends JPanel implements ChangeListener {
         add(arrivalButton = new ArrivalButton(frame,this));
         add(emptyButton = new EmptyButton(frame,this));
         add(wallButton = new WallButton(frame,this));
-        //setPreferredSize(new Dimension(getWidth(),60));
+        stateChanged(null);
     }
 
 
