@@ -23,8 +23,7 @@ public class WallButton extends JButton implements ActionListener {
         frame.getModel().setSelect(WallBox.Label);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void stateChanged() {
         if(frame.getModel().getSelect() == WallBox.Label){
             setBackground(WallBox.color);
             setForeground(Color.white);

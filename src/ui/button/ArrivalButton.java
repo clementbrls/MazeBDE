@@ -24,8 +24,7 @@ public class ArrivalButton extends JButton implements ActionListener {
         frame.getModel().setSelect(ArrivalBox.Label);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void stateChanged() {
         if(frame.getModel().getSelect() == ArrivalBox.Label){
             setBackground(ArrivalBox.color);
             setForeground(Color.white);

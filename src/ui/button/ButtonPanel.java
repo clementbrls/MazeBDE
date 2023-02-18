@@ -38,9 +38,9 @@ public class ButtonPanel extends JPanel implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        departureButton.repaint();
-        arrivalButton.repaint();
-        emptyButton.repaint();
-        wallButton.repaint();
+        departureButton.stateChanged();
+        arrivalButton.stateChanged();
+        emptyButton.stateChanged();
+        wallButton.stateChanged();
     }
 }

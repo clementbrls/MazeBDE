@@ -24,8 +24,7 @@ public class EmptyButton extends JButton implements ActionListener {
         frame.getModel().setSelect(EmptyBox.Label);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void stateChanged() {
         if(frame.getModel().getSelect() == EmptyBox.Label){
             setBackground(WallBox.color);
             setForeground(Color.white);

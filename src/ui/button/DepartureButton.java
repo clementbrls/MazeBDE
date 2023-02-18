@@ -25,8 +25,7 @@ public class DepartureButton extends JButton implements ActionListener {
         frame.getModel().setSelect(DepartureBox.Label);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void stateChanged() {
         if (frame.getModel().getSelect() == DepartureBox.Label) {
             setBackground(DepartureBox.color);
             setForeground(Color.white);
