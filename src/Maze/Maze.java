@@ -78,7 +78,6 @@ public class Maze implements Graph {
                 int dColumn = departure.getColumn();
                 if (oldDeparture != null) {
                     maze[dLine][dColumn] = oldDeparture;
-                    System.out.println(oldDeparture.getClass());
                 } else {
                     maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
                 }
@@ -139,7 +138,6 @@ public class Maze implements Graph {
             }
             if (count % (getWidth() * getHeight() / 100) == 0) {// Permet de ne pas faire le dijkstra à chaque fois
                 dijkstra();
-                System.out.println("count: " + count);
             }
         }
     }

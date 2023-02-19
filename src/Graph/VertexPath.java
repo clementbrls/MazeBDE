@@ -6,4 +6,5 @@ public interface VertexPath {
     public Vertex get(int i);
     public boolean isPath();
     public boolean isIncluded(Vertex vertex);
+    public int size();
 }
