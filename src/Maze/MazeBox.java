@@ -23,7 +23,7 @@ public abstract class MazeBox implements Vertex {
     }
 
     public String toString(){
-        return ""+line+""+column;
+        return ""+line+":"+column;
     }
 
     public boolean isWall(){

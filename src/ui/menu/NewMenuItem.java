@@ -19,8 +19,8 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt){
-        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,30,1));//limite la valeur max
-        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,30,1));
+        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,50,1));//limite la valeur max
+        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,50,1));
         Object[] message = {
                 "Hauteur : ", newHeight,
                 "Largeur : ", newWidth,

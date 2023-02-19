@@ -26,6 +26,8 @@ public class Dijkstra {
         }
         boolean noPath=false;
         while (!processVertex.isIncluded(endVertex) && !noPath) {
+            if(pivot==null)
+                System.out.println("Pivot null");
             for (int i = 0; i < graph.getSuccessors(pivot).size(); i++) {
                 succVertex = graph.getSuccessors(pivot).get(i);
                 if (!(processVertex.isIncluded(succVertex))) {
@@ -48,10 +50,11 @@ public class Dijkstra {
             processVertex.add(pivot);
         }
 
-        System.out.println("Distance : "+minDistance.minDistance(endVertex));
+           
         VertexPath path;
         if(!noPath) {
             path = shortestPaths.getPath();
+            System.out.println("Distance : "+minDistance.minDistance(endVertex));
         } else {
             path = new VertexPath(true);
         }

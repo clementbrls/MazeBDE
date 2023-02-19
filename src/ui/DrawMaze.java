@@ -62,7 +62,7 @@ public class DrawMaze {
     public void drawPath() {
         VertexPath path = model.getMaze().getPath();
 
-        if (model.getAutoDijkstra() && path.getDistance() == -1) {
+        if (model.getAutoDijkstra() && !path.isPath()) {
             path = model.getMaze().dijkstra();//Si le mode auto est activé et que le chemin n'est pas trouvé, on le cherche
         }
 
@@ -196,7 +196,29 @@ public class DrawMaze {
      * @return the mazebox where the mouse is
      */
     public MazeBox coordToMazeBox(Maze maze, int x, int y) {
+        if (maze.getHeight()*maze.getWidth()<1000){
+            return coordToMazeBox(maze, x, y, false);
+        }
+        else {
+            return coordToMazeBox(maze, x, y, true);
+        }
+    }
 
+    public MazeBox coordToMazeBox(Maze maze, int x, int y, boolean fast){
+        if(fast){
+            int line = (int) Math.round((y-y_start)/((2*size+border)*Math.cos(Math.PI/6)));
+            int column;
+            if(line%2==0)
+                column = (int) Math.round((x-x_start)/(2*size+border));
+            else 
+                column = (int) Math.round((x-x_start-offsetOdd)/(2*size+border));
+
+            if(line<0 || line>=maze.getHeight() || column<0 || column>=maze.getWidth())
+                return null;
+            else
+                return maze.getMazeBox(line, column);
+        }
+        else {
         //On parcourt toutes les cases du labyrinthe et on regarde si la souris est dans l'hexagone associer à la case
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int u = 0; u < maze.getWidth(); u++) {
@@ -207,5 +229,6 @@ public class DrawMaze {
             }
         }
         return null;//Si on a pas trouvé de case, on renvoie null
+        }
     }
 }

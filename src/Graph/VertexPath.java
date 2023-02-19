@@ -48,4 +48,8 @@ public class VertexPath {
         return path.contains(vertex);
     }
 
+    public boolean isPath(){
+        return !noPath;
+    }
+
 }
