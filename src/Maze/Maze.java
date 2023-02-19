@@ -9,7 +9,7 @@ public class Maze implements Graph {
     private MazeBox[][] maze;
     private MazeBox arrival;
     private MazeBox departure;
-    private VertexPath solvePath = new VertexPath();
+    private DijsktraPath solvePath = new DijsktraPath();
     private MazeBox oldArrival;
     private MazeBox oldDeparture;
 
@@ -117,7 +117,7 @@ public class Maze implements Graph {
         int even_odd = (int) (Math.random() * 2) + 3;// 3 ou 4, ça permet de faire varier le cadriage des murs qui
                                                      // restes dans le labyrinthe
         int count = 0;
-        solvePath = new VertexPath(true);
+        solvePath = new DijsktraPath(true);
         while (!solvePath.isPath()) {
             count++;
             int rLine = (int) (Math.random() * getHeight());
@@ -401,10 +401,10 @@ public class Maze implements Graph {
      * 
      * @return a VertexPath that correspond to the shortest path to solve the maze
      */
-    public VertexPath dijkstra() {
+    public DijsktraPath dijkstra() {
         getDeparture();
         getArrival();
-        this.solvePath = Dijkstra.dijkstra(this, departure, arrival);
+        this.solvePath = (DijsktraPath) Dijkstra.dijkstra(this, departure, arrival);
         return solvePath;
     }
 
@@ -413,7 +413,7 @@ public class Maze implements Graph {
      * 
      * @return a VertexPath who correspond of the shortest path to solve the maze
      */
-    public VertexPath getPath() {
+    public DijsktraPath getPath() {
         return solvePath;
     }
 
@@ -489,6 +489,6 @@ public class Maze implements Graph {
      * when a method is used that edit the maze, it reset the solution path
      */
     private void pathChanged() {
-        solvePath = new VertexPath(true);
+        solvePath = new DijsktraPath(true);
     }
 }

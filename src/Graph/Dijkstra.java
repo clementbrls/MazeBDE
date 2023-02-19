@@ -1,6 +1,5 @@
 package Graph;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Dijkstra {
@@ -51,12 +50,14 @@ public class Dijkstra {
         }
 
            
-        VertexPath path;
+        DijsktraPath path;
         if(!noPath) {
-            path = shortestPaths.getPath();
+            path = (DijsktraPath) shortestPaths.getPath();
+            ProcessedVertexesImpl processedVertexes = (ProcessedVertexesImpl) processVertex;
+            path.setDijkstraPathIterator(processedVertexes.getIterator());
             System.out.println("Distance : "+minDistance.minDistance(endVertex));
         } else {
-            path = new VertexPath(true);
+            path = new DijsktraPath(true);
         }
         return path;
     }

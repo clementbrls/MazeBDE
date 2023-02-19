@@ -37,7 +37,7 @@ public class ShortestPathsImpl implements ShortestPaths{
     }
 
     public VertexPath getPath(){
-        VertexPath path = new VertexPath();
+        VertexPath path = new DijsktraPath();
         Vertex oldV = endVertex;
         while(oldV != startVertex) {
             path.add(oldV);
