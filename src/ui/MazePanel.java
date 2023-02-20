@@ -1,6 +1,6 @@
 package ui;
 
-import Maze.*;
+import maze.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -18,11 +18,12 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     /**
      * Constructor of the MazePanel
+     *
      * @param frame the frame
      */
     public MazePanel(FrameUI frame) {
         setPreferredSize(new Dimension(550, 450));
-        this.frame=frame;
+        this.frame = frame;
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
@@ -36,7 +37,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        drawMaze.setInfo(g,getWidth(),getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
+        drawMaze.setInfo(g, getWidth(), getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
         drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {
             drawMaze.drawHover();//Dessine la case survolée par la souris

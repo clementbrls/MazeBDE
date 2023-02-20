@@ -1,7 +1,7 @@
 package ui.menu;
 
 import ui.*;
-import Maze.*;
+
 import javax.swing.*;
 import java.awt.*;
 

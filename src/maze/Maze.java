@@ -1,6 +1,6 @@
-package Maze;
+package maze;
 
-import Graph.*;
+import graph.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Maze implements Graph {
 
     /**
      * Get a MazeBox of the maze
-     * 
+     *
      * @param line   coordinate of the Mazebox wanted
      * @param column coordinate of the Mazebox wanted
      * @return the MazeBox wanted
@@ -67,7 +67,7 @@ public class Maze implements Graph {
     }
 
     /**
-     * randomize the maze, with the exception of the departure and the arrival
+     * randomize the maze, except for the departure and the arrival
      */
     public void randomize() {
         pathChanged();
@@ -78,7 +78,7 @@ public class Maze implements Graph {
             }
         }
         int even_odd = (int) (Math.random() * 2) + 3;// 3 ou 4, ça permet de faire varier le cadriage des murs qui
-                                                     // restes dans le labyrinthe
+        // restes dans le labyrinthe
         int count = 0;
         solvePath = new DijsktraPath(true);
         while (!solvePath.isPath()) {
@@ -108,7 +108,7 @@ public class Maze implements Graph {
 
     /**
      * Initialize the maze from a text file
-     * 
+     *
      * @param filePath the path of the file from the source folder of the project
      * @throws MazeReadingException all the exception that can generate a wrong type
      *                              of file
@@ -246,7 +246,6 @@ public class Maze implements Graph {
     }
 
     /**
-     *
      * @param vertex
      * @return all the mazebox who are not wall neigbhoor of a mazebox
      */
@@ -256,8 +255,7 @@ public class Maze implements Graph {
     }
 
     /**
-     *
-     * @param vertex the vertex
+     * @param vertex   the vertex
      * @param alsoWall if true, the wall are also returned
      * @return all the mazebox who are neigbhoor of a mazebox (also wall if alsoWall is true)
      */
@@ -288,7 +286,7 @@ public class Maze implements Graph {
                 successors.add(maze[line + 1][column - 1]);
             }
         } else {// ligne impair
-            if (line != 0 && column != maze[0].length - 1) {
+            if (column != maze[0].length - 1) {
                 successors.add(maze[line - 1][column + 1]);
             }
             if (line != maze.length - 1 && column != maze[0].length - 1) {
@@ -313,7 +311,6 @@ public class Maze implements Graph {
     }
 
     /**
-     *
      * @param src a mazeBox
      * @param dst a mazebox
      * @return the distance between 2 consecutive mazebox
@@ -324,7 +321,7 @@ public class Maze implements Graph {
 
     /**
      * Get the arrival mazebox
-     * 
+     *
      * @return the arrival mazebox
      */
     private MazeBox getArrival() {
@@ -344,7 +341,7 @@ public class Maze implements Graph {
 
     /**
      * Get the departure mazebox
-     * 
+     *
      * @return the departure mazebox
      */
     private MazeBox getDeparture() {
@@ -477,6 +474,7 @@ public class Maze implements Graph {
     public VertexPath getPath() {
         return solvePath;
     }
+
     @Override
     public String toString() {
         String mazeString = "";
@@ -495,7 +493,7 @@ public class Maze implements Graph {
                     color = "\u001B[0m";
                 mazeString = mazeString.concat(color + "" + maze[i][u].toString() + " ");
             }
-            mazeString= mazeString.concat("\n");
+            mazeString = mazeString.concat("\n");
         }
         mazeString = mazeString.concat("\u001B[0m");
         return mazeString;

@@ -1,10 +1,11 @@
-package Maze;
+package maze;
 
 import java.awt.*;
 
 public class DepartureBox extends EmptyBox {
     public static final char Label = 'D';
     public static final Color color = new Color(71, 229, 188);
+
     public DepartureBox(int x, int y) {
         super(x, y);
     }
@@ -14,7 +15,7 @@ public class DepartureBox extends EmptyBox {
         return true;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 

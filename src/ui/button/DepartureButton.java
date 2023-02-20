@@ -1,6 +1,6 @@
 package ui.button;
 
-import Maze.DepartureBox;
+import maze.DepartureBox;
 import ui.*;
 
 import javax.swing.*;

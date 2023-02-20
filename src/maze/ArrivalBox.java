@@ -1,4 +1,4 @@
-package Maze;
+package maze;
 
 import java.awt.*;
 
@@ -16,7 +16,7 @@ public class ArrivalBox extends EmptyBox {
         return true;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 

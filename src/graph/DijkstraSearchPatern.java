@@ -1,4 +1,4 @@
-package Graph;
+package graph;
 
 import java.util.Iterator;
 
@@ -8,5 +8,6 @@ import java.util.Iterator;
  */
 public interface DijkstraSearchPatern {
     void setIterator(Iterator<Vertex> iterator);
+
     Iterator<Vertex> getIterator();
 }

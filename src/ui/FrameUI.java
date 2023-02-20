@@ -1,6 +1,6 @@
 package ui;
 
-import Maze.*;
+import maze.*;
 import ui.menu.DrawingMenuBar;
 
 import javax.swing.*;

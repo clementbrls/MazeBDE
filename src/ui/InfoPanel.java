@@ -1,4 +1,5 @@
 package ui;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -16,7 +17,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
     public InfoPanel(FrameUI frame) {
         setFocusable(false);
         setPreferredSize(new Dimension(120, getHeight()));
-        model=frame.getModel();
+        model = frame.getModel();
         model.addObserver(this);//Ajoute le pannel comme observer du model
 
         //-----NoPath JLabel-----
@@ -49,7 +50,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
 
 
         //-----Auto Dijkstra-----
-        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra",model.getAutoDijkstra());
+        JCheckBox autoDijkstra = new JCheckBox("Auto Dijkstra", model.getAutoDijkstra());
         //change background color of only the box to white
         autoDijkstra.setBackground(Color.white);
         add(autoDijkstra, BorderLayout.CENTER);

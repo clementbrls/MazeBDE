@@ -1,6 +1,6 @@
-package Maze;
+package maze;
 
-import Graph.Vertex;
+import graph.Vertex;
 
 import java.awt.*;
 
@@ -28,35 +28,35 @@ public abstract class MazeBox implements Vertex {
         return column;
     }
 
-    public String toString(){
-        return ""+line+":"+column;
+    public String toString() {
+        return "" + line + ":" + column;
     }
 
     /**
      * @return true if the box is a wall
      */
-    public boolean isWall(){
+    public boolean isWall() {
         return false;
     }
 
     /**
      * @return true if the box is empty
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return false;
     }
 
     /**
      * @return true if the box is a departure
      */
-    public boolean isDeparture(){
+    public boolean isDeparture() {
         return false;
     }
 
     /**
      * @return true if the box is an arrival
      */
-    public boolean isArrival(){
+    public boolean isArrival() {
         return false;
     }
 

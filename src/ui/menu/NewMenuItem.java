@@ -1,8 +1,9 @@
 package ui.menu;
-import Maze.*;
+
+import maze.*;
 import ui.*;
 
-import javax.swing.* ;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,15 +13,15 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
 
     public NewMenuItem(FrameUI frame) {
-        super("New") ; //Texte du menu
+        super("New"); //Texte du menu
         addActionListener(this);
         this.frame = frame;
-        setFont(new Font("Verdana",Font.PLAIN,14));
+        setFont(new Font("Verdana", Font.PLAIN, 14));
     }
 
-    public final void actionPerformed(ActionEvent evt){
-        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10,2,50,1));//limite la valeur max
-        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10,2,50,1));
+    public final void actionPerformed(ActionEvent evt) {
+        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));//limite la valeur max
+        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));
         Object[] message = {
                 "Hauteur : ", newHeight,
                 "Largeur : ", newWidth,

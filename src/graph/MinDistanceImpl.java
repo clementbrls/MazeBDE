@@ -1,16 +1,16 @@
-package Graph;
+package graph;
 
 import java.util.HashMap;
 
-public class MinDistanceImpl implements MinDistance{
+public class MinDistanceImpl implements MinDistance {
     private final HashMap<Vertex, Integer> hashMap;
 
-    public MinDistanceImpl(){
+    public MinDistanceImpl() {
         hashMap = new HashMap<Vertex, Integer>();
     }
 
-    public void set(Vertex vert, Integer dist){
-        hashMap.put(vert,dist);
+    public void set(Vertex vert, Integer dist) {
+        hashMap.put(vert, dist);
     }
 
 

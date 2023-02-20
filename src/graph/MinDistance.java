@@ -1,4 +1,4 @@
-package Graph;
+package graph;
 
 /**
  * Interface for the distance min. from a Vertex
@@ -12,6 +12,7 @@ public interface MinDistance {
 
     /**
      * set the distance min. from a Vertex
+     *
      * @param vert The vertex
      * @param dist The distance min. from the given vertex
      */

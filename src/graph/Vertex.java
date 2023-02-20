@@ -1,4 +1,4 @@
-package Graph;
+package graph;
 
 /**
  * Interface for the Vertex

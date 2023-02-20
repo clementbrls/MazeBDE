@@ -1,10 +1,10 @@
 package ui.menu;
 
 import ui.*;
-import Maze.*;
+import maze.*;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,14 +16,14 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
     private final Maze maze;
 
     public OpenMenuItem(FrameUI frame) {
-        super("Open") ; // Text of menu item
+        super("Open"); // Text of menu item
         addActionListener(this);
-        this.maze=frame.getModel().getMaze();
+        this.maze = frame.getModel().getMaze();
         this.frame = frame;
-        setFont(new Font("Verdana",Font.PLAIN,14));
+        setFont(new Font("Verdana", Font.PLAIN, 14));
     }
 
-    public final void actionPerformed(ActionEvent evt){
+    public final void actionPerformed(ActionEvent evt) {
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("./data"));
         fc.setDialogTitle("Selectionnez un labyrinthe");
@@ -32,9 +32,9 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
         JFrame jFrame = new JFrame();
         int result = fc.showOpenDialog(jFrame);
 
-        if(result == JFileChooser.APPROVE_OPTION){
+        if (result == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            System.out.println("Fichier : "+file.getName());
+            //System.out.println("Fichier : " + file.getName());
             try {
                 maze.initFromTextFile(file.getPath());
             } catch (MazeReadingException e) {
