@@ -9,7 +9,7 @@ public class Maze implements Graph {
     private MazeBox[][] maze;
     private MazeBox arrival;
     private MazeBox departure;
-    private DijsktraPath solvePath = new DijsktraPath();
+    private VertexPath solvePath = new DijsktraPath();
     private MazeBox oldArrival;
     private MazeBox oldDeparture;
 
@@ -50,45 +50,6 @@ public class Maze implements Graph {
     }
 
     /**
-     * set a mazebox to something else, it also delete the old arrival or departure
-     * 
-     * @param box the mazebox to change
-     */
-    private void setBox(MazeBox box) {
-        int line = box.getLine();
-        int column = box.getColumn();
-        MazeBox boxHere = getMazeBox(line, column);
-        arrival = getArrival();
-        departure = getDeparture();
-
-        if (!boxHere.isArrival() && !boxHere.isDeparture()) {
-            if (box.isArrival()) {
-                int aLine = arrival.getLine();
-                int aColumn = arrival.getColumn();
-                if (oldArrival != null) {
-                    maze[aLine][aColumn] = oldArrival;
-                } else {
-                    maze[aLine][aColumn] = new EmptyBox(aLine, aColumn);
-                }
-                oldArrival = getMazeBox(line, column);
-            }
-
-            if (box.isDeparture()) {
-                int dLine = departure.getLine();
-                int dColumn = departure.getColumn();
-                if (oldDeparture != null) {
-                    maze[dLine][dColumn] = oldDeparture;
-                } else {
-                    maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
-                }
-                oldDeparture = getMazeBox(line, column);
-            }
-
-            maze[line][column] = box;
-        }
-    }
-
-    /**
      * Initialize the maze with all the mazebox empty, with the exception of one
      * departure and one arrival at one corner each
      */
@@ -105,7 +66,10 @@ public class Maze implements Graph {
         maze[getHeight() - 1][getWidth() - 1] = new ArrivalBox(getHeight() - 1, getWidth() - 1);
     }
 
-    public void initRandom() {
+    /**
+     * randomize the maze, with the exception of the departure and the arrival
+     */
+    public void randomize() {
         pathChanged();
         for (int i = 0; i < getHeight(); i++) {
             for (int u = 0; u < getWidth(); u++) {
@@ -291,6 +255,12 @@ public class Maze implements Graph {
         return getSuccessors(vertex, false);
     }
 
+    /**
+     *
+     * @param vertex the vertex
+     * @param alsoWall if true, the wall are also returned
+     * @return all the mazebox who are neigbhoor of a mazebox (also wall if alsoWall is true)
+     */
     public ArrayList<Vertex> getSuccessors(Vertex vertex, boolean alsoWall) {
         MazeBox box = (MazeBox) vertex;
         int line = box.getLine();
@@ -348,7 +318,6 @@ public class Maze implements Graph {
      * @param dst a mazebox
      * @return the distance between 2 consecutive mazebox
      */
-
     public int getDistance(Vertex src, Vertex dst) {
         return 1;
     }
@@ -393,47 +362,44 @@ public class Maze implements Graph {
         return departure;
     }
 
-    /**
-     * Calculate the shortest path to solve the maze, register it as an attribute,
-     * et also return it
-     * 
-     * @return a VertexPath that correspond to the shortest path to solve the maze
-     */
-    public DijsktraPath dijkstra() {
-        getDeparture();
-        getArrival();
-        this.solvePath = (DijsktraPath) Dijkstra.dijkstra(this, departure, arrival);
-        return solvePath;
-    }
 
     /**
-     * Give the shortest path the maze know to solve itself
-     * 
-     * @return a VertexPath who correspond of the shortest path to solve the maze
+     * set a mazebox to something else, it also delete the old arrival or departure
+     *
+     * @param box the mazebox to change
      */
-    public DijsktraPath getPath() {
-        return solvePath;
-    }
+    private void setBox(MazeBox box) {
+        int line = box.getLine();
+        int column = box.getColumn();
+        MazeBox boxHere = getMazeBox(line, column);
+        arrival = getArrival();
+        departure = getDeparture();
 
-    public void showToConsole() {
-        for (int i = 0; i < getHeight(); i++) {
-            if (i % 2 != 0)
-                System.out.print(" ");
-            for (int u = 0; u < getWidth(); u++) {
-                String color;
-                if (maze[i][u].isDeparture())
-                    color = "\u001B[34m";
-                else if (maze[i][u].isArrival())
-                    color = "\u001B[36m";
-                else if (maze[i][u].isWall())
-                    color = "\u001B[30m";
-                else
-                    color = "\u001B[0m";
-                System.out.print(color + "" + maze[i][u].toString() + " ");
+        if (!boxHere.isArrival() && !boxHere.isDeparture()) {
+            if (box.isArrival()) {
+                int aLine = arrival.getLine();
+                int aColumn = arrival.getColumn();
+                if (oldArrival != null) {
+                    maze[aLine][aColumn] = oldArrival;
+                } else {
+                    maze[aLine][aColumn] = new EmptyBox(aLine, aColumn);
+                }
+                oldArrival = getMazeBox(line, column);
             }
-            System.out.println();
+
+            if (box.isDeparture()) {
+                int dLine = departure.getLine();
+                int dColumn = departure.getColumn();
+                if (oldDeparture != null) {
+                    maze[dLine][dColumn] = oldDeparture;
+                } else {
+                    maze[dLine][dColumn] = new EmptyBox(dLine, dColumn);
+                }
+                oldDeparture = getMazeBox(line, column);
+            }
+
+            maze[line][column] = box;
         }
-        System.out.println("\u001B[0m");
     }
 
     /**
@@ -488,5 +454,50 @@ public class Maze implements Graph {
      */
     private void pathChanged() {
         solvePath = new DijsktraPath(true);
+    }
+
+    /**
+     * Calculate the shortest path to solve the maze, register it as an attribute,
+     * et also return it
+     *
+     * @return a VertexPath that correspond to the shortest path to solve the maze
+     */
+    public VertexPath dijkstra() {
+        getDeparture();
+        getArrival();
+        this.solvePath = Dijkstra.dijkstra(this, departure, arrival);//Le maze n'a pas besoin de connaitre le search patern de Dijsktra
+        return solvePath;
+    }
+
+    /**
+     * Give the shortest path the maze know to solve itself
+     *
+     * @return a VertexPath who correspond of the shortest path to solve the maze
+     */
+    public VertexPath getPath() {
+        return solvePath;
+    }
+    @Override
+    public String toString() {
+        String mazeString = "";
+        for (int i = 0; i < getHeight(); i++) {
+            if (i % 2 != 0)
+                mazeString = mazeString.concat(" ");
+            for (int u = 0; u < getWidth(); u++) {
+                String color;
+                if (maze[i][u].isDeparture())
+                    color = "\u001B[34m";
+                else if (maze[i][u].isArrival())
+                    color = "\u001B[36m";
+                else if (maze[i][u].isWall())
+                    color = "\u001B[30m";
+                else
+                    color = "\u001B[0m";
+                mazeString = mazeString.concat(color + "" + maze[i][u].toString() + " ");
+            }
+            mazeString= mazeString.concat("\n");
+        }
+        mazeString = mazeString.concat("\u001B[0m");
+        return mazeString;
     }
 }

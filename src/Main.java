@@ -5,7 +5,6 @@ import ui.*;
 public class Main {
     public static void main(String[] args) {
         Maze laby1 = new Maze();
-
         // laby1.initBlank();
         try {
             laby1.initFromTextFile("data/laby.maze");

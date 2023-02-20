@@ -34,7 +34,6 @@ public class DrawMaze {
         calcSize(model.getMaze(), (float)width, (float)height);
     }
 
-    Double time_start = (double) System.currentTimeMillis();
 
     /**
      * draw the maze
@@ -61,13 +60,14 @@ public class DrawMaze {
      */
     public void drawPath() {
         VertexPath path = model.getMaze().getPath();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
 
         if (model.getAutoDijkstra() && !path.isPath()) {
             path = model.getMaze().dijkstra();//Si le mode auto est activé et que le chemin n'est pas trouvé, on le cherche
         }
 
-        for (int i = 0; i < path.size(); i++) {
-            if (i + 1 < path.size()) {
+        for (int i = 0; i <= path.getDistance(); i++) {
+            if (i + 1 <= path.getDistance()) {
                 MazeBox box = (MazeBox) path.get(i);
                 MazeBox oldBox = (MazeBox) path.get(i + 1);//On prends les cases qui sont relier 2 à 2
                 Point2D pBox = mazeBoxToCoord(box);//On calcule les coordonnées des cases

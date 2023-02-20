@@ -1,5 +1,8 @@
 package Graph;
 
+/**
+ * Interface for the Vertex
+ */
 public interface Vertex {
-	String toString();
+//A Vertex doesn't need any method
 }

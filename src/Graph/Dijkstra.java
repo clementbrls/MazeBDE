@@ -7,8 +7,8 @@ public class Dijkstra {
     public Dijkstra() {
     }
 
-    public static VertexPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
-        ProcessedVertexes processVertex = new ProcessedVertexesImpl();
+    public static DijsktraPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
+        ProcessedVertexesPro processVertex = new ProcessedVertexesPro();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
         ShortestPaths shortestPaths = new ShortestPathsImpl(startVertex,endVertex);
@@ -25,8 +25,6 @@ public class Dijkstra {
         }
         boolean noPath=false;
         while (!processVertex.isIncluded(endVertex) && !noPath) {
-            if(pivot==null)
-                System.out.println("Pivot null");
             for (int i = 0; i < graph.getSuccessors(pivot).size(); i++) {
                 succVertex = graph.getSuccessors(pivot).get(i);
                 if (!(processVertex.isIncluded(succVertex))) {
@@ -53,8 +51,7 @@ public class Dijkstra {
         DijsktraPath path;
         if(!noPath) {
             path = (DijsktraPath) shortestPaths.getPath();
-            ProcessedVertexesImpl processedVertexes = (ProcessedVertexesImpl) processVertex;
-            path.setDijkstraPathIterator(processedVertexes.getIterator());
+            path.setIterator(processVertex.getIterator());
             System.out.println("Distance : "+minDistance.minDistance(endVertex));
         } else {
             path = new DijsktraPath(true);

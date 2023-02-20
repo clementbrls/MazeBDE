@@ -1,5 +1,4 @@
 package ui.menu;
-import Maze.*;
 import ui.*;
 
 import javax.swing.*;
@@ -21,13 +20,13 @@ public class RandomMenuItem extends JMenuItem implements ActionListener, KeyList
     }
 
     public final void actionPerformed(ActionEvent evt){
-        frame.getModel().getMaze().initRandom();
+        frame.getModel().getMaze().randomize();
         frame.getModel().stateChanged();
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A) {
-            frame.getModel().getMaze().initRandom();
+            frame.getModel().getMaze().randomize();
             frame.getModel().stateChanged();
         }
     }

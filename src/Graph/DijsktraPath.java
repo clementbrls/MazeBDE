@@ -3,63 +3,62 @@ package Graph;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class DijsktraPath implements VertexPath{
-    private final ArrayList<Vertex> path;
-    private Boolean noPath=false;
-    private Iterator<Vertex> pathIterator = null;
+public class DijsktraPath implements VertexPath, DijkstraSearchPatern{
+        private final ArrayList<Vertex> path;
+        private Boolean noPath = false;
+        private Iterator<Vertex> pathIterator = null;
 
-    public DijsktraPath(){
-        path = new ArrayList<Vertex>();
-    }
-    public DijsktraPath(boolean noPath){
-        path = new ArrayList<Vertex>();
-        this.noPath=noPath;
-    }
-
-    public void add(Vertex vertex){
-        path.add(vertex);
-    }
-
-    public Vertex get(int i){
-        return path.get(i);
-    }
-
-    public int size(){
-        return path.size();
-    }
-
-    public String toString() {
-        String txt=this.get(0).toString();
-        for(int i=1;i<path.size();i++){
-            txt=this.get(i).toString()+" => "+txt;
+        public DijsktraPath() {
+            path = new ArrayList<Vertex>();
         }
-        return txt;
-    }
 
-    public int getDistance(){
-        int distance;
-        if(noPath){
-            distance=9999;
-        } else {
-            distance=path.size()-1;
+        public DijsktraPath(boolean noPath) {
+            path = new ArrayList<Vertex>();
+            this.noPath = noPath;
         }
-        return distance;
-    }
 
-    public boolean isIncluded(Vertex vertex){
-        return path.contains(vertex);
-    }
+        public void add(Vertex vertex) {
+            path.add(vertex);
+        }
 
-    public boolean isPath(){
-        return !noPath;
-    }
+        public Vertex get(int i) {
+            return path.get(i);
+        }
 
-    public Iterator<Vertex> getDijkstraPathIterator(){
-        return pathIterator;
-    }
+        public String toString() {
+            String txt = this.get(0).toString();
+            for (int i = 1; i < path.size(); i++) {
+                txt = this.get(i).toString() + " => " + txt;
+            }
+            return txt;
+        }
 
-    public void setDijkstraPathIterator(Iterator<Vertex> pathIterator){
-        this.pathIterator=pathIterator;
-    }
+        public int getDistance() {
+            int distance;
+            if (noPath) {
+                distance = 9999;
+            } else {
+                distance = path.size() - 1;//On enlève 1 car on ne compte pas le premier sommet
+            }
+            return distance;
+        }
+
+        public boolean isIncluded(Vertex vertex) {
+            return path.contains(vertex);
+        }
+
+        public boolean isPath() {
+            return !noPath;
+        }
+
+        @Override
+        public Iterator<Vertex> getIterator() {
+            return pathIterator;
+        }
+
+        @Override
+        public void setIterator(Iterator<Vertex> iterator) {
+            this.pathIterator = iterator;
+        }
 
 }
