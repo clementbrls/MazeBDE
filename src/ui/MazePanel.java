@@ -27,8 +27,8 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
-        model.addObserver(this);//Ajoute le pannel comme observer du model
-        addMouseListener(this);//Ajoute le pannel comme listener de la souris
+        model.addObserver(this);//Ajoute le panel comme observer du model
+        addMouseListener(this);//Ajoute le panel comme listener de la souris
         addMouseMotionListener(this);
 
         setBackground(Color.white);
@@ -64,13 +64,13 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
             }
 
         }
-        mouseMoved = false;//Pour eviter que la case survolé reste affiché en "hover"
-
+        mouseMoved = false;//Pour éviter que la case survolée reste affiché en "hover" quand on clique
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseMoved = false;
+        stateChanged(null);//pas très propre, mais permet de résoudre un bug
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
 
-    //Permet de changer la case survolé par la souris
+    //Permet de changer la case survolée par la souris
     @Override
     public void mouseMoved(MouseEvent e) {
         model.setBoxHover(drawMaze.coordToMazeBox(model.getMaze(), e.getX(), e.getY()));

@@ -31,9 +31,9 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
         if (option == JOptionPane.OK_OPTION) {
             int newHeightInt = (int) newHeight.getValue();
             int newWidthInt = (int) newWidth.getValue();
-            Maze maze = new Maze(newHeightInt, newWidthInt);
-            frame.dispose();
-            new FrameUI(maze);
+            Maze maze = new Maze(newHeightInt, newWidthInt);//Créer un nouveau labyrinthe
+            frame.dispose();//Destroy the frame
+            new FrameUI(maze);//Créer une nouvelle fenêtre avec le nouveau labyrinthe
         }
     }
 }

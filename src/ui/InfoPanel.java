@@ -18,7 +18,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
         setFocusable(false);
         setPreferredSize(new Dimension(120, getHeight()));
         model = frame.getModel();
-        model.addObserver(this);//Ajoute le pannel comme observer du model
+        model.addObserver(this);//Ajoute le panel comme observer du model
 
         //-----NoPath JLabel-----
         add(noPath = new JLabel("No Path"));
@@ -28,7 +28,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
         distPanel = new JPanel();
         distPanel.add(distance);
         distPanel.add(valueDistance);
-        distance.setFocusable(false);//permet d'empecher le focus sur le label (pas de bordure bleue)
+        distance.setFocusable(false);//permet d'empêcher le focus sur le label (pas de bordure bleue)
         distance.setBackground(Color.white);
         add(distPanel, BorderLayout.NORTH);
 
@@ -61,12 +61,12 @@ public class InfoPanel extends JPanel implements ChangeListener {
             }
         });
 
-        stateChanged(null);
     }
 
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (model.getDistance() == 9999 || (!model.getMaze().getPath().isPath() && !model.getAutoDijkstra())) {
             distPanel.setVisible(false);//Si pas de chemin, ou que le chemin n'est pas connu et que l'auto dijkstra est désactivé, on cache distance
         } else {
@@ -79,7 +79,11 @@ public class InfoPanel extends JPanel implements ChangeListener {
         noPath.setVisible(model.getDistance() == 9999);
 
 
-        SolveMazeButton.setVisible(!model.getAutoDijkstra());//Le bouton pour effectué le dijkstra n'est visible que si l'auto dijkstra est désactivé
+        SolveMazeButton.setVisible(!model.getAutoDijkstra());//Le bouton pour effectuer le dijkstra n'est visible que si l'auto dijkstra est désactivé
 
+    }
+
+    public void stateChanged(ChangeEvent e) {
+        repaint();
     }
 }

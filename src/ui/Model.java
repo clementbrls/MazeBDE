@@ -75,7 +75,7 @@ public class Model {
      */
     public int getDistance() {
         int distance = maze.getPath().getDistance();
-        if (distance == -1 && autoDijkstra) {//S'il ne connait pas le chemin, mais que autoDijsktra est activé, il le calcule
+        if (distance == -1 && autoDijkstra) {//S'il ne connait pas le chemin, mais qu'autoDijsktra est activé, il le calcule
             maze.dijkstra();
             distance = maze.getPath().getDistance();
         }
@@ -123,6 +123,7 @@ public class Model {
      * set the box hovered
      *
      * @param boxHover the box hovered
+     * @return changed, return true if the box hover has been changed
      */
     public boolean setBoxHover(MazeBox boxHover) {
         boolean changed = false;
