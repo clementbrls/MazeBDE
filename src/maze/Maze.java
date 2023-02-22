@@ -336,10 +336,7 @@ public class Maze implements Graph {
                     arrival = maze[i][u];
             }
         }
-        if (arrival == null) {
-            arrival = new ArrivalBox(getHeight() - 1, getWidth() - 1);
-            maze[getHeight() - 1][getWidth() - 1] = arrival;
-        }
+
         return arrival;
     }
 
@@ -356,10 +353,7 @@ public class Maze implements Graph {
                     departure = maze[i][u];
             }
         }
-        if (departure == null) {
-            departure = new DepartureBox(0, 0);
-            maze[0][0] = departure;
-        }
+
         return departure;
     }
 
@@ -408,7 +402,7 @@ public class Maze implements Graph {
      *
      * @param box
      * @param choice, a string who can be D for departure, A for arrival, W for wall
-     *                or E for empty
+     *                or E for empty, you can use the constant of the MazeBox classes (Label)
      */
     public boolean changeBox(MazeBox box, char choice) {
         boolean changed = false;
@@ -480,7 +474,7 @@ public class Maze implements Graph {
     }
 
     @Override
-    public String toString() {
+    public String toString() {//Cette méthode est utilisée pour l'affichage du labyrinthe dans la console
         String mazeString = "";
         for (int i = 0; i < getHeight(); i++) {
             if (i % 2 != 0)

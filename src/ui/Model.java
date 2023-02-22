@@ -1,7 +1,6 @@
 package ui;
 
 import maze.*;
-
 import javax.swing.event.*;
 import java.util.*;
 
@@ -12,6 +11,7 @@ public class Model {
     private MazeBox boxHover = null;
     private char select = WallBox.Label;
     private Boolean autoDijkstra = true;
+    private Boolean save = true;
 
     private final List<ChangeListener> listeners = new ArrayList<ChangeListener>();
 
@@ -23,7 +23,7 @@ public class Model {
     /**
      * get the type of element to draw
      *
-     * @return
+     * @return the selected button
      */
     public char getSelect() {
         return select;
@@ -66,6 +66,7 @@ public class Model {
         if (mazeChanged) {
             stateChanged();
         }
+        save=false;
     }
 
     /**
@@ -155,7 +156,20 @@ public class Model {
         }
     }
 
+    /**
+     * Add a listener to the model
+     *
+     * @param listener the listener to add
+     */
     public void addObserver(ChangeListener listener) {
         listeners.add(listener);
+    }
+
+    public Boolean isSave() {
+        return save;
+    }
+
+    public void setSave(Boolean save) {
+        this.save = save;
     }
 }

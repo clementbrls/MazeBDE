@@ -28,6 +28,7 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
         getNameFile = getNameFile.replaceAll("\\.", "");
         String file = "data/" + getNameFile + ".maze";
         maze.saveToTextFile(file);
+        frame.getModel().setSave(true);
 
     }
 }

@@ -22,7 +22,7 @@ public class HelpMenu extends JMenu {
         help.setForeground(Color.black);
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane.showMessageDialog(new JFrame(), "Click on a button to select the mode of edition" + System.lineSeparator() + "A right click allow you to quicly erase a wall");
+                JOptionPane.showMessageDialog(new JFrame(), "Cliquez sur un bouton pour changer le mode d'édition" + System.lineSeparator() + "Un clic droit sur un bouton permet de le supprimer" + System.lineSeparator() + "Un clic gauche sur un bouton permet de le déplacer" + System.lineSeparator() + "Un clic gauche sur un bouton permet de le déplacer");
             }
         });
 
@@ -32,7 +32,7 @@ public class HelpMenu extends JMenu {
         about.setForeground(Color.black);
         about.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane.showMessageDialog(new JFrame(), "Created by Clément Bourles");
+                JOptionPane.showMessageDialog(new JFrame(), "Créé par Clément Bourles");
             }
         });
     }

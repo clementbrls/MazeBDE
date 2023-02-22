@@ -25,7 +25,18 @@ public class FrameUI extends JFrame {
         //Affichage du panneau principal (qui contient les autres panneaux)
         setContentPane(windowPanel = new WindowPanel(this));
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Explicit !
+        //do the method quit() when the user click on the red cross
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if(model.isSave()) {
+                    System.exit(0);
+                } else {
+                    quit();
+                }
+            }
+        });
 
         pack();// Components sizes and positions
         setLocationRelativeTo(null);//Center frame on the screen
@@ -34,5 +45,13 @@ public class FrameUI extends JFrame {
 
     public Model getModel() {
         return model;
+    }
+
+    public void quit() {
+        //Open a pop window to ask if the user really wants to quit
+        int result = JOptionPane.showConfirmDialog(this, "Le labyrinthe n'est pas sauvegardé"+System.lineSeparator()+ "Voulez vous quand même quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 }
