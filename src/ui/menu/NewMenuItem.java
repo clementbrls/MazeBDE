@@ -13,7 +13,7 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
     private final FrameUI frame;
 
     public NewMenuItem(FrameUI frame) {
-        super("New"); //Texte du menu
+        super("Nouveau"); //Texte du menu
         addActionListener(this);
         this.frame = frame;
         setFont(new Font("Verdana", Font.PLAIN, 14));

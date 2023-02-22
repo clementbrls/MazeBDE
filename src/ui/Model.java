@@ -1,5 +1,6 @@
 package ui;
 
+import graph.VertexPath;
 import maze.*;
 import javax.swing.event.*;
 import java.util.*;
@@ -76,9 +77,9 @@ public class Model {
      */
     public int getDistance() {
         int distance = maze.getPath().getDistance();
-        if (distance == -1 && autoDijkstra) {//S'il ne connait pas le chemin, mais qu'autoDijsktra est activé, il le calcule
-            maze.dijkstra();
-            distance = maze.getPath().getDistance();
+        if ((distance == -1) &&  autoDijkstra) {//S'il ne connait pas le chemin, mais qu'autoDijkstra est activé, il le calcule
+            VertexPath temp = maze.dijkstra();
+            distance = temp.getDistance();
         }
         return distance;
     }

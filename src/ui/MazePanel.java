@@ -35,14 +35,16 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         drawMaze.setInfo(g, getWidth(), getHeight());//Donne les infos nécessaires pour dessiner le labyrinthe
         drawMaze.drawMaze();//Dessine le labyrinthe
         if (mouseMoved) {
             drawMaze.drawHover();//Dessine la case survolée par la souris
         }
         drawMaze.drawPath();//Dessine le chemin trouvé par Dijkstra
+        g.dispose();
+        frame.revalidate();
     }
 
     @Override
@@ -70,7 +72,6 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseMoved = false;
-        stateChanged(null);//pas très propre, mais permet de résoudre un bug
     }
 
     @Override
@@ -113,5 +114,6 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     public void stateChanged(ChangeEvent e) {
         frame.revalidate();
         frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque du lag, le temps que la frame se repaint
+
     }
 }

@@ -406,9 +406,10 @@ public class Maze implements Graph {
      */
     public boolean changeBox(MazeBox box, char choice) {
         boolean changed = false;
+        boolean pathChanged = false;
 
         if (choice != WallBox.Label || solvePath.isIncluded(box)) {
-            pathChanged();
+            pathChanged = true;
         }
 
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival()
@@ -441,6 +442,8 @@ public class Maze implements Graph {
                     break;
             }
         }
+        if(pathChanged && changed)
+            pathChanged();
         return changed;
     }
 
@@ -448,7 +451,7 @@ public class Maze implements Graph {
      * when a method is used that edit the maze, it reset the solution path
      */
     private void pathChanged() {
-        solvePath = new DijsktraPath(true);
+        solvePath = new DijsktraPath(false);
     }
 
     /**

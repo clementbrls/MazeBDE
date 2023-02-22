@@ -16,7 +16,7 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
     private final Maze maze;
 
     public OpenMenuItem(FrameUI frame) {
-        super("Open"); // Text of menu item
+        super("Ouvrir"); // Text of menu item
         addActionListener(this);
         this.maze = frame.getModel().getMaze();
         this.frame = frame;
@@ -24,11 +24,30 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt) {
+        //mettre le FileChooser en français :
+        UIManager.put("FileChooser.openDialogTitleText", "Ouvrir un fichier");
+        UIManager.put("FileChooser.lookInLabelText", "Chercher dans :");
+        UIManager.put("FileChooser.saveInLabelText", "Enregistrer dans :");
+        UIManager.put("FileChooser.cancelButtonText", "Annuler");
+        UIManager.put("FileChooser.cancelButtonToolTipText", "Annuler");
+        UIManager.put("FileChooser.openButtonText", "Ouvrir");
+        UIManager.put("FileChooser.openButtonToolTipText", "Ouvrir");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Type de fichier :");
+        UIManager.put("FileChooser.fileNameLabelText", "Nom du fichier :");
+        UIManager.put("FileChooser.saveButtonText", "Enregistrer");
+        UIManager.put("FileChooser.saveButtonToolTipText", "Enregistrer");
+        UIManager.put("FileChooser.saveDialogTitleText", "Enregistrer un fichier");
+
+        //File chooser :
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());//Explicite
+        }catch(Exception ignored) {
+        }
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./data"));
+        fc.setCurrentDirectory(new File("./data"));//On ouvre le fileChooser dans le dossier data
         fc.setDialogTitle("Selectionnez un labyrinthe");
         fc.setAcceptAllFileFilterUsed(false);
-        fc.addChoosableFileFilter(new FileNameExtensionFilter("Fichier maze", "maze"));
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("Fichier maze", "maze"));//On ne peut ouvrir que les fichiers .maze
         JFrame jFrame = new JFrame();
         int result = fc.showOpenDialog(jFrame);
 

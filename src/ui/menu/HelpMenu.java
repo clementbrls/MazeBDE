@@ -12,11 +12,11 @@ public class HelpMenu extends JMenu {
     private final JMenuItem about;
 
     public HelpMenu(FrameUI frame) {
-        super("Help");
+        super("Aide");
         setFont(new Font("Verdana", Font.PLAIN, 18));
         setForeground(Color.white);
 
-        add(help = new JMenuItem("Help"));
+        add(help = new JMenuItem("Aide"));
         help.setFont(new Font("Verdana", Font.PLAIN, 14));
         help.setBackground(Color.white);
         help.setForeground(Color.black);
@@ -26,7 +26,7 @@ public class HelpMenu extends JMenu {
             }
         });
 
-        add(about = new JMenuItem("About"));
+        add(about = new JMenuItem("A propos"));
         about.setFont(new Font("Verdana", Font.PLAIN, 14));
         about.setBackground(Color.white);
         about.setForeground(Color.black);

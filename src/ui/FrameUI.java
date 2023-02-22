@@ -13,7 +13,7 @@ public class FrameUI extends JFrame {
     private final Model model;
 
     public FrameUI(Maze maze) {
-        super("Maze by Clément Bourles"); // Window title
+        super("Labyrinthe de Clément Bourles"); // Window title
         ImageIcon img = new ImageIcon("data/icon.png");//Icone de la fenetre
         setIconImage(img.getImage());
 
@@ -48,7 +48,9 @@ public class FrameUI extends JFrame {
     }
 
     public void quit() {
-        //Open a pop window to ask if the user really wants to quit
+        //Ouvre une fenetre de confirmation pour quitter sans sauvegarder
+        UIManager.put("OptionPane.yesButtonText", "Oui");
+        UIManager.put("OptionPane.noButtonText", "Non");
         int result = JOptionPane.showConfirmDialog(this, "Le labyrinthe n'est pas sauvegardé"+System.lineSeparator()+ "Voulez vous quand même quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             System.exit(0);

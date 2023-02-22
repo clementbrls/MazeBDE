@@ -11,7 +11,7 @@ public class RandomMenuItem extends JMenuItem implements ActionListener, KeyList
     private final FrameUI frame;
 
     public RandomMenuItem(FrameUI frame) {
-        super("Randomize"); // Text of menu item
+        super("Randomise"); // Text of menu item
         addActionListener(this);
         this.frame = frame;
         setFont(new Font("Verdana", Font.PLAIN, 14));

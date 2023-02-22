@@ -13,7 +13,7 @@ public final class FileMenu extends JMenu {
     private final RandomMenuItem randomMenuItem;
 
     public FileMenu(FrameUI frame) {
-        super("File");
+        super("Fichier");
         setFont(new Font("Verdana", Font.PLAIN, 18));
         setForeground(Color.white);
         // setPreferredSize(new Dimension(80,getHeight()));

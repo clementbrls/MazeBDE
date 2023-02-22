@@ -9,6 +9,7 @@ public class DijsktraPath implements VertexPath, DijkstraSearchPatern {
     private Iterator<Vertex> pathIterator = null;
 
     public DijsktraPath() {
+        noPath=false;
         path = new ArrayList<Vertex>();
     }
 
