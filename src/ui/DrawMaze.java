@@ -130,7 +130,7 @@ public class DrawMaze {
             x_start = (width / 2) - (sizetheo / 2) + sizeHeight * 2; //on calcule la position en x du premier hexagone pour que le labyrinthe soit centré en largeur
             size = sizeHeight;
         }
-        //border = size * 0.15f;//Calcul de la distance entre les hexagones
+        border = size * 0.15f;//Calcul de la distance entre les hexagones
     }
 
 
@@ -145,7 +145,7 @@ public class DrawMaze {
         float arc = (float) (size / Math.cos(Math.PI / 6));//Calcul de la longueur d'un arc (entre centre de l'hexagone et un sommet)
         Path2D hexa = new Path2D.Float();
         hexa.moveTo(x, y);
-        for (int i = 0; i <= 6; i++) {//On prends les 6 points qui forment un hexagone
+        for (int i = 0; i <= 6; i++) {//On prend les 6 points qui forment un hexagone
             float nextX = (float) (Math.cos((Math.PI / 3) * i + Math.PI / 6) * arc + x);
             float nextY = (float) (Math.sin((Math.PI / 3) * i + Math.PI / 6) * arc + y);
             hexa.lineTo(nextX, nextY);//On trace une ligne jusqu'au nouveau point calculé

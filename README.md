@@ -8,10 +8,11 @@ Par défaut un labyrinthe 10*10 s'ouvre. Vous pouvez le modifier en cliquant dir
 Vous pouvez sélectionner le type de case que vous souhaitez ajouter en cliquant sur les boutons en bas. Note : un clic droit remplace les murs par des cases vides.
 La distance est affichée à droite de l'écran.
 Vous pouvez désactiver Dijsktra automatique. A chaque fois que le labyrinthe sera modifié, le trajet disparaitra, et vous pourrez appuyer sur le bouton "solve" pour calculer le nouveau chemin et l'afficher.
+La touche A du clavier vous permet de rapidement générer un nouveau labyrinthe aléatoire.
 
 ### Fonctionnalités :
 * Le labyrinthe est joli et ergonomique.
-* En appuyant sur la touche A, un nouveau labyrinthe aléatoire est généré. (peut durée longtemps sur les grands labyrinthes)
+* En appuyant sur la touche A, un nouveau labyrinthe aléatoire est généré, seules les cases du départ et de l'arrivée de bouge pas. (peut durée longtemps sur les grands labyrinthes)
 * Le labyrinthe change de taille de manière dynamique en fonction de la fenêtre
 * On peut choisir d'activer ou non le fait que Dijkstra se fasse tout seul (un bouton apparait si on le désactive pour le faire manuellement)
 * Antialiasing : utilisation de Path2D plutôt que des polygones pour avoir des coordonnées qui peuvent ne pas être entière, et ainsi avoir des hexagones plus propres
