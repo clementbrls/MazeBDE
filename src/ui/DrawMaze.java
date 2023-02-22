@@ -121,7 +121,7 @@ public class DrawMaze {
             offsetOdd = size + border / 2;
             x_start = size * 2;
             float sizetheo = (float) (sizeWidth + (maze.getHeight()) * ((2 * sizeWidth + border * Math.cos(Math.PI / 6))));//On calcule la largeur que le labyrinthe va faire
-            y_start = (height / 2) - (sizetheo / 2) + sizeWidth * 2.5f; //on calcul la position en y du premier hexagone pour que le labyrinthe soit centré en hauteur
+            y_start = (height / 2) - (sizetheo / 2) + sizeWidth * 2.5f; //on calcule la position en y du premier hexagone pour que le labyrinthe soit centré en hauteur
             size = sizeWidth;
         } else {
             offsetOdd = size + border / 2;
@@ -130,7 +130,7 @@ public class DrawMaze {
             x_start = (width / 2) - (sizetheo / 2) + sizeHeight * 2; //on calcule la position en x du premier hexagone pour que le labyrinthe soit centré en largeur
             size = sizeHeight;
         }
-        border = size * 0.15f;//Calcul de la distance entre les hexagones
+        //border = size * 0.15f;//Calcul de la distance entre les hexagones
     }
 
 

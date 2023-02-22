@@ -100,7 +100,11 @@ public class Maze implements Graph {
                     changeBox(leVoisinDuVoisin, EmptyBox.Label);
                 }
             }
-            if (count % (getWidth() * getHeight() / 100) == 0) {// Permet de ne pas faire le dijkstra à chaque fois
+            try { //Evite la division par 0
+                if (count % (getWidth() * getHeight() / 100) == 0) {// Permet de ne pas faire le dijkstra à chaque fois
+                    dijkstra();
+                }
+            } catch(ArithmeticException e) {
                 dijkstra();
             }
         }
