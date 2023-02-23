@@ -184,27 +184,27 @@ public class Maze implements Graph {
             }
             if (countDeparture == 0) {
                 maze[0][0] = new DepartureBox(0, 0);
-                throw new MazeReadingException(filePath, getHeight(), "One departure is required");
+                throw new MazeReadingException(filePath, getHeight(), "Un départ est requis");
             }
             if (countArrival == 0) {
                 maze[0][0] = new ArrivalBox(getHeight() - 1, getWidth() - 1);
-                throw new MazeReadingException(filePath, getHeight(), "One arrival is required");
+                throw new MazeReadingException(filePath, getHeight(), "Une arrivée est requise");
             }
 
             if (countArrival > 1) {
                 initBlank();
                 throw new MazeReadingException(filePath, lineError,
-                        countArrival + " arrival is too much, only one arrival is required");
+                        countArrival + " arrivées, une seule arrivée est requise");
             }
             if (countDeparture > 1) {
                 initBlank();
                 throw new MazeReadingException(filePath, lineError,
-                        countDeparture + " departure is too much, only one departure is required");
+                        countDeparture + " départs, un seul départ est requis");
             }
 
         } catch (IndexOutOfBoundsException e) {
             initBlank();
-            throw new MazeReadingException(filePath, 0, "All line must be the same length");
+            throw new MazeReadingException(filePath, 0, "Toutes les lignes doivent avoir la même longueur");
 
         } catch (IOException e) {
             initBlank();

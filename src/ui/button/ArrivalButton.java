@@ -20,6 +20,7 @@ public class ArrivalButton extends JButton implements ActionListener {
         this.bPanel = bPanel;
         addActionListener(this);
         setMargin(ButtonPanel.buttonMargin);
+
     }
 
     public final void actionPerformed(ActionEvent evt) {

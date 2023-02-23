@@ -39,10 +39,6 @@ public class OpenMenuItem extends JMenuItem implements ActionListener {
         UIManager.put("FileChooser.saveDialogTitleText", "Enregistrer un fichier");
 
         //File chooser :
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());//Explicite
-        }catch(Exception ignored) {
-        }
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("./data"));//On ouvre le fileChooser dans le dossier data
         fc.setDialogTitle("Selectionnez un labyrinthe");
