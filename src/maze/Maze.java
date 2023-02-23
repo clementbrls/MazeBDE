@@ -71,12 +71,13 @@ public class Maze implements Graph {
      */
     public void randomize() {
         pathChanged();
-        for (int i = 0; i < getHeight(); i++) {//Tous les murs sont des wallbox
+        //mettre tous les mazebox empty :
+        for (int i = 0; i < getHeight(); i++) {
             for (int u = 0; u < getWidth(); u++) {
-                    maze[i][u] = new WallBox(i, u);
+                maze[i][u] = new EmptyBox(i, u);
             }
         }
-
+        RandomGraph.randomGraph(this);
         int rLine = (int) (Math.random() * getHeight());
         int rColumn = (int) (Math.random() * getWidth());
         maze[rLine][rColumn] = new DepartureBox(rLine, rColumn);
@@ -85,40 +86,8 @@ public class Maze implements Graph {
             rLine = (int) (Math.random() * getHeight());
             rColumn = (int) (Math.random() * getWidth());
         }
-
         maze[rLine][rColumn] = new ArrivalBox(rLine, rColumn);
 
-        int even_odd = (int) (Math.random() * 2) + 3;// 3 ou 4, ça permet de faire varier le cadriage des murs qui
-        // restes dans le labyrinthe
-        int count = 0;
-        solvePath = new DijsktraPath(true);
-        while (!solvePath.isPath()) {
-            count++;
-            rLine = (int) (Math.random() * getHeight());
-            rColumn = (int) (Math.random() * getWidth());
-
-            MazeBox box = new EmptyBox(rLine, rColumn);
-            if (rLine % even_odd != 0 || rColumn % even_odd != 0) {
-                setBox(box);
-                ArrayList<Vertex> voisin = getSuccessors(box, true);
-                int r = (int) (Math.random() * voisin.size());
-                MazeBox leVoisin = (MazeBox) voisin.get(r);
-                MazeBox leVoisinDuVoisin = (MazeBox) getSuccessors(leVoisin, true).get(0);
-                if (leVoisin.getLine() % even_odd != 0 || leVoisin.getColumn() % even_odd != 0) {
-                    changeBox(leVoisin, EmptyBox.Label);
-                }
-                if (leVoisinDuVoisin.getLine() % even_odd != 0 || leVoisinDuVoisin.getColumn() % even_odd != 0) {
-                    changeBox(leVoisinDuVoisin, EmptyBox.Label);
-                }
-            }
-            try { //Evite la division par 0
-                if (count % (getWidth() * getHeight() / 100) == 0) {// Permet de ne pas faire le dijkstra à chaque fois
-                    dijkstra();
-                }
-            } catch(ArithmeticException e) {
-                dijkstra();
-            }
-        }
     }
 
     /**
@@ -426,7 +395,7 @@ public class Maze implements Graph {
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival()
                 || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
 
-            switch (choice) {
+            switch (choice) {//Contrairement aux apparences, ceci est orienté objet, cela permet de changer le type de la case, sans travailler directement sur les cases (contraire à la méthode setBox())
                 case ArrivalBox.Label:
                     if (!box.isArrival()) {
                         setBox(new ArrivalBox(box.getLine(), box.getColumn()));
@@ -509,5 +478,15 @@ public class Maze implements Graph {
         }
         mazeString = mazeString.concat("\u001B[0m");
         return mazeString;
+    }
+
+    public void setVertex(Vertex vert, boolean empty){
+        char c;
+        if(empty){
+            c=EmptyBox.Label;
+        } else {
+            c=WallBox.Label;
+        }
+        changeBox((MazeBox)vert,c);
     }
 }

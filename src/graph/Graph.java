@@ -25,4 +25,6 @@ public interface Graph {
      * @return the distance between the two given vertexes
      */
     int getDistance(Vertex src, Vertex dst);
+
+    void setVertex(Vertex vert, boolean empty);
 }
