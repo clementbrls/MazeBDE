@@ -71,20 +71,31 @@ public class Maze implements Graph {
      */
     public void randomize() {
         pathChanged();
-        for (int i = 0; i < getHeight(); i++) {
+        for (int i = 0; i < getHeight(); i++) {//Tous les murs sont des wallbox
             for (int u = 0; u < getWidth(); u++) {
-                if (!maze[i][u].isArrival() && !maze[i][u].isDeparture())
                     maze[i][u] = new WallBox(i, u);
             }
         }
+
+        int rLine = (int) (Math.random() * getHeight());
+        int rColumn = (int) (Math.random() * getWidth());
+        maze[rLine][rColumn] = new DepartureBox(rLine, rColumn);
+
+        while(maze[rLine][rColumn].isDeparture()) {
+            rLine = (int) (Math.random() * getHeight());
+            rColumn = (int) (Math.random() * getWidth());
+        }
+
+        maze[rLine][rColumn] = new ArrivalBox(rLine, rColumn);
+
         int even_odd = (int) (Math.random() * 2) + 3;// 3 ou 4, ça permet de faire varier le cadriage des murs qui
         // restes dans le labyrinthe
         int count = 0;
         solvePath = new DijsktraPath(true);
         while (!solvePath.isPath()) {
             count++;
-            int rLine = (int) (Math.random() * getHeight());
-            int rColumn = (int) (Math.random() * getWidth());
+            rLine = (int) (Math.random() * getHeight());
+            rColumn = (int) (Math.random() * getWidth());
 
             MazeBox box = new EmptyBox(rLine, rColumn);
             if (rLine % even_odd != 0 || rColumn % even_odd != 0) {
