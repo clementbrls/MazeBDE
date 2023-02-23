@@ -221,9 +221,7 @@ public class Maze implements Graph {
         ArrayList<Vertex> allVertex = new ArrayList<Vertex>();
         for (int i = 0; i < maze.length; i++) {
             for (int u = 0; u < maze[0].length; u++) {
-                if (maze[i][u].isEmpty()) {
-                    allVertex.add(maze[i][u]);
-                }
+                allVertex.add(maze[i][u]);
             }
         }
         return allVertex;
@@ -234,16 +232,7 @@ public class Maze implements Graph {
      * @return all the mazebox who are not wall neigbhoor of a mazebox
      */
     public ArrayList<Vertex> getSuccessors(Vertex vertex) {
-
-        return getSuccessors(vertex, false);
-    }
-
-    /**
-     * @param vertex   the vertex
-     * @param alsoWall if true, the wall are also returned
-     * @return all the mazebox who are neigbhoor of a mazebox (also wall if alsoWall is true)
-     */
-    public ArrayList<Vertex> getSuccessors(Vertex vertex, boolean alsoWall) {
+        boolean alsoWall = false;
         MazeBox box = (MazeBox) vertex;
         int line = box.getLine();
         int column = box.getColumn();
@@ -465,11 +454,11 @@ public class Maze implements Graph {
             for (int u = 0; u < getWidth(); u++) {
                 String color;
                 if (maze[i][u].isDeparture())
-                    color = "\u001B[34m";
+                    color = "\u001B[42m";
                 else if (maze[i][u].isArrival())
-                    color = "\u001B[36m";
+                    color = "\u001B[41m";
                 else if (maze[i][u].isWall())
-                    color = "\u001B[30m";
+                    color = "\u001B[100m";
                 else
                     color = "\u001B[0m";
                 mazeString = mazeString.concat(color + "" + maze[i][u].toString() + " ");
@@ -480,6 +469,7 @@ public class Maze implements Graph {
         return mazeString;
     }
 
+
     public void setVertex(Vertex vert, boolean empty){
         char c;
         if(empty){
@@ -488,5 +478,29 @@ public class Maze implements Graph {
             c=WallBox.Label;
         }
         changeBox((MazeBox)vert,c);
+    }
+
+    public int getNbSuccessors(Vertex vert){
+        int nb=getSuccessors(vert).size();
+        MazeBox box=(MazeBox)vert;
+        if(box.getLine() == 0 || box.getLine() == getHeight()-1) {
+            nb+=2;
+        }
+        if(box.getColumn() == 0){
+            if(box.getLine()%2==0)
+                nb+=3;
+            else
+                nb++;
+        }
+        if(box.getColumn() == getWidth()-1){
+            if(box.getLine()%2==0)
+                nb++;
+            else
+                nb+=3;
+        }
+        if((box.getLine() ==0 && box.getColumn() == 0) || (box.getLine() == getHeight()-1 && box.getColumn() == getWidth()-1))//Enlève les doublons
+            nb--;
+
+        return nb;
     }
 }

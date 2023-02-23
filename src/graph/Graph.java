@@ -27,4 +27,10 @@ public interface Graph {
     int getDistance(Vertex src, Vertex dst);
 
     void setVertex(Vertex vert, boolean empty);
+
+    /**
+     * @param vert
+     * @return the number of successors of the given vertex, it needs to also count the vertexes that doesn't exit : that are outside the borders
+     */
+    int getNbSuccessors(Vertex vert);
 }
