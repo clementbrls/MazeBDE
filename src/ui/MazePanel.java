@@ -22,10 +22,21 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
      * @param frame the frame
      */
     public MazePanel(FrameUI frame) {
-        setPreferredSize(new Dimension(550, 450));
         this.frame = frame;
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
+
+        int maxWidthSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.8);
+        int maxHeightSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.8);
+        float ratio = (model.getMaze().getWidth()/(float)model.getMaze().getHeight());
+        Dimension dim;
+        if(ratio > 1){
+            dim = new Dimension(maxWidthSize, (int)Math.round(maxWidthSize/ratio));
+        }else{
+            dim = new Dimension((int)Math.round(maxHeightSize*ratio), maxHeightSize);
+        }
+        setPreferredSize(dim);
+
 
         model.addObserver(this);//Ajoute le panel comme observer du model
         addMouseListener(this);//Ajoute le panel comme listener de la souris
@@ -113,7 +124,8 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void stateChanged(ChangeEvent e) {
         frame.revalidate();
-        frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque du lag, le temps que la frame se repaint
+        frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque un lag dont mon code n'est pas la cause
 
     }
+
 }
