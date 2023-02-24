@@ -118,12 +118,13 @@ public class DrawMaze {
 
         //On prend la plus petite des deux valeurs
         size = Math.min(sizeHeight, sizeWidth);
-
         offsetOdd = size + border / 2;
-        float heightTheo = (float) ((maze.getHeight()) * ((2 * size + border) * Math.cos(Math.PI / 6)));
-        float widthTheo = size * 2 + (2 * size + border) * maze.getWidth() + size;//On calcule la hauteur que le labyrinthe va faire
-        x_start = (width / 2) - (widthTheo / 2) + size * 2;
-        y_start = (height / 2) - (heightTheo / 2) + size * (float)Math.cos(Math.PI/6);
+
+        float heightMazePx = (float) ((maze.getHeight()) * ((2 * size + border) * Math.cos(Math.PI / 6)));//On calcule la hauteur que le labyrinthe va faire
+        float widthMazePx = size * 2 + (2 * size + border) * maze.getWidth() + size;//On calcule la hauteur que le labyrinthe va faire
+        x_start = (width / 2) - (widthMazePx / 2) + size * 2;
+        y_start = (height / 2) - (heightMazePx / 2) + size * (float)Math.cos(Math.PI/6);
+
         border = size * 0.15f;//Calcul de la distance entre les hexagones
     }
 

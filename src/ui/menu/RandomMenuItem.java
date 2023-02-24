@@ -25,8 +25,7 @@ public class RandomMenuItem extends JMenuItem implements ActionListener, KeyList
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_SPACE) {
-            frame.getModel().getMaze().randomize();
-            frame.getModel().stateChanged();
+            frame.getModel().randomize();
         }
     }
 

@@ -84,6 +84,12 @@ public class Model {
         return distance;
     }
 
+    public void randomize(){
+        maze.randomize();
+        boxHover = null;
+        stateChanged();
+    }
+
     /**
      * get the maze
      *

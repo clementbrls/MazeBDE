@@ -80,6 +80,11 @@ public class Maze implements Graph {
         RandomGraph.randomGraph(this);
 
         randomDepartureArrival();
+        while(!solvePath.isPath() || solvePath.getDistance() < Math.min(getHeight(), getWidth())) {
+            randomDepartureArrival();
+            dijkstra();
+        }
+        solvePath = new DijsktraPath();
 
     }
 

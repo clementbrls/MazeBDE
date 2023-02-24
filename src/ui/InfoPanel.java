@@ -67,7 +67,7 @@ public class InfoPanel extends JPanel implements ChangeListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (model.getDistance() == -1 || (!model.getMaze().getPath().isPath() && !model.getAutoDijkstra())) {
+        if (model.getDistance() == -1 || !model.getMaze().getPath().isPath()) {
             distPanel.setVisible(false);//Si pas de chemin, ou que le chemin n'est pas connu et que l'auto dijkstra est désactivé, on cache distance
         } else {
             if (model.getMaze().getPath().isPath()) {
