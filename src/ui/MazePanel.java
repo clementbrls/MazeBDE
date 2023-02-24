@@ -26,7 +26,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
-        int maxWidthSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.8);
+        int maxWidthSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.8 - 120 - 50);
         int maxHeightSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.8);
         float ratio = (model.getMaze().getWidth()/(float)model.getMaze().getHeight());
         Dimension dim;

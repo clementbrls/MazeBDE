@@ -19,6 +19,6 @@ public class QuitMenuItem extends JMenuItem implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt) {
-        System.exit(0);
+        frame.quit();
     }
 }

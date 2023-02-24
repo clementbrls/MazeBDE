@@ -20,11 +20,13 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
     }
 
     public final void actionPerformed(ActionEvent evt) {
-        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));//limite la valeur max
-        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));
+        int maxWidth = 70;
+        int maxHeight = 40;
+        JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10, 2, maxHeight, 1));//limite la valeur max
+        JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10, 2, maxWidth, 1));
         Object[] message = {
-                "Hauteur : ", newHeight,
-                "Largeur : ", newWidth,
+                "Hauteur (max : "+maxHeight+"): ", newHeight,
+                "Largeur (max : "+maxWidth+"): ", newWidth,
         };
 
         int option = JOptionPane.showConfirmDialog(frame, message, "Nouveau labyrinthe", JOptionPane.OK_CANCEL_OPTION);
