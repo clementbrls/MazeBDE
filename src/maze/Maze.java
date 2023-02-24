@@ -78,16 +78,21 @@ public class Maze implements Graph {
             }
         }
         RandomGraph.randomGraph(this);
+
+        randomDepartureArrival();
+
+    }
+
+    public void randomDepartureArrival(){
         int rLine = (int) (Math.random() * getHeight());
         int rColumn = (int) (Math.random() * getWidth());
-        maze[rLine][rColumn] = new DepartureBox(rLine, rColumn);
+        setBox(new DepartureBox(rLine, rColumn));
 
-        while(maze[rLine][rColumn].isDeparture()) {
+        while(getMazeBox(rLine,rColumn).isDeparture()) {
             rLine = (int) (Math.random() * getHeight());
             rColumn = (int) (Math.random() * getWidth());
         }
-        maze[rLine][rColumn] = new ArrivalBox(rLine, rColumn);
-
+        setBox(new ArrivalBox(rLine, rColumn));
     }
 
     /**
@@ -338,6 +343,16 @@ public class Maze implements Graph {
         MazeBox boxHere = getMazeBox(line, column);
         arrival = getArrival();
         departure = getDeparture();
+        if(arrival == null || departure == null){
+            if(box.isArrival() || box.isDeparture()){
+                maze[line][column] = box;
+                oldArrival = null;
+                oldDeparture = null;
+                return;
+            } else {
+                randomDepartureArrival();
+            }
+        }
 
         if (!boxHere.isArrival() && !boxHere.isDeparture()) {
             if (box.isArrival()) {
@@ -453,7 +468,7 @@ public class Maze implements Graph {
                 mazeString = mazeString.concat(" ");
             for (int u = 0; u < getWidth(); u++) {
                 String color;
-                if (maze[i][u].isDeparture())
+                if (maze[i][u].isDeparture())//Défini la couleur selon le type de case
                     color = "\u001B[42m";
                 else if (maze[i][u].isArrival())
                     color = "\u001B[41m";
