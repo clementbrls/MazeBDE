@@ -63,6 +63,6 @@ public abstract class MazeBox implements Vertex {
     /**
      * @return the suggested color for the box
      */
-    public abstract Color getColor();
+    public abstract Color getColor();//Ceci ne respecte la séparation model/vue, car une mazeBox simplement propose une couleur, mais ne la dessine pas
 
 }

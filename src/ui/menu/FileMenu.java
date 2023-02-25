@@ -1,6 +1,6 @@
 package ui.menu;
 
-import ui.*;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;

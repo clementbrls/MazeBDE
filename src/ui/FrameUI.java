@@ -1,12 +1,12 @@
 package ui;
 
-import maze.*;
-import ui.menu.DrawingMenuBar;
+import maze.Maze;
+import ui.menu.MenuBar;
 
 import javax.swing.*;
 
 public class FrameUI extends JFrame {
-    private final DrawingMenuBar menuBar;
+    private final MenuBar menuBar;
     private final WindowPanel windowPanel;
 
 
@@ -20,7 +20,7 @@ public class FrameUI extends JFrame {
         this.model = new Model(maze);
 
         //Affichage de la barre de menu
-        menuBar = new DrawingMenuBar(this, maze);
+        menuBar = new MenuBar(this, maze);
         setJMenuBar(menuBar);
         //Affichage du panneau principal (qui contient les autres panneaux)
         setContentPane(windowPanel = new WindowPanel(this));
@@ -30,11 +30,7 @@ public class FrameUI extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if(model.isSave()) {
-                    System.exit(0);
-                } else {
-                    quit();
-                }
+                quit();
             }
         });
 
@@ -51,9 +47,13 @@ public class FrameUI extends JFrame {
         //Ouvre une fenetre de confirmation pour quitter sans sauvegarder
         UIManager.put("OptionPane.yesButtonText", "Oui");
         UIManager.put("OptionPane.noButtonText", "Non");
-        int result = JOptionPane.showConfirmDialog(this, "Le labyrinthe n'est pas sauvegardé"+System.lineSeparator()+ "Voulez vous quand même quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
+        if(model.isSave()){
             System.exit(0);
+        } else {
+            int result = JOptionPane.showConfirmDialog(this, "Le labyrinthe n'est pas sauvegardé" + System.lineSeparator() + "Etes vous sûr de vouloir quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
     }
 }

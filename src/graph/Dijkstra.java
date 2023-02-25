@@ -7,8 +7,16 @@ public class Dijkstra {
     public Dijkstra() {
     }
 
-    public static DijsktraPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
-        ProcessedVertexesPro processVertex = new ProcessedVertexesPro();
+    /**
+     * This method is the implementation of the Dijkstra algorithm
+     * @param graph
+     * @param startVertex
+     * @param endVertex
+     * @return the shortest path between the startVertex and the endVertex
+     */
+
+    public static VertexPath dijkstra(Graph graph, Vertex startVertex, Vertex endVertex) {
+        ProcessedVertexesImpl processVertex = new ProcessedVertexesImpl();
         Vertex pivot;
         MinDistance minDistance = new MinDistanceImpl();
         ShortestPaths shortestPaths = new ShortestPathsImpl(startVertex, endVertex);
@@ -48,10 +56,9 @@ public class Dijkstra {
         }
 
 
-        DijsktraPath path;
+        VertexPath path;
         if (!noPath) {
-            path = (DijsktraPath) shortestPaths.getPath();
-            path.setIterator(processVertex.getIterator());
+            path = shortestPaths.getPath();
             System.out.println("Distance : " + minDistance.minDistance(endVertex));
         } else {
             path = new DijsktraPath(true);

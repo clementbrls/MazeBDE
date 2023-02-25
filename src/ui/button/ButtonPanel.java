@@ -3,7 +3,8 @@ package ui.button;
 import ui.FrameUI;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class ButtonPanel extends JPanel implements ChangeListener {

@@ -1,11 +1,12 @@
 package ui;
 
-import graph.*;
-import maze.*;
-
-
+import graph.VertexPath;
+import maze.Maze;
+import maze.MazeBox;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 
 //----- Vue -----
 
@@ -13,13 +14,13 @@ import java.awt.geom.*;
  * Class that draw the maze
  */
 public class DrawMaze {
-    public static final float sizeDefault = 22; //largeur d'un hexagone
+    private static final float sizeDefault = 22; //largeur d'un hexagone par default
     private final Model model; //model
-    public float border = 3; //distance entre 2 hexagones (ici 3, mais sera recalculé après)
-    private float size = sizeDefault; //taille d'un hexagone
-    float offsetOdd = size + border / 2;//L'écart quand la ligne est impaire
-    float x_start = offsetOdd * 2; //x position du centre du premier hexagone
-    float y_start = size * 2; //y position du centre du premier hexagone
+    public float border = 3; //distance entre 2 hexagones (valeur par défaut)
+    private float size = sizeDefault; //taille d'un hexagone (valeur par défaut)
+    float offsetOdd = size + border / 2;//L'écart quand la ligne est impaire (valeur par défaut)
+    float x_start = offsetOdd * 2; //x position du centre du premier hexagone (valeur par défaut)
+    float y_start = size * 2; //y position du centre du premier hexagone (valeur par défaut)
     private Graphics2D g2;
 
     public DrawMaze(Model model) {
@@ -47,7 +48,7 @@ public class DrawMaze {
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int u = 0; u < maze.getWidth(); u++) {
-                MazeBox box = maze.getMazeBox(i, u);//2 boucles for imbriquer qui permette de récupérer chaque case
+                MazeBox box = maze.getMazeBox(i, u);//2 boucles for imbriqué qui permette de récupérer chaque case
                 color = box.getColor();//On a choisi d'utiliser la couleur que la case propose (on aurait pu faire different)
                 Path2D hexa = mazeBoxToHexa(box);
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
@@ -71,7 +72,7 @@ public class DrawMaze {
             for (int i = 0; i <= path.getDistance(); i++) {
                 if (i + 1 <= path.getDistance()) {
                     MazeBox box = (MazeBox) path.get(i);
-                    MazeBox oldBox = (MazeBox) path.get(i + 1);//On prends les cases qui sont relier 2 à 2
+                    MazeBox oldBox = (MazeBox) path.get(i + 1);//On prend les cases qui sont reliées 2 à 2
                     Point2D pBox = mazeBoxToCoord(box);//On calcule les coordonnées des cases
                     Point2D pOldBox = mazeBoxToCoord(oldBox);
                     g2.setColor(new Color(27, 169, 222));
@@ -90,7 +91,7 @@ public class DrawMaze {
 
         MazeBox boxHover = model.getBoxHover();
         if (boxHover != null) {
-            g2.setColor(boxHover.getColor().darker());//La case que l'on a sélectionnée devient plus foncé. On continue d'utiliser la couleur que mazebox propose
+            g2.setColor(boxHover.getColor().darker());//La case que l'on a sélectionnée devient plus foncée. On continue d'utiliser la couleur que mazebox propose
             Path2D hexa = mazeBoxToHexa(boxHover);
             g2.fill(hexa);
 
@@ -98,9 +99,8 @@ public class DrawMaze {
     }
 
 
-
     //------------------------------------GeometryFactory------------------------------------//
-    //Cette partie possède toutes les méthodes mathématiques qui permettent de calculer les coordonnées des cases
+    //Cette partie possède toutes les méthodes Mathématiques qui permettent de calculer les coordonnées des cases
     //Historiquement, c'était une classe séparée, qui possédait uniquement des méthodes statiques
 
     /**
@@ -123,7 +123,7 @@ public class DrawMaze {
         float heightMazePx = (float) ((maze.getHeight()) * ((2 * size + border) * Math.cos(Math.PI / 6)));//On calcule la hauteur que le labyrinthe va faire
         float widthMazePx = size * 2 + (2 * size + border) * maze.getWidth() + size;//On calcule la hauteur que le labyrinthe va faire
         x_start = (width / 2) - (widthMazePx / 2) + size * 2;
-        y_start = (height / 2) - (heightMazePx / 2) + size * (float)Math.cos(Math.PI/6);
+        y_start = (height / 2) - (heightMazePx / 2) + size * (float) Math.cos(Math.PI / 6);
 
         border = size * 0.15f;//Calcul de la distance entre les hexagones
     }
@@ -193,7 +193,7 @@ public class DrawMaze {
      * @param y    the y coordinate of the mouse
      * @return the mazebox where the mouse is
      */
-    public MazeBox coordToMazeBox(Maze maze, int x, int y) {//cette méthode est publique car elle permet de faire de lien entre la vue et le controlleur.
+    public MazeBox coordToMazeBox(Maze maze, int x, int y) {//cette méthode est publique, car elle permet de faire de lien entre la vue et le controlleur.
         if (maze.getHeight() * maze.getWidth() < 1000) {
             return coordToMazeBox(maze, x, y, false);
         } else {
@@ -202,7 +202,7 @@ public class DrawMaze {
     }
 
     public MazeBox coordToMazeBox(Maze maze, int x, int y, boolean fast) {
-        if (fast) {//Cette méthode termine de façon mathématique la case la plus proche de la souris
+        if (fast) {//Cette méthode détermine de façon Mathématique la case la plus proche de la souris
             int line = (int) Math.round((y - y_start) / ((2 * size + border) * Math.cos(Math.PI / 6)));
             int column;
             if (line % 2 == 0)

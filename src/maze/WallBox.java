@@ -15,6 +15,9 @@ public class WallBox extends MazeBox {
         return true;
     }
 
+    /**
+     * @return a color that represents the box
+     */
     public Color getColor() {
         return color;
     }

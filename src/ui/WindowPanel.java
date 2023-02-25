@@ -1,6 +1,6 @@
 package ui;
 
-import ui.button.*;
+import ui.button.ButtonPanel;
 
 import javax.swing.*;
 import java.awt.*;

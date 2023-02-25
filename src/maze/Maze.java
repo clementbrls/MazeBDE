@@ -80,7 +80,7 @@ public class Maze implements Graph {
         RandomGraph.randomGraph(this);
 
         randomDepartureArrival();
-        while(!solvePath.isPath() || solvePath.getDistance() < Math.min(getHeight(), getWidth())) {
+        while (!solvePath.isPath() || solvePath.getDistance() < Math.min(getHeight(), getWidth())) {
             randomDepartureArrival();
             dijkstra();
         }
@@ -88,12 +88,12 @@ public class Maze implements Graph {
 
     }
 
-    public void randomDepartureArrival(){
+    public void randomDepartureArrival() {
         int rLine = (int) (Math.random() * getHeight());
         int rColumn = (int) (Math.random() * getWidth());
         setBox(new DepartureBox(rLine, rColumn));
 
-        while(getMazeBox(rLine,rColumn).isDeparture()) {
+        while (getMazeBox(rLine, rColumn).isDeparture()) {
             rLine = (int) (Math.random() * getHeight());
             rColumn = (int) (Math.random() * getWidth());
         }
@@ -348,8 +348,8 @@ public class Maze implements Graph {
         MazeBox boxHere = getMazeBox(line, column);
         arrival = getArrival();
         departure = getDeparture();
-        if(arrival == null || departure == null){
-            if(box.isArrival() || box.isDeparture()){
+        if (arrival == null || departure == null) {
+            if (box.isArrival() || box.isDeparture()) {
                 maze[line][column] = box;
                 oldArrival = null;
                 oldDeparture = null;
@@ -431,7 +431,7 @@ public class Maze implements Graph {
                     break;
             }
         }
-        if(pathChanged && changed)
+        if (pathChanged && changed)
             pathChanged();
         return changed;
     }
@@ -490,35 +490,35 @@ public class Maze implements Graph {
     }
 
 
-    public void setVertex(Vertex vert, boolean empty){
+    public void setVertex(Vertex vert, boolean empty) {
         char c;
-        if(empty){
-            c=EmptyBox.Label;
+        if (empty) {
+            c = EmptyBox.Label;
         } else {
-            c=WallBox.Label;
+            c = WallBox.Label;
         }
-        changeBox((MazeBox)vert,c);
+        changeBox((MazeBox) vert, c);
     }
 
-    public int getNbSuccessors(Vertex vert){
-        int nb=getSuccessors(vert).size();
-        MazeBox box=(MazeBox)vert;
-        if(box.getLine() == 0 || box.getLine() == getHeight()-1) {
-            nb+=2;
+    public int getNbSuccessors(Vertex vert) {
+        int nb = getSuccessors(vert).size();
+        MazeBox box = (MazeBox) vert;
+        if (box.getLine() == 0 || box.getLine() == getHeight() - 1) {
+            nb += 2;
         }
-        if(box.getColumn() == 0){
-            if(box.getLine()%2==0)
-                nb+=3;
+        if (box.getColumn() == 0) {
+            if (box.getLine() % 2 == 0)
+                nb += 3;
             else
                 nb++;
         }
-        if(box.getColumn() == getWidth()-1){
-            if(box.getLine()%2==0)
+        if (box.getColumn() == getWidth() - 1) {
+            if (box.getLine() % 2 == 0)
                 nb++;
             else
-                nb+=3;
+                nb += 3;
         }
-        if((box.getLine() ==0 && box.getColumn() == 0) || (box.getLine() == getHeight()-1 && box.getColumn() == getWidth()-1))//Enlève les doublons
+        if ((box.getLine() == 0 && box.getColumn() == 0) || (box.getLine() == getHeight() - 1 && box.getColumn() == getWidth() - 1))//Enlève les doublons
             nb--;
 
         return nb;

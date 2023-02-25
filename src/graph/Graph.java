@@ -26,6 +26,12 @@ public interface Graph {
      */
     int getDistance(Vertex src, Vertex dst);
 
+    /**
+     * This method sets the given vertex to empty or not (so it is connex with the graph or not)
+     *
+     * @param vert
+     * @param empty
+     */
     void setVertex(Vertex vert, boolean empty);
 
     /**

@@ -1,5 +1,5 @@
-import maze.*;
-import ui.*;
+import maze.Maze;
+import ui.FrameUI;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package ui.menu;
 
-import maze.*;
-import ui.*;
+import maze.Maze;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +25,8 @@ public class NewMenuItem extends JMenuItem implements ActionListener {
         JSpinner newHeight = new JSpinner(new SpinnerNumberModel(10, 2, maxHeight, 1));//limite la valeur max
         JSpinner newWidth = new JSpinner(new SpinnerNumberModel(10, 2, maxWidth, 1));
         Object[] message = {
-                "Hauteur (max : "+maxHeight+"): ", newHeight,
-                "Largeur (max : "+maxWidth+"): ", newWidth,
+                "Hauteur (max : " + maxHeight + "): ", newHeight,
+                "Largeur (max : " + maxWidth + "): ", newWidth,
         };
 
         int option = JOptionPane.showConfirmDialog(frame, message, "Nouveau labyrinthe", JOptionPane.OK_CANCEL_OPTION);

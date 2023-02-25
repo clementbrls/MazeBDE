@@ -1,13 +1,12 @@
 package ui.button;
 
-import ui.*;
+import maze.WallBox;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import maze.*;
 
 public class WallButton extends JButton implements ActionListener {
     private final FrameUI frame;

@@ -1,13 +1,13 @@
 package ui.button;
 
-import ui.*;
+import maze.EmptyBox;
+import maze.WallBox;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import maze.*;
 
 public class EmptyButton extends JButton implements ActionListener {
 

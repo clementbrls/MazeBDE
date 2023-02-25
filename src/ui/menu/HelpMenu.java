@@ -1,11 +1,11 @@
 package ui.menu;
 
-import ui.*;
+import ui.FrameUI;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class HelpMenu extends JMenu {
     private final JMenuItem help;

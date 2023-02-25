@@ -1,9 +1,15 @@
 package ui;
 
 import graph.VertexPath;
-import maze.*;
-import javax.swing.event.*;
-import java.util.*;
+import maze.EmptyBox;
+import maze.Maze;
+import maze.MazeBox;
+import maze.WallBox;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
 
@@ -67,7 +73,7 @@ public class Model {
         if (mazeChanged) {
             stateChanged();
         }
-        save=false;
+        save = false;
     }
 
     /**
@@ -77,14 +83,14 @@ public class Model {
      */
     public int getDistance() {
         int distance = maze.getPath().getDistance();
-        if ((distance == -1) &&  autoDijkstra) {//S'il ne connait pas le chemin, mais qu'autoDijkstra est activé, il le calcule
+        if ((distance == -1) && autoDijkstra) {//S'il ne connait pas le chemin, mais qu'autoDijkstra est activé, il le calcule
             VertexPath temp = maze.dijkstra();
             distance = temp.getDistance();
         }
         return distance;
     }
 
-    public void randomize(){
+    public void randomize() {
         maze.randomize();
         boxHover = null;
         stateChanged();

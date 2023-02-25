@@ -3,13 +3,13 @@ package graph;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class DijsktraPath implements VertexPath, DijkstraSearchPatern {
+public class DijsktraPath implements VertexPath {
     private final ArrayList<Vertex> path;
     private Boolean noPath = false;
     private Iterator<Vertex> pathIterator = null;
 
     public DijsktraPath() {
-        noPath=false;
+        noPath = false;
         path = new ArrayList<Vertex>();
     }
 
@@ -39,7 +39,7 @@ public class DijsktraPath implements VertexPath, DijkstraSearchPatern {
         if (noPath) {
             distance = 9999;
         } else {
-            distance = path.size() - 1;//On enlève 1 car on ne compte pas le premier sommet
+            distance = path.size() - 1;//On enlève 1, car on ne compte pas le premier sommet
         }
         return distance;
     }
@@ -51,15 +51,4 @@ public class DijsktraPath implements VertexPath, DijkstraSearchPatern {
     public boolean isPath() {
         return !noPath;
     }
-
-    @Override
-    public Iterator<Vertex> getIterator() {
-        return pathIterator;
-    }
-
-    @Override
-    public void setIterator(Iterator<Vertex> iterator) {
-        this.pathIterator = iterator;
-    }
-
 }

@@ -1,7 +1,8 @@
 package ui.menu;
 
-import ui.*;
-import maze.*;
+import maze.Maze;
+import maze.MazeReadingException;
+import ui.FrameUI;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

@@ -1,7 +1,7 @@
 package ui.menu;
 
-import maze.*;
-import ui.*;
+import maze.Maze;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class SaveMenuItem extends JMenuItem implements ActionListener {
     public final void actionPerformed(ActionEvent evt) {
         JFrame jFrame = new JFrame();
         String getNameFile = JOptionPane.showInputDialog(jFrame, "Donnez un nom au labyrinthe");
-        if(getNameFile == null){
+        if (getNameFile == null) {
             return;
         }
         getNameFile = getNameFile.replaceAll("/", "");// Pour eviter les erreurs de chemin

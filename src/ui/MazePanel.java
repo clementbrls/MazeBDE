@@ -1,12 +1,14 @@
 package ui;
 
-import maze.*;
+import maze.MazeBox;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 
 //----- Controleur -----
@@ -26,14 +28,14 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         model = frame.getModel();
         this.drawMaze = new DrawMaze(frame.getModel());
 
-        int maxWidthSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.8 - 120 - 50);
-        int maxHeightSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.8);
-        float ratio = (model.getMaze().getWidth()/(float)model.getMaze().getHeight());
+        int maxWidthSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.8 - 120 - 50);
+        int maxHeightSize = (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
+        float ratio = (model.getMaze().getWidth() / (float) model.getMaze().getHeight());
         Dimension dim;
-        if(ratio > 1){
-            dim = new Dimension(maxWidthSize, (int)Math.round(maxWidthSize/ratio));
-        }else{
-            dim = new Dimension((int)Math.round(maxHeightSize*ratio), maxHeightSize);
+        if (ratio > 1) {
+            dim = new Dimension(maxWidthSize, (int) Math.round(maxWidthSize / ratio));
+        } else {
+            dim = new Dimension((int) Math.round(maxHeightSize * ratio), maxHeightSize);
         }
         setPreferredSize(dim);
 

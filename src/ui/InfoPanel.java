@@ -79,8 +79,6 @@ public class InfoPanel extends JPanel implements ChangeListener {
         SolveMazeButton.setVisible(!model.getAutoDijkstra());//Le bouton pour effectuer le dijkstra n'est visible que si l'auto dijkstra est désactivé
 
 
-
-
     }
 
     public void stateChanged(ChangeEvent e) {

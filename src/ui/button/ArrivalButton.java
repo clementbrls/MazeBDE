@@ -1,13 +1,12 @@
 package ui.button;
 
-import ui.*;
+import maze.ArrivalBox;
+import ui.FrameUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import maze.*;
+import java.awt.event.ActionListener;
 
 public class ArrivalButton extends JButton implements ActionListener {
     private final FrameUI frame;
