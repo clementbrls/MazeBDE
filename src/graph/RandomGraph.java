@@ -1,5 +1,7 @@
 package graph;
 
+import util.MathsPro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class RandomGraph {
             graph.setVertex(allVertexes.get(i), true);//On met tous les sommets à vide
         }
         allVertexes = graph.getAllVertexes();
-        int rIndex = (int) (Math.random() * allVertexes.size());
+        int rIndex = (MathsPro.random(allVertexes.size()));
         Vertex pivot = allVertexes.get(rIndex);
         explorer(graph, pivot, numberNeighbors);
 
@@ -62,10 +64,10 @@ public class RandomGraph {
         if (graph.getNbSuccessors(pivot) >= numberNeighbors) {
             List<Integer> aleatSame = new ArrayList<>();
             for (int i = 0; i < graph.getSuccessors(pivot).size(); i++) {
-                int r = (int) (Math.random() * graph.getSuccessors(pivot).size());
+                int r = MathsPro.random(graph.getSuccessors(pivot).size());
 
                 while (aleatSame.contains(r)) {
-                    r = (int) (Math.random() * graph.getSuccessors(pivot).size());//Permet de générer un nombre aléatoire différent à chaque fois
+                    r = MathsPro.random(graph.getSuccessors(pivot).size());//Permet de générer un nombre aléatoire différent à chaque fois
                 }
                 aleatSame.add(r);
 

@@ -1,6 +1,7 @@
 package maze;
 
 import graph.*;
+import util.MathsPro;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -89,13 +90,13 @@ public class Maze implements Graph {
     }
 
     public void randomDepartureArrival() {
-        int rLine = (int) (Math.random() * getHeight());
-        int rColumn = (int) (Math.random() * getWidth());
+        int rLine = MathsPro.random(getHeight());
+        int rColumn = MathsPro.random(getWidth());
         setBox(new DepartureBox(rLine, rColumn));
 
         while (getMazeBox(rLine, rColumn).isDeparture()) {
-            rLine = (int) (Math.random() * getHeight());
-            rColumn = (int) (Math.random() * getWidth());
+            rLine = MathsPro.random(getHeight());
+            rColumn = MathsPro.random(getWidth());
         }
         setBox(new ArrivalBox(rLine, rColumn));
     }
@@ -238,7 +239,7 @@ public class Maze implements Graph {
     }
 
     /**
-     * @param vertex
+     * @param vertex The vertex to get the successors
      * @return all the mazebox who are not wall neigbhoor of a mazebox
      */
     public ArrayList<Vertex> getSuccessors(Vertex vertex) {
