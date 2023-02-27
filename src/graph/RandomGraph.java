@@ -4,8 +4,11 @@ import util.MathsPro;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RandomGraph {
+    private RandomGraph() {//On empêche l'instanciation de la classe
+    }
 
     /**
      * This method transforms a given graph into a random graph.
@@ -45,7 +48,7 @@ public class RandomGraph {
     public static void reverse(Graph graph) {
         List<Vertex> allVertexes = graph.getAllVertexes();
         for (int i = 0; i < allVertexes.size(); i++) {
-            graph.setVertex(allVertexes.get(i), !allVertexes.get(i).isEmpty());
+            graph.setVertex(allVertexes.get(i), !allVertexes.get(i).isConnected());
         }
     }
 
@@ -72,7 +75,7 @@ public class RandomGraph {
                 aleatSame.add(r);
 
                 successor = graph.getSuccessors(pivot).get(r);
-                if (successor.isEmpty() && graph.getNbSuccessors(successor) >= numberNeighbors) {
+                if (successor.isConnected() && graph.getNbSuccessors(successor) >= numberNeighbors) {
                     explorer(graph, successor, numberNeighbors);
                 }
             }

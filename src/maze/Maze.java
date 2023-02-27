@@ -90,8 +90,9 @@ public class Maze implements Graph {
     }
 
     public void randomDepartureArrival() {
-        int rLine = MathsPro.random(getHeight());
-        int rColumn = MathsPro.random(getWidth());
+        int rLine = MathsPro.randomUdensity(getHeight());//L'utlisation de randomUdensity permet de ne pas avoir de départ et d'arrivée trop proche du centre du labyrinthe
+        int rColumn = MathsPro.randomUdensity(getWidth());
+
         setBox(new DepartureBox(rLine, rColumn));
 
         while (getMazeBox(rLine, rColumn).isDeparture()) {

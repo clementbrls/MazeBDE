@@ -6,7 +6,7 @@ package graph;
 public interface Vertex {
 
     /**
-     * @return true if the vertex is empty (so it is connex with the graph)
+     * @return true if the vertex is connected to the graph, false if not
      */
-    boolean isEmpty();
+    boolean isConnected();
 }

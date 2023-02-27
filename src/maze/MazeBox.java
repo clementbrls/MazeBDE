@@ -47,6 +47,14 @@ public abstract class MazeBox implements Vertex {
     }
 
     /**
+     * @return true if the box is connected to the maze (so if it's not a wall)
+     */
+    @Override
+    public boolean isConnected() {
+        return isEmpty();
+    }
+
+    /**
      * @return true if the box is a departure
      */
     public boolean isDeparture() {

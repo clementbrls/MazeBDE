@@ -126,7 +126,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void stateChanged(ChangeEvent e) {
         frame.revalidate();
-        frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque un lag dont mon code n'est pas la cause
+        frame.repaint();//Permet de redessiner le labyrinthe, on est obligé de faire un frame.repaint et pas juste un repaint car sinon ça provoque un lag sur un seul PC (même si le PC est pourtant rapide, c'est bizarre)
 
     }
 

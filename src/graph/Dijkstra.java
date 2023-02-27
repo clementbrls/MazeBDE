@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Dijkstra {
 
-    public Dijkstra() {
+    private Dijkstra() {//On empeche l'instanciation de la classe
     }
 
     /**
      * This method is the implementation of the Dijkstra algorithm
-     * @param graph
-     * @param startVertex
-     * @param endVertex
+     * @param graph the graph to use
+     * @param startVertex the start vertex
+     * @param endVertex the end vertex
      * @return the shortest path between the startVertex and the endVertex
      */
 
@@ -59,7 +59,7 @@ public class Dijkstra {
         VertexPath path;
         if (!noPath) {
             path = shortestPaths.getPath();
-            System.out.println("Distance : " + minDistance.minDistance(endVertex));
+            //System.out.println("Distance : " + minDistance.minDistance(endVertex));
         } else {
             path = new DijsktraPath(true);
         }
