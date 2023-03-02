@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Dijkstra {
 
-    private Dijkstra() {//On empeche l'instanciation de la classe
+    private Dijkstra() {//Private constructor to prevent instantiation of this class.
     }
 
     /**
