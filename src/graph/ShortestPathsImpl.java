@@ -11,6 +11,12 @@ public class ShortestPathsImpl implements ShortestPaths {
 
     private ArrayList<Vertex> path;
 
+    public ShortestPathsImpl(Vertex startVertex, Vertex endVertex) {
+        this.startVertex = startVertex;
+        this.endVertex = endVertex;
+        hashMap = new HashMap<Vertex, Vertex>();
+    }
+
     public String toString() {
         String txt = String.valueOf(endVertex.toString());
         Vertex oldV = endVertex;
@@ -20,12 +26,6 @@ public class ShortestPathsImpl implements ShortestPaths {
 
         }
         return txt;
-    }
-
-    public ShortestPathsImpl(Vertex startVertex, Vertex endVertex) {
-        this.startVertex = startVertex;
-        this.endVertex = endVertex;
-        hashMap = new HashMap<Vertex, Vertex>();
     }
 
     public void add(Vertex vert1, Vertex vert2) {

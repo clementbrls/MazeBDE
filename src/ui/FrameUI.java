@@ -43,11 +43,14 @@ public class FrameUI extends JFrame {
         return model;
     }
 
+    /**
+     * Quit the program with a confirmation window if the maze is not saved
+     */
     public void quit() {
         //Ouvre une fenetre de confirmation pour quitter sans sauvegarder
         UIManager.put("OptionPane.yesButtonText", "Oui");
         UIManager.put("OptionPane.noButtonText", "Non");
-        if(model.isSave()){
+        if (model.isSave()) {
             System.exit(0);
         } else {
             int result = JOptionPane.showConfirmDialog(this, "Le labyrinthe n'est pas sauvegardé" + System.lineSeparator() + "Etes vous sûr de vouloir quitter ?", "Quitter", JOptionPane.YES_NO_OPTION);

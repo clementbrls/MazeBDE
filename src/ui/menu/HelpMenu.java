@@ -22,7 +22,7 @@ public class HelpMenu extends JMenu {
         help.setForeground(Color.black);
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane.showMessageDialog(new JFrame(), "Cliquez sur un bouton pour changer le mode d'édition" + System.lineSeparator() + "Un clic droit sur un bouton permet de le supprimer" + System.lineSeparator() + "Un clic gauche sur un bouton permet de le déplacer" + System.lineSeparator() + "Un clic gauche sur un bouton permet de le déplacer");
+                JOptionPane.showMessageDialog(new JFrame(), "Cliquez sur un bouton pour changer le mode d'édition" + System.lineSeparator() + "Un clic droit permet de transformer un mur en case vide" + System.lineSeparator() + "Un clic gauche permet de transformer une case en le type de case sélectionné" + System.lineSeparator() + "Un appui sur la touche 'Espace' permet de générer un labyrinthe aléatoire");
             }
         });
 

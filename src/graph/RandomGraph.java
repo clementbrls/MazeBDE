@@ -4,7 +4,6 @@ import util.MathsPro;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RandomGraph {
     private RandomGraph() {//On empêche l'instanciation de la classe

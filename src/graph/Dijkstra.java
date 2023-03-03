@@ -9,9 +9,10 @@ public class Dijkstra {
 
     /**
      * This method is the implementation of the Dijkstra algorithm
-     * @param graph the graph to use
+     *
+     * @param graph       the graph to use
      * @param startVertex the start vertex
-     * @param endVertex the end vertex
+     * @param endVertex   the end vertex
      * @return the shortest path between the startVertex and the endVertex
      */
 

@@ -15,8 +15,8 @@ import java.awt.event.MouseMotionListener;
 public class MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener {
     private final Model model;
     private final DrawMaze drawMaze;
-    boolean mouseMoved = false;
     private final FrameUI frame;
+    boolean mouseMoved = false;
 
     /**
      * Constructor of the MazePanel
@@ -33,9 +33,9 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         float ratio = (model.getMaze().getWidth() / (float) model.getMaze().getHeight());
         Dimension dim;
         if (ratio > 1) {
-            dim = new Dimension(maxWidthSize, (int) Math.round(maxWidthSize / ratio));
+            dim = new Dimension(maxWidthSize, Math.round(maxWidthSize / ratio));
         } else {
-            dim = new Dimension((int) Math.round(maxHeightSize * ratio), maxHeightSize);
+            dim = new Dimension(Math.round(maxHeightSize * ratio), maxHeightSize);
         }
         setPreferredSize(dim);
 
@@ -122,7 +122,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         mouseMoved = true;
     }
 
-    //Méthode appellé par l'observable qui permet d'afficher le nouveau labyrinthe quand celui-ci change
+    //Méthode appelé par l'observable qui permet d'afficher le nouveau labyrinthe quand celui-ci change
     @Override
     public void stateChanged(ChangeEvent e) {
         frame.revalidate();

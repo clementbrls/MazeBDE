@@ -14,13 +14,12 @@ import java.util.List;
 public class Model {
 
     private final Maze maze;
+    private final List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private boolean mazeChanged = true;
     private MazeBox boxHover = null;
     private char select = WallBox.Label;
-    private Boolean autoDijkstra = true;
-    private Boolean save = true;
-
-    private final List<ChangeListener> listeners = new ArrayList<ChangeListener>();
+    private Boolean autoDijkstra = false;
+    private Boolean saved = true;
 
     public Model(Maze maze) {
         this.maze = maze;
@@ -55,6 +54,7 @@ public class Model {
         mazeChanged = maze.changeBox(box, select);
         if (mazeChanged) {
             stateChanged();
+            saved = false;
         }
     }
 
@@ -72,8 +72,8 @@ public class Model {
         }
         if (mazeChanged) {
             stateChanged();
+            saved = false;
         }
-        save = false;
     }
 
     /**
@@ -94,6 +94,7 @@ public class Model {
         maze.randomize();
         boxHover = null;
         stateChanged();
+        saved = false;
     }
 
     /**
@@ -179,10 +180,10 @@ public class Model {
     }
 
     public Boolean isSave() {
-        return save;
+        return saved;
     }
 
-    public void setSave(Boolean save) {
-        this.save = save;
+    public void setSaved(Boolean saved) {
+        this.saved = saved;
     }
 }

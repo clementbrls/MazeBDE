@@ -3,6 +3,7 @@ package ui;
 import graph.VertexPath;
 import maze.Maze;
 import maze.MazeBox;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;

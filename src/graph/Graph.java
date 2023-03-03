@@ -29,7 +29,7 @@ public interface Graph {
     /**
      * This method sets the given vertex to connected to the graph or not
      *
-     * @param vert the vertex to set
+     * @param vert      the vertex to set
      * @param connected true if the vertex is connected to the graph, false if not
      */
     void setVertex(Vertex vert, boolean connected);

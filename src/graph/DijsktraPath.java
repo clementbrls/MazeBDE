@@ -1,12 +1,10 @@
 package graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class DijsktraPath implements VertexPath {
     private final ArrayList<Vertex> path;
-    private Boolean noPath = false;
-    private Iterator<Vertex> pathIterator = null;
+    private final Boolean noPath;
 
     public DijsktraPath() {
         noPath = false;

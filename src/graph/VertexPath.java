@@ -7,7 +7,7 @@ public interface VertexPath {
     /**
      * add a vertex to the path
      *
-     * @param vertex
+     * @param vertex the vertex to add
      */
     void add(Vertex vertex);
 
@@ -32,7 +32,7 @@ public interface VertexPath {
     boolean isPath();
 
     /**
-     * @param vertex
+     * @param vertex the vertex to test
      * @return true if the vertex is included in the path, false if not
      */
     boolean isIncluded(Vertex vertex);

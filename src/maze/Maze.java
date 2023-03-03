@@ -5,6 +5,7 @@ import util.MathsPro;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Maze implements Graph {
     private MazeBox[][] maze;
@@ -232,9 +233,7 @@ public class Maze implements Graph {
     public ArrayList<Vertex> getAllVertexes() {
         ArrayList<Vertex> allVertex = new ArrayList<Vertex>();
         for (int i = 0; i < maze.length; i++) {
-            for (int u = 0; u < maze[0].length; u++) {
-                allVertex.add(maze[i][u]);
-            }
+            allVertex.addAll(Arrays.asList(maze[i]).subList(0, maze[0].length));
         }
         return allVertex;
     }
@@ -391,17 +390,13 @@ public class Maze implements Graph {
     /**
      * Allow to change the type of specified mazebox
      *
-     * @param box
+     * @param box     the mazebox to change
      * @param choice, a string who can be D for departure, A for arrival, W for wall
      *                or E for empty, you can use the constant of the MazeBox classes (Label)
      */
     public boolean changeBox(MazeBox box, char choice) {
         boolean changed = false;
-        boolean pathChanged = false;
-
-        if (choice != WallBox.Label || solvePath.isIncluded(box)) {
-            pathChanged = true;
-        }
+        boolean pathChanged = choice != WallBox.Label || solvePath.isIncluded(box);
 
         if (!(getMazeBox(box.getLine(), box.getColumn()).isArrival()
                 || getMazeBox(box.getLine(), box.getColumn()).isDeparture())) {
