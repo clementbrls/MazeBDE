@@ -308,7 +308,7 @@ public class Maze implements Graph {
      *
      * @return the arrival mazebox
      */
-    private MazeBox getArrival() {
+    public MazeBox getArrival() {
         arrival = null;
         for (int i = 0; i < maze.length; i++) {
             for (int u = 0; u < maze[0].length; u++) {
@@ -325,7 +325,7 @@ public class Maze implements Graph {
      *
      * @return the departure mazebox
      */
-    private MazeBox getDeparture() {
+    public MazeBox getDeparture() {
         departure = null;
         for (int i = 0; i < maze.length; i++) {
             for (int u = 0; u < maze[0].length; u++) {

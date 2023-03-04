@@ -1,18 +1,19 @@
 package ui;
 
+import graph.Vertex;
 import maze.MazeBox;
 
+import javax.sound.midi.SysexMessage;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 
 //----- Controleur -----
-public class MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener {
+public class  MazePanel extends JPanel implements MouseListener, MouseMotionListener, ChangeListener, KeyListener {
     private final Model model;
     private final DrawMaze drawMaze;
     private final FrameUI frame;
@@ -43,6 +44,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
         model.addObserver(this);//Ajoute le panel comme observer du model
         addMouseListener(this);//Ajoute le panel comme listener de la souris
         addMouseMotionListener(this);
+        frame.addKeyListener(this);
 
         setBackground(Color.white);
     }
@@ -56,6 +58,7 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
             drawMaze.drawHover();//Dessine la case survolée par la souris
         }
         drawMaze.drawPath();//Dessine le chemin trouvé par Dijkstra
+        drawMaze.drawSelected();//Dessine la case sélectionnée
         g.dispose();
         frame.revalidate();
     }
@@ -130,4 +133,48 @@ public class MazePanel extends JPanel implements MouseListener, MouseMotionListe
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_SPACE){
+            return;
+        }
+
+        if(model.getBoxSelected()==null){
+            model.setBoxSelected(model.getMaze().getDeparture());
+            model.setChronoStart(System.currentTimeMillis());
+        }
+        MazeBox boxSelected = model.getBoxSelected();
+        ArrayList<Vertex> neighbors = model.getMaze().getSuccessors(boxSelected);
+        for(Vertex v : neighbors){
+            MazeBox box = (MazeBox) v;
+            if(e.getKeyCode()==KeyEvent.VK_Q && (box.getLine()==boxSelected.getLine() && box.getColumn()==boxSelected.getColumn()-1) ){
+                model.setBoxSelected(box);
+            }
+            if(e.getKeyCode()==KeyEvent.VK_D && (box.getLine()==boxSelected.getLine() && box.getColumn()==boxSelected.getColumn()+1)){
+                model.setBoxSelected(box);
+            }
+            if(e.getKeyCode()==KeyEvent.VK_Z && box.getLine()==boxSelected.getLine()-1){
+                model.setBoxSelected(box);
+            }
+            if(e.getKeyCode()==KeyEvent.VK_S && box.getLine()==boxSelected.getLine()+1 ){
+                model.setBoxSelected(box);
+            }
+
+        }
+
+        if(model.getBoxSelected()==model.getMaze().getArrival()){
+            JOptionPane.showMessageDialog(frame, "Vous avez gagné en " + (System.currentTimeMillis()-model.getChronoStart())/1000 + " secondes");
+            model.setBoxSelected(null);
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

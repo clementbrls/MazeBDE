@@ -20,6 +20,8 @@ public class Model {
     private char select = WallBox.Label;
     private Boolean autoDijkstra = false;
     private Boolean saved = true;
+    private MazeBox boxSelected = null;
+    private long chronoStart;
 
     public Model(Maze maze) {
         this.maze = maze;
@@ -185,5 +187,22 @@ public class Model {
 
     public void setSaved(Boolean saved) {
         this.saved = saved;
+    }
+
+    public MazeBox getBoxSelected() {
+        return boxSelected;
+    }
+
+    public void setBoxSelected(MazeBox boxSelected) {
+        this.boxSelected = boxSelected;
+        stateChanged();
+    }
+
+    public void setChronoStart(long chronoStart) {
+        this.chronoStart = chronoStart;
+    }
+
+    public long getChronoStart() {
+        return chronoStart;
     }
 }

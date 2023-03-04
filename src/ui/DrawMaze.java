@@ -99,6 +99,18 @@ public class DrawMaze {
         }
     }
 
+    public void drawSelected(){
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//Anti-aliasing
+
+        MazeBox boxSelected = model.getBoxSelected();
+        if (boxSelected != null) {
+            //g2.setColor(boxSelected.getColor().darker());//La case que l'on a sélectionnée devient plus foncée. On continue d'utiliser la couleur que mazebox propose
+            Path2D hexa = mazeBoxToHexa(boxSelected);
+            g2.setColor(Color.black);
+            g2.fill(hexa);
+        }
+    }
+
 
     //------------------------------------GeometryFactory------------------------------------//
     //Cette partie possède toutes les méthodes Mathématiques qui permettent de calculer les coordonnées des cases
